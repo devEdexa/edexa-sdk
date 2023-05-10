@@ -1,0 +1,15 @@
+# Mac OS
+.DS_Store
+
+# Yarn
+node_modules
+yarn-error.log
+yarn-debug.log
+
+.env
+.idea/
+# Build files
+dist/
+
+# VSCode History Extension
+.history
