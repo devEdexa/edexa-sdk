@@ -117,7 +117,7 @@ export class Logger {
     const now = new Date().toISOString()
     const method = logLevelToConsoleFn[logLevel as keyof typeof logLevelToConsoleFn]
     if (method) {
-      console[method as 'log' | 'info' | 'warn' | 'error'](`[${now}] Alchemy:`, ...args.map(stringify))
+      console[method as 'log' | 'info' | 'warn' | 'error'](`[${now}] Edexa:`, ...args.map(stringify))
     } else {
       throw new Error(`Logger received an invalid logLevel (value: ${logLevel})`)
     }

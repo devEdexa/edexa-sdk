@@ -9,7 +9,7 @@ assignees: ''
 ### [REQUIRED] Environment
 
 - Browser version:
-- Alchemy SDK version:
+- edeXa SDK version:
 
 ### [REQUIRED] Describe the problem
 

@@ -8,7 +8,7 @@ import { sendAxiosRequest } from '../util/sendRequest'
  *
  * @internal
  */
-// TODO: Wrap Axios error in AlchemyError.
+// TODO: Wrap Axios error in EdexaError.
 export async function requestHttp<Req, Res>(
   config: EdexaConfig,
   apiType: EdexaApiType,
