@@ -19,7 +19,7 @@ export enum LogLevel {
  *
  * @public
  */
-export type LogLevelString = 'debug' | 'info' | 'warn' | 'error' | 'silent'
+export type LogLevelString = 'debug' | 'info' | 'warn' | 'error' | 'silent';
 
 const logLevelStringToEnum: { [key in LogLevelString]: LogLevel } = {
   debug: LogLevel.DEBUG,
@@ -27,7 +27,7 @@ const logLevelStringToEnum: { [key in LogLevelString]: LogLevel } = {
   warn: LogLevel.WARN,
   error: LogLevel.ERROR,
   silent: LogLevel.SILENT,
-}
+};
 
 // HACKY: Use the console method as a string rather than the function itself
 // in order to allow for mocking in tests.
@@ -36,9 +36,9 @@ const logLevelToConsoleFn = {
   [LogLevel.INFO]: 'info',
   [LogLevel.WARN]: 'warn',
   [LogLevel.ERROR]: 'error',
-}
+};
 
-const DEFAULT_LOG_LEVEL = LogLevel.INFO
+const DEFAULT_LOG_LEVEL = LogLevel.INFO;
 
 /**
  * Configures the verbosity of logging. The default log level is `info`.
@@ -54,56 +54,56 @@ const DEFAULT_LOG_LEVEL = LogLevel.INFO
  * @public
  */
 export function setLogLevel(logLevel: LogLevelString): void {
-  loggerClient.logLevel = logLevelStringToEnum[logLevel]
+  loggerClient.logLevel = logLevelStringToEnum[logLevel];
 }
 
 export function logDebug(message: string, ...args: unknown[]): void {
-  loggerClient.debug(message, args)
+  loggerClient.debug(message, args);
 }
 
 export function logInfo(message: string, ...args: unknown[]): void {
-  loggerClient.info(message, args)
+  loggerClient.info(message, args);
 }
 
 export function logWarn(message: string, ...args: unknown[]): void {
-  loggerClient.warn(message, args)
+  loggerClient.warn(message, args);
 }
 
 export function logError(message: string, ...args: unknown[]): void {
-  loggerClient.error(message, args)
+  loggerClient.error(message, args);
 }
 
 export class Logger {
   /** The log level of the given Logger instance. */
-  private _logLevel = DEFAULT_LOG_LEVEL
+  private _logLevel = DEFAULT_LOG_LEVEL;
 
   constructor() {}
 
   get logLevel(): LogLevel {
-    return this._logLevel
+    return this._logLevel;
   }
 
   set logLevel(val: LogLevel) {
     if (!(val in LogLevel)) {
-      throw new TypeError(`Invalid value "${val}" assigned to \`logLevel\``)
+      throw new TypeError(`Invalid value "${val}" assigned to \`logLevel\``);
     }
-    this._logLevel = val
+    this._logLevel = val;
   }
 
   debug(...args: unknown[]): void {
-    this._log(LogLevel.DEBUG, ...args)
+    this._log(LogLevel.DEBUG, ...args);
   }
 
   info(...args: unknown[]): void {
-    this._log(LogLevel.INFO, ...args)
+    this._log(LogLevel.INFO, ...args);
   }
 
   warn(...args: unknown[]): void {
-    this._log(LogLevel.WARN, ...args)
+    this._log(LogLevel.WARN, ...args);
   }
 
   error(...args: unknown[]): void {
-    this._log(LogLevel.ERROR, ...args)
+    this._log(LogLevel.ERROR, ...args);
   }
 
   /**
@@ -112,30 +112,30 @@ export class Logger {
    */
   private _log(logLevel: LogLevel, ...args: unknown[]): void {
     if (logLevel < this._logLevel) {
-      return
+      return;
     }
-    const now = new Date().toISOString()
-    const method = logLevelToConsoleFn[logLevel as keyof typeof logLevelToConsoleFn]
+    const now = new Date().toISOString();
+    const method = logLevelToConsoleFn[logLevel as keyof typeof logLevelToConsoleFn];
     if (method) {
-      console[method as 'log' | 'info' | 'warn' | 'error'](`[${now}] Edexa:`, ...args.map(stringify))
+      console[method as 'log' | 'info' | 'warn' | 'error'](`[${now}] Edexa:`, ...args.map(stringify));
     } else {
-      throw new Error(`Logger received an invalid logLevel (value: ${logLevel})`)
+      throw new Error(`Logger received an invalid logLevel (value: ${logLevel})`);
     }
   }
 }
 
 function stringify(obj: unknown): string | unknown {
   if (typeof obj === 'string') {
-    return obj
+    return obj;
   } else {
     try {
-      return JSON.stringify(obj)
+      return JSON.stringify(obj);
     } catch (e) {
       // Failed to convert to JSON, log the object directly.
-      return obj
+      return obj;
     }
   }
 }
 
 // Instantiate default logger for the SDK.
-const loggerClient: Logger = new Logger()
+const loggerClient: Logger = new Logger();

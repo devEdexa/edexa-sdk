@@ -1,2 +1,2 @@
-export * from './types/types'
-export { Bstamp } from './api/bstamp'
+export * from './types/types';
+export { Bstamp } from './api/bstamp';

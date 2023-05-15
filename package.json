@@ -9,20 +9,28 @@
     "start": "node dist/index.js",
     "lint": "tslint src/**/*.ts",
     "lint:fix": "tslint src/**/*.ts --fix",
-    "test": "cd test && npm run install:lib:test",
+    "test": "mocha -r ts-node/register test/**/*.ts --timeout 100000 $1",
     "debug": "npm run build:pack && cd test && npm run install:lib:debug",
     "testrpc": "ganache-cli --mnemonic 'clock radar mass judge dismiss just intact mind resemble fringe diary casino' --gasLimit 13000000",
-    "install:example": "cd examples && npm i ../maticnetwork-maticjs-3.5.0.tgz --no-save"
+    "install:example": "cd examples && npm i ../maticnetwork-maticjs-3.5.0.tgz --no-save",
+    "coverage": "nyc --reporter=html npm run test"
   },
   "author": "edeXa",
   "license": "MIT",
   "devDependencies": {
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
     "cross-env": "^7.0.3",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
     "tslint": "^6.1.3",
     "webpack": "^5.82.0",
     "webpack-cli": "^5.1.1"
   },
   "dependencies": {
-    "axios": "^1.4.0"
+    "@types/chai": "^4.3.5",
+    "axios": "^1.4.0",
+    "ts-node": "^10.9.1"
   }
 }

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "resolveJsonModule": true,
     "target": "es2017",
-    "lib": ["es2017", "esnext.asynciterable", "es6"],
+    "lib": ["es2017", "esnext.asynciterable", "es6", "dom"],
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
