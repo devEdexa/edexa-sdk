@@ -52,7 +52,7 @@ export async function getAllStamp(
   config?: any,
   srcMethod = 'getAllStamp'
 ): Promise<any> {
-  const response = await requestHttp(
+  const response:any = await requestHttp(
     settings,
     EdexaApiType.BSTAMP,
     'hash',
