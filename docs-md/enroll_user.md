@@ -43,3 +43,13 @@ async function enrollUser() {
 - Make sure to replace `USER_ID` with your actual `userId` of user, to whom you want to enroll in system.
 - Make sure to replace `USER_NAME` with your actual `username`.
 - Make sure to replace `EMAIL` with your actual `email`, which you want to have in system for future communication purpose.
+
+---
+
+Response Description: 
+
+  | Key | Type |
+  | --- | --- |
+  | publicAddress  | String |
+  | userId  | String |
+  

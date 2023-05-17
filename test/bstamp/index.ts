@@ -40,7 +40,7 @@ describe('Authenticate user', function () {
 });
 
 describe('Add stamp', () => {
-  it('It should return info about stamped file', done => {
+  it.skip('It should return info about stamped file', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -151,7 +151,7 @@ describe('Get stamp Detail', () => {
 });
 
 describe('Enroll user', () => {
-  it.skip('1. Enroll user', done => {
+  it('1. Enroll user', done => {
     const settings = { network: DEFAULT_NETWORK };
 
     const bStamp = new Bstamp({

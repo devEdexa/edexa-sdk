@@ -26,7 +26,18 @@ async function authenticateClient() {
 ```
 ---
 
-In this example, the `authenticateClient` function is an `async` function that uses `await` to wait for the `bstamp.authenticate` promise to resolve. If the promise resolves successfully, the authentication response is logged. If an error occurs, it is caught and logged using `console.error`.
+- In this example, the `authenticateClient` function is an `async` function that uses `await` to wait for the `bstamp.authenticate` promise to resolve. If the promise resolves successfully, the authentication response is logged. If an error occurs, it is caught and logged using `console.error`.
 
-Make sure to replace `your_client_id` and `your_client_secret` with your actual `client ID` and `client secret`.
+- Make sure to replace `your_client_id` and `your_client_secret` with your actual `client ID` and `client secret`.
 
+---
+
+
+- Response Description: 
+
+  | Key | Type |
+  | --- | --- |
+  | id  | String |
+  | token  | String |
+  | username  | String |
+  | name  | String |
