@@ -22,6 +22,7 @@ export function sendAxiosRequest<Req, Res>(
     headers: {
       ...overrides.headers,
       'Edexa-Sdk-Method': methodName,
+      'sdk-version': '',
     },
     method: overrides?.method ?? 'GET',
     url: requestUrl,

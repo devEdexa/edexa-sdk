@@ -1,3 +1,5 @@
+import { API_VERSION } from '../util/constant';
+
 export interface EdexaSettings {
   authorization?: string;
   url?: string;

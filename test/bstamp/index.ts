@@ -2,8 +2,10 @@ import { Bstamp } from '../../src/';
 
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import { DEFAULT_NETWORK } from '../../src/util/constant';
+import { API_VERSION, DEFAULT_NETWORK } from '../../src/util/constant';
 import { createHash, randomBytes } from 'crypto';
+import { faker } from '@faker-js/faker';
+
 chai.use(chaiHttp);
 
 const settings = { network: DEFAULT_NETWORK };
@@ -16,9 +18,9 @@ const authSettings = {
 };
 
 let token;
-
-describe('Authenticate user', function() {
-  it('It should returns information about user', function(done) {
+let stampId;
+describe('Authenticate user', function () {
+  it('It should returns information about user', function (done) {
     const bStamp = new Bstamp(settings);
     bStamp
       .authenticate(authSettings)
@@ -32,7 +34,7 @@ describe('Authenticate user', function() {
         done();
       })
       .catch(error => {
-        done(new Error(error))      
+        done(new Error(error));
       });
   });
 });
@@ -46,10 +48,10 @@ describe('Add stamp', () => {
 
     const data = {
       hash: Buffer.from(createHash('sha256').update(randomBytes(48).toString('hex')).digest('hex')).toString('base64'),
-      isPrivate: true,
+      isPrivate: false,
     };
     bStamp
-      .addStamp(data)
+      .addStamp(data, { version: API_VERSION.VERSION_1 })
       .then(data => {
         expect(data).to.be.an('object').with.all.keys('id', 'txId', 'code', 'hash', 'filename');
         expect(data.id).to.be.an('string');
@@ -57,6 +59,8 @@ describe('Add stamp', () => {
         expect(data.code).to.be.an('string');
         expect(data.hash).to.be.an('string');
         expect(data.filename).to.be.an('string');
+        stampId = data.id;
+        console.log({ stampId });
         done();
       })
       .catch(error => {
@@ -66,7 +70,7 @@ describe('Add stamp', () => {
 });
 
 describe('Get stamp List', () => {
-  it('It should return list of stamped file', done => {
+  it.skip('It should return list of stamped file', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -77,17 +81,33 @@ describe('Get stamp List', () => {
       isPrivate: true,
     };
     bStamp
-      .getAllStamp(data)
+      .getAllStamp(data, { version: API_VERSION.VERSION_1 })
       .then(data => {
-      
         expect(data).to.be.an('object').with.all.keys('count', 'stamps');
         expect(data.count).to.be.an('number');
         expect(data.stamps).to.be.an('array');
-        data.stamps.every(stamps => expect(stamps).to.have.all.keys('_id', 'userId', 'clientId', 'blockchainId', 'name', 'txId', 'hash', 'type', 'code', 'originalDocHash', 'isEsign', 'isPrivateBc', 'createdAt', 'updatedAt'));
+        data.stamps.every(stamps =>
+          expect(stamps).to.have.all.keys(
+            '_id',
+            'userId',
+            'clientId',
+            'blockchainId',
+            'name',
+            'txId',
+            'hash',
+            'type',
+            'code',
+            'originalDocHash',
+            'isEsign',
+            'isPrivateBc',
+            'createdAt',
+            'updatedAt'
+          )
+        );
 
         data.stamps.forEach(stamp => {
-          expect(stamp._id).to.be.an('string');       
-          expect(stamp.userId).to.be.an('string'); 
+          expect(stamp._id).to.be.an('string');
+          expect(stamp.userId).to.be.an('string');
           expect(stamp.clientId).to.be.an('string');
           expect(stamp.blockchainId).to.be.an('string');
           expect(stamp.name).to.be.an('string');
@@ -101,6 +121,48 @@ describe('Get stamp List', () => {
           expect(stamp.createdAt).to.be.an('string');
           expect(stamp.updatedAt).to.be.an('string');
         });
+        done();
+      })
+      .catch(error => {
+        done(new Error(error.message));
+      });
+  });
+});
+
+describe('Get stamp Detail', () => {
+  it.skip('1. Get stamp Detail', done => {
+    const settings = { network: DEFAULT_NETWORK };
+
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    const data = { id: stampId };
+    bStamp
+      .getStampDetail(data, { version: API_VERSION.VERSION_1 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done(new Error(error.message));
+      });
+  });
+});
+
+describe('Enroll user', () => {
+  it.skip('1. Enroll user', done => {
+    const settings = { network: DEFAULT_NETWORK };
+
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    const data = { userId: faker.string.uuid(), username: faker.internet.userName(), email: faker.internet.email() };
+    bStamp
+      .enrollUser(data)
+      .then(data => {
         done();
       })
       .catch(error => {

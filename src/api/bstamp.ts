@@ -1,24 +1,14 @@
 import { EdexaSettings } from '../types/types';
 import { EdexaConfig } from './config';
-import { addStamp, authenticate, getAllStamp } from '../internal/bstamp-api';
-export interface Ibstamp {
-  id: string;
-  hash: string;
-  txId: string;
-  code: string;
-  filename: string;
-}
-export interface IbstampAuth {
-  token: string;
-  name: string;
-  username: string;
-  id: string;
-}
-
-export interface IbstampGetAllStamp {
-  count: number;
-  stamps: object[];
-}
+import {
+  addElectronicSign,
+  addStamp,
+  authenticate,
+  enrollUser,
+  getAllStamp,
+  getStampDetail,
+} from '../internal/bstamp-api';
+import { Ibstamp, IbstampAuth, IbstampGetAllStamp, IbstampGetStampDetail } from '../util/interface';
 
 export class Bstamp {
   readonly config: EdexaConfig;
@@ -31,11 +21,24 @@ export class Bstamp {
     return authenticate(this.config, settings);
   }
 
-  addStamp(data: any, config?: any): Promise<Ibstamp> {
+  addStamp(data: any, config: any): Promise<Ibstamp> {
     return addStamp(this.config, data, config);
   }
 
-  getAllStamp(data: any, config?: any): Promise<any> {
+  getAllStamp(data: any, config: any): Promise<IbstampGetAllStamp> {
     return getAllStamp(this.config, data, config);
+  }
+
+  getStampDetail(data: any, config: any): Promise<IbstampGetStampDetail> {
+    return getStampDetail(this.config, data, config);
+  }
+
+  addElectronicSign(data: any, config?: any): Promise<any> {
+    return addElectronicSign(this.config, data, config);
+  }
+
+  // v2 method
+  enrollUser(data: any, config?: any): Promise<any> {
+    return enrollUser(this.config, data, config);
   }
 }

@@ -1,4 +1,11 @@
-import { Ibstamp, IbstampAuth, IbstampGetAllStamp } from '../api/bstamp';
+import {
+  Ibstamp,
+  IbstampAuth,
+  IbstampGetAllStamp,
+  IbstampGetAllStampRaw,
+  IbstampGetStampDetail,
+  IbstampGetStampDetailRaw,
+} from './interface';
 
 export function getStampFromRaw(rawStamp: any): Ibstamp {
   try {
@@ -29,11 +36,7 @@ export function getStampAuthFromRaw(rawStampAuth: {
   }
 }
 
-export function getAllStampFromRaw(rawGetAllStamp: {
-  status: number;
-  message: string;
-  data?: { count: number; files: object[] };
-}): IbstampGetAllStamp {
+export function getAllStampFromRaw(rawGetAllStamp: IbstampGetAllStampRaw): IbstampGetAllStamp {
   try {
     const stamps = [];
     for (const rawStamp of rawGetAllStamp.data.files) {
@@ -43,6 +46,27 @@ export function getAllStampFromRaw(rawGetAllStamp: {
     stampData.count = rawGetAllStamp.data.count;
     stampData.stamps = stamps;
     return stampData;
+  } catch (e) {
+    throw new Error('Error parsing the Bstamp response: ' + e);
+  }
+}
+
+export function getStampDetailFromRaw(rawGetStampDetail: IbstampGetStampDetailRaw): IbstampGetStampDetail {
+  try {
+    return {
+      hash: rawGetStampDetail?.data?.hash,
+      originalDocHash: rawGetStampDetail?.data?.originalDocHash,
+      metaData: rawGetStampDetail?.data?.metaData,
+      filename: rawGetStampDetail?.data?.filename,
+      type: rawGetStampDetail?.data?.type,
+      txid: rawGetStampDetail?.data?.txid,
+      timestamp: rawGetStampDetail?.data?.timestamp,
+      code: rawGetStampDetail?.data?.code,
+      username: rawGetStampDetail?.data?.username,
+      userVerify: rawGetStampDetail?.data?.userVerify,
+      isEsign: rawGetStampDetail?.data?.isEsign,
+      isPrivateBc: rawGetStampDetail?.data?.isPrivateBc,
+    };
   } catch (e) {
     throw new Error('Error parsing the Bstamp response: ' + e);
   }

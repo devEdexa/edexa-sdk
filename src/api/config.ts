@@ -1,5 +1,11 @@
 import { EdexaSettings, Network } from '../types/types';
-import { DEFAULT_NETWORK, EdexaApiType, getEdexaBstampHttpUrl } from '../util/constant';
+import {
+  API_VERSION,
+  DEFAULT_NETWORK,
+  EdexaApiType,
+  getEdexaBstampHttpUrl,
+  getEdexaBstampV2HttpUrl,
+} from '../util/constant';
 
 /**
  * This class holds the config information for the SDK client instance and
@@ -28,6 +34,8 @@ export class EdexaConfig {
    */
   readonly requestTimeout?: number;
 
+  readonly version: API_VERSION;
+
   constructor(config?: EdexaSettings) {
     this.network = config?.network || DEFAULT_NETWORK;
     this.authorization = config?.authorization;
@@ -41,11 +49,13 @@ export class EdexaConfig {
    * @param apiType - The type of API to get the URL for.
    * @internal
    */
-  _getRequestUrl(apiType: EdexaApiType): string {
+  _getRequestUrl(apiType: EdexaApiType, version: API_VERSION): string {
     if (this.url !== undefined) {
       return this.url;
-    } else if (apiType === EdexaApiType.BSTAMP) {
+    } else if (apiType === EdexaApiType.BSTAMP && version == API_VERSION.VERSION_1) {
       return getEdexaBstampHttpUrl(this.network, this.apiKey);
+    } else if (apiType === EdexaApiType.BSTAMP && version == API_VERSION.VERSION_2) {
+      return getEdexaBstampV2HttpUrl(this.network, this.apiKey);
     }
   }
 }

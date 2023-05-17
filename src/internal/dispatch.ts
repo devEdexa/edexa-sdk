@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { EdexaConfig } from '../api/config';
-import { EdexaApiType } from '../util/constant';
+import { API_VERSION, EdexaApiType } from '../util/constant';
 import { logDebug, logInfo } from '../util/logger';
 import { sendAxiosRequest } from '../util/sendRequest';
 /**
@@ -18,11 +18,17 @@ export async function requestHttp<Req, Res>(
   overrides?: AxiosRequestConfig
 ): Promise<Res> {
   try {
-    const response = await sendAxiosRequest<Req, Res>(config._getRequestUrl(apiType), restApiName, methodName, data, {
-      ...overrides,
-      timeout: config.requestTimeout,
-    });
-    if (response.status === 200) {
+    const response = await sendAxiosRequest<Req, Res>(
+      config._getRequestUrl(apiType, overrides.headers.version),
+      restApiName,
+      methodName,
+      data,
+      {
+        ...overrides,
+        timeout: config.requestTimeout,
+      }
+    );
+    if (response.status >= 200 && response.status <= 300) {
       logDebug(restApiName, `Successful request: ${restApiName}`);
       return response.data;
     } else {
