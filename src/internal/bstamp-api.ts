@@ -1,6 +1,6 @@
 // Import necessary dependencies and types
 import { EdexaConfig } from '../api/config';
-import { API_VERSION, EdexaApiType } from '../util/constant';
+import { API_VERSION, EdexaApiType, REQUEST_METHOD } from '../util/constant';
 import { IbstampGetStampDetail, Ibstamp, IbstampGetAllStampRaw, IbstampGetStampDetailRaw } from '../util/interface';
 import { getAllStampFromRaw, getStampAuthFromRaw, getStampDetailFromRaw, getStampFromRaw } from '../util/util';
 import { requestHttp } from './dispatch';
@@ -26,7 +26,7 @@ export async function authenticate(
     {},
     {
       ...config,
-      method: 'POST',
+      method: REQUEST_METHOD.POST,
       headers: { version: API_VERSION.VERSION_1, ...config.headers },
     }
   );
@@ -56,7 +56,7 @@ export async function addStamp(
     {},
     {
       ...config,
-      method: 'POST',
+      method: REQUEST_METHOD.POST,
       data,
       headers: { authorization: settings.authorization, version: config.version },
     }
@@ -81,7 +81,7 @@ export async function getAllStamp(
 ): Promise<any> {
   const response: IbstampGetAllStampRaw = await requestHttp(settings, EdexaApiType.BSTAMP, 'hash', srcMethod, data, {
     ...config,
-    method: 'GET',
+    method: REQUEST_METHOD.GET,
     headers: { authorization: settings.authorization, version: config.version },
   });
 
@@ -105,7 +105,7 @@ export async function getStampDetail(
 ): Promise<IbstampGetStampDetail> {
   const response: IbstampGetStampDetailRaw = await requestHttp(settings, EdexaApiType.BSTAMP, 'hash', srcMethod, data, {
     ...config,
-    method: 'GET',
+    method: REQUEST_METHOD.GET,
     headers: { authorization: settings.authorization, version: config.version },
   });
 
@@ -136,7 +136,7 @@ export async function addElectronicSign(
     {
       ...config,
       data,
-      method: 'POST',
+      method: REQUEST_METHOD.POST,
       headers: { authorization: settings.authorization, version: config.version },
       'content-type': 'multipart/form-data',
     }
@@ -168,7 +168,7 @@ export async function enrollUser(
     {
       ...config,
       data,
-      method: 'POST',
+      method: REQUEST_METHOD.POST,
       headers: { authorization: settings.authorization, version: API_VERSION.VERSION_2 },
     }
   );

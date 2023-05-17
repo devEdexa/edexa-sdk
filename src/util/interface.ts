@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 export interface Iauthenticate {
   headers: {
     'client-id': string;
@@ -48,3 +50,23 @@ export interface IbstampGetStampDetailRaw {
   };
 }
 export interface IbstampGetStampDetail {}
+
+export interface AddStampRequestDTO {
+  hash: string;
+  isPrivate: boolean;
+}
+
+
+export interface GetStampDetailsDTO {
+  id: mongoose.Types.ObjectId;
+}
+
+export interface EnrollUserDTO {
+  userId: string;
+  username: string;
+  email: string;
+}
+
+export interface CommonConfigDTO {
+  version: string
+}

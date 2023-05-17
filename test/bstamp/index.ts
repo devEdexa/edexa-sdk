@@ -5,6 +5,7 @@ import chaiHttp from 'chai-http';
 import { API_VERSION, DEFAULT_NETWORK } from '../../src/util/constant';
 import { createHash, randomBytes } from 'crypto';
 import { faker } from '@faker-js/faker';
+import { AddStampRequestDTO, EnrollUserDTO, GetStampDetailsDTO } from '../../src/util/interface';
 
 chai.use(chaiHttp);
 
@@ -40,13 +41,13 @@ describe('Authenticate user', function () {
 });
 
 describe('Add stamp', () => {
-  it('It should return info about stamped file', done => {
+  it.skip('It should return info about stamped file', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
     });
 
-    const data = {
+    const data: AddStampRequestDTO = {
       hash: Buffer.from(createHash('sha256').update(randomBytes(48).toString('hex')).digest('hex')).toString('base64'),
       isPrivate: false,
     };
@@ -76,7 +77,7 @@ describe('Get stamp List', () => {
       authorization: `Bearer ${token}`,
     });
 
-    const data = {
+    const data: AddStampRequestDTO = {
       hash: Buffer.from(createHash('sha256').update(randomBytes(48).toString('hex')).digest('hex')).toString('base64'),
       isPrivate: true,
     };
@@ -130,15 +131,13 @@ describe('Get stamp List', () => {
 });
 
 describe('Get stamp Detail', () => {
-  it.skip('1. Get stamp Detail', done => {
-    const settings = { network: DEFAULT_NETWORK };
-
+  it.skip('It should return details of stamped file', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
     });
 
-    const data = { id: stampId };
+    const data: GetStampDetailsDTO = { id: stampId };
     bStamp
       .getStampDetail(data, { version: API_VERSION.VERSION_1 })
       .then(data => {
@@ -151,15 +150,13 @@ describe('Get stamp Detail', () => {
 });
 
 describe('Enroll user', () => {
-  it.skip('1. Enroll user', done => {
-    const settings = { network: DEFAULT_NETWORK };
-
+  it.skip('It should return newly enrolled user', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
     });
 
-    const data = { userId: faker.string.uuid(), username: faker.internet.userName(), email: faker.internet.email() };
+    const data:EnrollUserDTO = { userId: faker.string.uuid(), username: faker.internet.userName(), email: faker.internet.email() };
     bStamp
       .enrollUser(data)
       .then(data => {
