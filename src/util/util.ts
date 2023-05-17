@@ -7,6 +7,12 @@ import {
   IbstampGetStampDetailRaw,
 } from './interface';
 
+/**
+ * Parses the raw stamp data and returns a formatted Ibstamp object.
+ *
+ * @param rawStamp - Raw stamp data.
+ * @returns The parsed Ibstamp object.
+ */
 export function getStampFromRaw(rawStamp: any): Ibstamp {
   try {
     return {
@@ -21,6 +27,12 @@ export function getStampFromRaw(rawStamp: any): Ibstamp {
   }
 }
 
+/**
+ * Parses the raw stamp authentication data and returns a formatted IbstampAuth object.
+ *
+ * @param rawStampAuth - Raw stamp authentication data.
+ * @returns The parsed IbstampAuth object.
+ */
 export function getStampAuthFromRaw(rawStampAuth: {
   data: { _id: string; token: string; username: string; name: string };
 }): IbstampAuth {
@@ -36,6 +48,12 @@ export function getStampAuthFromRaw(rawStampAuth: {
   }
 }
 
+/**
+ * Parses the raw data from getAllStamp API and returns a formatted IbstampGetAllStamp object.
+ *
+ * @param rawGetAllStamp - Raw data from getAllStamp API.
+ * @returns The parsed IbstampGetAllStamp object.
+ */
 export function getAllStampFromRaw(rawGetAllStamp: IbstampGetAllStampRaw): IbstampGetAllStamp {
   try {
     const stamps = [];
@@ -51,6 +69,12 @@ export function getAllStampFromRaw(rawGetAllStamp: IbstampGetAllStampRaw): Ibsta
   }
 }
 
+/**
+ * Parses the raw data from getStampDetail API and returns a formatted IbstampGetStampDetail object.
+ *
+ * @param rawGetStampDetail - Raw data from getStampDetail API.
+ * @returns The parsed IbstampGetStampDetail object.
+ */
 export function getStampDetailFromRaw(rawGetStampDetail: IbstampGetStampDetailRaw): IbstampGetStampDetail {
   try {
     return {

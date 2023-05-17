@@ -47,6 +47,7 @@ export class EdexaConfig {
    * from the network and API key.
    *
    * @param apiType - The type of API to get the URL for.
+   * @param version - The version of the API to get the URL for.
    * @internal
    */
   _getRequestUrl(apiType: EdexaApiType, version: API_VERSION): string {

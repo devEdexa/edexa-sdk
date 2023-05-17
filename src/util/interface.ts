@@ -21,7 +21,7 @@ export interface IbstampAuth {
 
 export interface IbstampGetAllStamp {
   count: number;
-  stamps: any[];
+  stamps: any[]; 
 }
 
 export interface IbstampGetAllStampRaw {
