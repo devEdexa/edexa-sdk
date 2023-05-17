@@ -1,5 +1,3 @@
-import mongoose from 'mongoose';
-
 export interface Iauthenticate {
   headers: {
     'client-id': string;
@@ -58,7 +56,7 @@ export interface AddStampRequestDTO {
 
 
 export interface GetStampDetailsDTO {
-  id: mongoose.Types.ObjectId;
+  id: string;
 }
 
 export interface EnrollUserDTO {

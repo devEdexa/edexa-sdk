@@ -41,7 +41,7 @@ describe('Authenticate user', function () {
 });
 
 describe('Add stamp', () => {
-  it.skip('It should return info about stamped file', done => {
+  it('It should return info about stamped file', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -71,7 +71,7 @@ describe('Add stamp', () => {
 });
 
 describe('Get stamp List', () => {
-  it.skip('It should return list of stamped file', done => {
+  it('It should return list of stamped file', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -131,7 +131,7 @@ describe('Get stamp List', () => {
 });
 
 describe('Get stamp Detail', () => {
-  it.skip('It should return details of stamped file', done => {
+  it('It should return details of stamped file', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -141,6 +141,7 @@ describe('Get stamp Detail', () => {
     bStamp
       .getStampDetail(data, { version: API_VERSION.VERSION_1 })
       .then(data => {
+        console.log(data)
         done();
       })
       .catch(error => {
@@ -160,6 +161,12 @@ describe('Enroll user', () => {
     bStamp
       .enrollUser(data)
       .then(data => {
+        expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
+        expect(data.status).to.be.an('number').equal(201);
+        expect(data.message).to.be.an('string');
+        expect(data.data).to.be.an('object').with.all.keys('publicAddress', 'userId');
+        expect(data.data.publicAddress).to.be.an('string');
+        expect(data.data.userId).to.be.an('string');
         done();
       })
       .catch(error => {

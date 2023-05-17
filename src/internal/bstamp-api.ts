@@ -44,7 +44,7 @@ export async function authenticate(
  */
 export async function addStamp(
   settings: EdexaConfig,
-  data: string,
+  data: string | object,
   config?: any,
   srcMethod = 'addStamp'
 ): Promise<Ibstamp> {
@@ -75,7 +75,7 @@ export async function addStamp(
  */
 export async function getAllStamp(
   settings: EdexaConfig,
-  data: string,
+  data: string | object,
   config?: any,
   srcMethod = 'getAllStamp'
 ): Promise<any> {
@@ -99,7 +99,7 @@ export async function getAllStamp(
  */
 export async function getStampDetail(
   settings: EdexaConfig,
-  data: string,
+  data: string | object,
   config?: any,
   srcMethod = 'getStampDetail'
 ): Promise<IbstampGetStampDetail> {
@@ -155,7 +155,7 @@ export async function addElectronicSign(
  */
 export async function enrollUser(
   settings: EdexaConfig,
-  data: any,
+  data: object,
   config?: any,
   srcMethod = 'enrollUser'
 ): Promise<any> {
