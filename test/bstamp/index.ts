@@ -59,7 +59,7 @@ describe('Add stamp', () => {
         expect(data.code).to.be.an('string');
         expect(data.hash).to.be.an('string');
         expect(data.filename).to.be.an('string');
-        stampId = data.id;
+        stampId = data.code;
         console.log({ stampId });
         done();
       })
@@ -70,7 +70,7 @@ describe('Add stamp', () => {
 });
 
 describe('Get stamp List', () => {
-  it.skip('It should return list of stamped file', done => {
+  it('It should return list of stamped file', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -130,7 +130,7 @@ describe('Get stamp List', () => {
 });
 
 describe('Get stamp Detail', () => {
-  it.skip('1. Get stamp Detail', done => {
+  it('1. Get stamp Detail', done => {
     const settings = { network: DEFAULT_NETWORK };
 
     const bStamp = new Bstamp({

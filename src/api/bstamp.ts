@@ -9,7 +9,12 @@ import {
   getAllStamp,
   getStampDetail,
 } from '../internal/bstamp-api';
-import { Ibstamp, IbstampAuth, IbstampGetAllStamp, IbstampGetStampDetail } from '../util/interface';
+import {
+  Ibstamp,
+  IbstampAuth,
+  IbstampGetAllStamp,
+  IbstampGetStampDetail
+} from '../util/interface';
 
 // Bstamp class
 export class Bstamp {
