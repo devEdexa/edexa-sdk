@@ -16,9 +16,6 @@
     "coverage": "nyc --reporter=html npm run test",
     "prepare": "husky install && npx husky add .husky/pre-commit \"npx validate-branch-name\" && npx husky add .husky/commit-msg \".git/hooks/commit-msg $1\" && npx husky add .husky/pre-commit \"npx lint-staged\""
   },
-  "lint-staged": {
-    "**/*.ts": "prettier --write --ignore-unknown"
-  },
   "author": "edeXa",
   "license": "MIT",
   "devDependencies": {
@@ -43,5 +40,16 @@
   "dependencies": {
     "axios": "^1.4.0",
     "ts-node": "^10.9.1"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
   }
 }
