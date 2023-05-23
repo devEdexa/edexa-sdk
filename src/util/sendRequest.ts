@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { VERSION } from '../version';
+import { REQUEST_METHOD } from './constant';
 
 /**
  * Sends an HTTP request using Axios.
@@ -29,7 +30,7 @@ export function sendAxiosRequest<Req, Res>(
       'Edexa-Sdk-Method': methodName, // Include the SDK method in the headers
       'sdk-version': VERSION, // Add the SDK version (can be customized)
     },
-    method: overrides?.method ?? 'GET', // Use the specified HTTP method, default to 'GET'
+    method: overrides?.method ?? REQUEST_METHOD.GET, // Use the specified HTTP method, default to 'GET'
     url: requestUrl, // Set the request URL
     params, // Set the request parameters
   };

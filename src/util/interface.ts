@@ -48,3 +48,23 @@ export interface IbstampGetStampDetailRaw {
   };
 }
 export interface IbstampGetStampDetail {}
+
+export interface AddStampRequestDTO {
+  hash: string;
+  isPrivate: boolean;
+}
+
+
+export interface GetStampDetailsDTO {
+  id: string;
+}
+
+export interface EnrollUserDTO {
+  userId: string;
+  username: string;
+  email: string;
+}
+
+export interface CommonConfigDTO {
+  version: string
+}
