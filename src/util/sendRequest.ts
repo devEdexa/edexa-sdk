@@ -34,7 +34,7 @@ export function sendAxiosRequest<Req, Res>(
     url: requestUrl, // Set the request URL
     params, // Set the request parameters
   };
-
+  
   // Send the Axios request and return the Promise
   return axios(config);
 }

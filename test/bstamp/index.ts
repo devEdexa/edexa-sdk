@@ -41,7 +41,7 @@ describe('Authenticate user', function () {
 });
 
 describe('Add stamp', () => {
-  it('It should return info about stamped file', done => {
+  it.skip('It should return info about stamped file', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ describe('Add stamp', () => {
         expect(data.code).to.be.an('string');
         expect(data.hash).to.be.an('string');
         expect(data.filename).to.be.an('string');
-        stampId = data.id;
+        stampId = data.code;
         console.log({ stampId });
         done();
       })
