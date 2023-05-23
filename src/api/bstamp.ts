@@ -42,7 +42,7 @@ export class Bstamp {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the added stamp.
    */
-  addStamp(data: any, config: any): Promise<Ibstamp> {
+  addStamp(data: AddStampRequestDTO, config: CommonConfigDTO): Promise<Ibstamp> {
     return addStamp(this.config, data, config);
   }
 
@@ -53,7 +53,7 @@ export class Bstamp {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the list of all stamps.
    */
-  getAllStamp(data: any, config: any): Promise<IbstampGetAllStamp> {
+  getAllStamp(data: AddStampRequestDTO, config:CommonConfigDTO): Promise<IbstampGetAllStamp> {
     return getAllStamp(this.config, data, config);
   }
 
@@ -64,7 +64,7 @@ export class Bstamp {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the stamp details.
    */
-  getStampDetail(data: any, config: any): Promise<IbstampGetStampDetail> {
+  getStampDetail(data: GetStampDetailsDTO, config:CommonConfigDTO): Promise<IbstampGetStampDetail> {
     return getStampDetail(this.config, data, config);
   }
 
@@ -75,7 +75,7 @@ export class Bstamp {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the result of adding the electronic signature.
    */
-  addElectronicSign(data: any, config?: any): Promise<any> {
+  addElectronicSign(data: any, config?: CommonConfigDTO): Promise<any> {
     return addElectronicSign(this.config, data, config);
   }
 
@@ -86,7 +86,7 @@ export class Bstamp {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the result of enrolling the user.
    */
-  enrollUser(data: any, config?: any): Promise<any> {
+  enrollUser(data: EnrollUserDTO, config?: CommonConfigDTO): Promise<any> {
     return enrollUser(this.config, data, config);
   }
 }
