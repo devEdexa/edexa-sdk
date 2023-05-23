@@ -45,3 +45,8 @@ export enum API_VERSION {
   VERSION_1 = 'v1', // Version 1
   VERSION_2 = 'v2', // Version 2
 }
+
+export enum REQUEST_METHOD {
+  GET = 'GET',
+  POST = 'POST',
+}
