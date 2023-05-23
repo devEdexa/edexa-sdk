@@ -10,10 +10,14 @@ import {
   getStampDetail,
 } from '../internal/bstamp-api';
 import {
+  AddStampRequestDTO,
+  CommonConfigDTO,
+  EnrollUserDTO,
+  GetStampDetailsDTO,
   Ibstamp,
   IbstampAuth,
   IbstampGetAllStamp,
-  IbstampGetStampDetail
+  IbstampGetStampDetail,
 } from '../util/interface';
 
 // Bstamp class
@@ -53,7 +57,7 @@ export class Bstamp {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the list of all stamps.
    */
-  getAllStamp(data: AddStampRequestDTO, config:CommonConfigDTO): Promise<IbstampGetAllStamp> {
+  getAllStamp(data: AddStampRequestDTO, config: CommonConfigDTO): Promise<IbstampGetAllStamp> {
     return getAllStamp(this.config, data, config);
   }
 
@@ -64,7 +68,7 @@ export class Bstamp {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the stamp details.
    */
-  getStampDetail(data: GetStampDetailsDTO, config:CommonConfigDTO): Promise<IbstampGetStampDetail> {
+  getStampDetail(data: GetStampDetailsDTO, config: CommonConfigDTO): Promise<IbstampGetStampDetail> {
     return getStampDetail(this.config, data, config);
   }
 

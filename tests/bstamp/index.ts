@@ -1,4 +1,4 @@
-import { Bstamp } from '../../src/';
+import { Bstamp } from '../../src';
 
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
@@ -61,7 +61,7 @@ describe('Add stamp', () => {
         expect(data.hash).to.be.an('string');
         expect(data.filename).to.be.an('string');
         stampId = data.code;
-        console.log({ stampId });
+
         done();
       })
       .catch(error => {
@@ -141,7 +141,6 @@ describe('Get stamp Detail', () => {
     bStamp
       .getStampDetail(data, { version: API_VERSION.VERSION_1 })
       .then(data => {
-        console.log(data)
         done();
       })
       .catch(error => {
@@ -157,7 +156,11 @@ describe('Enroll user', () => {
       authorization: `Bearer ${token}`,
     });
 
-    const data:EnrollUserDTO = { userId: faker.string.uuid(), username: faker.internet.userName(), email: faker.internet.email() };
+    const data: EnrollUserDTO = {
+      userId: faker.string.uuid(),
+      username: faker.internet.userName(),
+      email: faker.internet.email(),
+    };
     bStamp
       .enrollUser(data)
       .then(data => {

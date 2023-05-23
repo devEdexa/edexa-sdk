@@ -21,7 +21,7 @@ export interface IbstampAuth {
 
 export interface IbstampGetAllStamp {
   count: number;
-  stamps: any[]; 
+  stamps: any[];
 }
 
 export interface IbstampGetAllStampRaw {
@@ -54,7 +54,6 @@ export interface AddStampRequestDTO {
   isPrivate: boolean;
 }
 
-
 export interface GetStampDetailsDTO {
   id: string;
 }
@@ -66,5 +65,5 @@ export interface EnrollUserDTO {
 }
 
 export interface CommonConfigDTO {
-  version: string
+  version: string;
 }

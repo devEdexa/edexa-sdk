@@ -48,5 +48,5 @@ export enum API_VERSION {
 
 export enum REQUEST_METHOD {
   GET = 'GET',
-  POST = 'POST'
+  POST = 'POST',
 }
