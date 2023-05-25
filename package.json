@@ -54,8 +54,9 @@
   },
   "lint-staged": {
     "**/**/*.ts": [
-      "eslint --fix",
-      "prettier --write"
+      "npm run lint:check",
+      "npm run lint:fix",
+      "npm run prettier:fix"
     ]
   },
   "husky": {
