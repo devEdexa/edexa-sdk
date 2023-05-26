@@ -13,10 +13,9 @@ export const DEFAULT_REQUEST_TIMEOUT = 0;
  * Returns the HTTP URL for the Edexa Bstamp API based on the network and API key.
  *
  * @param network - The network to use (e.g., 'mainnet', 'testnet').
- * @param apiKey - The API key to authenticate the request.
  * @returns The HTTP URL for the Edexa Bstamp API.
  */
-export function getEdexaBstampHttpUrl(network: Network, apiKey: string): string {
+export function getEdexaBstampHttpUrl(network: Network): string {
   return `https://api-edexagw.${network}.com/bstamp`;
 }
 
@@ -24,10 +23,9 @@ export function getEdexaBstampHttpUrl(network: Network, apiKey: string): string 
  * Returns the HTTP URL for the Edexa Bstamp v2 API based on the network and API key.
  *
  * @param network - The network to use (e.g., 'mainnet', 'testnet').
- * @param apiKey - The API key to authenticate the request.
  * @returns The HTTP URL for the Edexa Bstamp v2 API.
  */
-export function getEdexaBstampV2HttpUrl(network: Network, apiKey: string): string {
+export function getEdexaBstampV2HttpUrl(network: Network): string {
   return `https://api-edexagw.${network}.com/bstamp/v2`;
 }
 

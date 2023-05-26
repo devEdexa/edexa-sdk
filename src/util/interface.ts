@@ -47,7 +47,20 @@ export interface IbstampGetStampDetailRaw {
     isPrivateBc: boolean;
   };
 }
-export interface IbstampGetStampDetail {}
+export interface IbstampGetStampDetail {
+  hash: string;
+  originalDocHash: string;
+  metaData: object | string;
+  filename: string;
+  type: string;
+  txid: string;
+  timestamp: string;
+  code: string;
+  username: string;
+  userVerify: number;
+  isEsign: boolean;
+  isPrivateBc: boolean;
+}
 
 export interface AddStampRequestDTO {
   hash: string;
