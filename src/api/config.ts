@@ -14,17 +14,8 @@ import {
  * @public
  */
 export class EdexaConfig {
-  /** The Edexa API key. */
-  readonly apiKey: string;
-
   /** The Network that this SDK is associated with. */
   readonly network: Network;
-
-  /**
-   * The optional hardcoded URL to send requests to instead of using the network
-   * and apiKey.
-   */
-  readonly url?: string;
 
   /** The optional Edexa auth token to use when sending requests with the Notify API. */
   readonly authorization?: string;
@@ -51,12 +42,10 @@ export class EdexaConfig {
    * @internal
    */
   _getRequestUrl(apiType: EdexaApiType, version: API_VERSION): string {
-    if (this.url !== undefined) {
-      return this.url;
-    } else if (apiType === EdexaApiType.BSTAMP && version == API_VERSION.VERSION_1) {
-      return getEdexaBstampHttpUrl(this.network, this.apiKey);
+    if (apiType === EdexaApiType.BSTAMP && version == API_VERSION.VERSION_1) {
+      return getEdexaBstampHttpUrl(this.network);
     } else if (apiType === EdexaApiType.BSTAMP && version == API_VERSION.VERSION_2) {
-      return getEdexaBstampV2HttpUrl(this.network, this.apiKey);
+      return getEdexaBstampV2HttpUrl(this.network);
     }
   }
 }
