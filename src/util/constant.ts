@@ -7,7 +7,7 @@ export const DEFAULT_NETWORK = Network.SANDBOX;
 export const DEFAULT_MAX_RETRIES = 5;
 
 // Default request timeout in milliseconds (0 = no timeout)
-export const DEFAULT_REQUEST_TIMEOUT = 0;
+export const DEFAULT_REQUEST_TIMEOUT = 5000;
 
 /**
  * Returns the HTTP URL for the Edexa Bstamp API based on the network and API key.

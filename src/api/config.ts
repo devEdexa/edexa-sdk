@@ -2,6 +2,7 @@ import { EdexaSettings, Network } from '../types/types';
 import {
   API_VERSION,
   DEFAULT_NETWORK,
+  DEFAULT_REQUEST_TIMEOUT,
   EdexaApiType,
   getEdexaBstampHttpUrl,
   getEdexaBstampV2HttpUrl,
@@ -39,6 +40,7 @@ export class EdexaConfig {
   constructor(config?: EdexaSettings) {
     this.network = config?.network || DEFAULT_NETWORK;
     this.authorization = config?.authorization;
+    this.requestTimeout = config?.requestTimeout || DEFAULT_REQUEST_TIMEOUT;
   }
 
   /**
