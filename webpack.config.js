@@ -9,9 +9,6 @@ const config = {
   entry: "./src/index.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
-    library: 'stamping',
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
   },
   devServer: {
     open: true,
