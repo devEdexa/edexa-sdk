@@ -5,9 +5,9 @@ name: Test cases
 
 on:
   push:
-    branches: ['feature/bstamp']
+    branches: ['main']
   pull_request:
-    branches: ['feature/bstamp']
+    branches: ['main']
 
 jobs:
   tests:

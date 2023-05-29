@@ -9,9 +9,9 @@ name: Publish Package on NPM
 
 on:
   push:
-    branches: ['feature/bstamp']
+    branches: ['main']
   pull_request:
-    branches: ['feature/bstamp']
+    branches: ['main']
 
 jobs:
   build:
