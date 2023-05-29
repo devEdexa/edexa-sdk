@@ -7,6 +7,7 @@ export interface EdexaSettings {
   clientId?: string; // Optional client ID for authentication
   clientSecret?: string; // Optional client secret for authentication
   network: Network; // The network that the SDK is associated with
+  requestTimeout?: number; // Optional timeout is ms for api call
 }
 
 /**
