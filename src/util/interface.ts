@@ -65,10 +65,13 @@ export interface IbstampGetStampDetail {
 export interface AddStampRequestDTO {
   hash: string;
   isPrivate: boolean;
+  userId?: string;
+  type?: string;
 }
 
 export interface GetStampDetailsDTO {
   id: string;
+  userId?: string;
 }
 
 export interface EnrollUserDTO {
