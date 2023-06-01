@@ -9,7 +9,7 @@
     "start": "node dist/index.js",
     "lint": "tslint src/**/*.ts",
     "lint:fix": "tslint src/**/*.ts --fix",
-    "test": "mocha -r ts-node/register tests/**/version-2.ts --timeout 100000 $1",
+    "test": "mocha -r ts-node/register tests/**/*.ts --timeout 100000 $1",
     "debug": "npm run build:pack && cd tests && npm run install:lib:debug",
     "testrpc": "ganache-cli --mnemonic 'clock radar mass judge dismiss just intact mind resemble fringe diary casino' --gasLimit 13000000",
     "install:example": "cd examples && npm i ../maticnetwork-maticjs-3.5.0.tgz --no-save",
