@@ -345,7 +345,7 @@ describe('Get stamp Detail', () => {
       ...settings,
       authorization: `Bearer ${token}`,
     });
-    const data: GetStampDetailsDTO = { id: '57YYb7' };
+    const data: GetStampDetailsDTO = { id: stampId };
     bStamp
       .getStampDetail(data, { version: API_VERSION.VERSION_1 })
       .then(data => {
