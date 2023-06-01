@@ -1,10 +1,11 @@
-import { Bstamp } from '../../src';
-
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import { API_VERSION, DEFAULT_NETWORK } from '../../src/util/constant';
 import { createHash, randomBytes } from 'crypto';
 import { faker } from '@faker-js/faker';
+
+import { Bstamp } from '../../src';
+import config from '../../src/config/index';
+import { API_VERSION, DEFAULT_NETWORK, IS_PRIVATE } from '../../src/util/constant';
 import { AddStampRequestDTO, EnrollUserDTO, GetStampDetailsDTO } from '../../src/util/interface';
 
 chai.use(chaiHttp);
@@ -13,15 +14,16 @@ const settings = { network: DEFAULT_NETWORK };
 
 let token;
 let stampId;
-const invalidAuthToken = 123;
+const invalidAuthToken = config.INVALID_AUTH_TOKEN;
 const alreadyEnrolledUserId = 'b2ace90e-d042-4d68-a81c-5b07f0bc5551';
+const invalidStampId = 'abc123';
+
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
     const authSettings = {
       headers: {
-        'client-id': 'b1451bc9-4d8a-4e51-838c-c2341a1c13c3',
-        'secret-key':
-          'F7D866D57ACA8071817D28A49C81CDDEE74899492B11C2FE3FE9818368956DC91150C138AC46770B273FE8E7665C2D41DE1A11A728D318CB86BC4627C72FA58A',
+        'client-id': config.CLIENT_ID,
+        'secret-key': config.SECRET_KEY,
       },
     };
 
@@ -45,9 +47,8 @@ describe('Authenticate user', function () {
   it('It should return user not found', function (done) {
     const authSettings = {
       headers: {
-        'client-id': 'b1451bc9-4d8a-4e51-838c-c2341a1c13c2',
-        'secret-key':
-          'F7D866D57ACA8071817D28A49C81CDDEE74899492B11C2FE3FE9818368956DC91150C138AC46770B273FE8E7665C2D41DE1A11A728D318CB86BC4627C72FA58A',
+        'client-id': config.CLIENT_ID,
+        'secret-key': config.SECRET_KEY,
       },
     };
 
@@ -201,7 +202,7 @@ describe('Get stamp List', () => {
 
     const data: AddStampRequestDTO = {
       hash: Buffer.from(createHash('sha256').update(randomBytes(48).toString('hex')).digest('hex')).toString('base64'),
-      isPrivate: true,
+      isPrivate: IS_PRIVATE.FALSE,
     };
     bStamp
       .getAllStamp(data, { version: API_VERSION.VERSION_1 })
@@ -221,7 +222,7 @@ describe('Get stamp List', () => {
 
     const data: AddStampRequestDTO = {
       hash: Buffer.from(createHash('sha256').update(randomBytes(48).toString('hex')).digest('hex')).toString('base64'),
-      isPrivate: true,
+      isPrivate: IS_PRIVATE.FALSE,
     };
     bStamp
       .getAllStamp(data, { version: API_VERSION.VERSION_1 })
@@ -241,7 +242,7 @@ describe('Get stamp List', () => {
 
     const data: AddStampRequestDTO = {
       hash: Buffer.from(createHash('sha256').update(randomBytes(48).toString('hex')).digest('hex')).toString('base64'),
-      isPrivate: true,
+      isPrivate: IS_PRIVATE.FALSE,
     };
     bStamp
       .getAllStamp(data, { version: API_VERSION.VERSION_1 })
@@ -330,7 +331,7 @@ describe('Get stamp Detail', () => {
       authorization: `Bearer ${token}`,
     });
 
-    const data: GetStampDetailsDTO = { id: '123' };
+    const data: GetStampDetailsDTO = { id: invalidStampId };
     bStamp
       .getStampDetail(data, { version: API_VERSION.VERSION_1 })
       .then(data => {

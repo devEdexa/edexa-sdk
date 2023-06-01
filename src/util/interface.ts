@@ -65,13 +65,26 @@ export interface IbstampGetStampDetail {
 export interface AddStampRequestDTO {
   hash: string;
   isPrivate: boolean;
-  userId?: string;
-  type?: string;
+}
+
+export interface AddStampRequestV2DTO {
+  hash: string;
+  userId: string;
 }
 
 export interface GetStampDetailsDTO {
   id: string;
-  userId?: string;
+}
+
+export interface GetStampDetailsV2DTO {
+  userId: string;
+  id: string;
+}
+export interface GetStampV2DTO {
+  userId: string;
+  search?: string;
+  page: string;
+  number: string;
 }
 
 export interface EnrollUserDTO {

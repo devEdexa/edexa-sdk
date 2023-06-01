@@ -1,11 +1,17 @@
-import { Bstamp } from '../../src';
-
-import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import { API_VERSION, DEFAULT_NETWORK } from '../../src/util/constant';
+import chai, { expect } from 'chai';
 import { createHash, randomBytes } from 'crypto';
 import { faker } from '@faker-js/faker';
-import { AddStampRequestDTO, EnrollUserDTO, GetStampDetailsDTO } from '../../src/util/interface';
+
+import { Bstamp } from '../../src';
+import { API_VERSION, DEFAULT_NETWORK } from '../../src/util/constant';
+import {
+  AddStampRequestDTO,
+  AddStampRequestV2DTO,
+  EnrollUserDTO,
+  GetStampDetailsV2DTO,
+} from '../../src/util/interface';
+import config from '../../src/config';
 
 chai.use(chaiHttp);
 
@@ -14,15 +20,16 @@ const settings = { network: DEFAULT_NETWORK };
 let token;
 let stampId;
 let userId;
-const invalidAuthToken = 123;
+const invalidAuthToken = config.INVALID_AUTH_TOKEN;
 const alreadyEnrolledUserId = 'b2ace90e-d042-4d68-a81c-5b07f0bc5551';
+const invalidStampId = 'abc123';
+
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
     const authSettings = {
       headers: {
-        'client-id': 'b1451bc9-4d8a-4e51-838c-c2341a1c13c3',
-        'secret-key':
-          'F7D866D57ACA8071817D28A49C81CDDEE74899492B11C2FE3FE9818368956DC91150C138AC46770B273FE8E7665C2D41DE1A11A728D318CB86BC4627C72FA58A',
+        'client-id': config.CLIENT_ID,
+        'secret-key': config.SECRET_KEY,
       },
     };
 
@@ -46,9 +53,8 @@ describe('Authenticate user', function () {
   it('It should return user not found', function (done) {
     const authSettings = {
       headers: {
-        'client-id': 'b1451bc9-4d8a-4e51-838c-c2341a1c13c2',
-        'secret-key':
-          'F7D866D57ACA8071817D28A49C81CDDEE74899492B11C2FE3FE9818368956DC91150C138AC46770B273FE8E7665C2D41DE1A11A728D318CB86BC4627C72FA58A',
+        'client-id': config.CLIENT_ID,
+        'secret-key': config.SECRET_KEY,
       },
     };
 
@@ -183,9 +189,9 @@ describe('Add stamp', () => {
       ...settings,
     });
 
-    const data: AddStampRequestDTO = {
+    const data: AddStampRequestV2DTO = {
       hash: Buffer.from(createHash('sha256').update(randomBytes(48).toString('hex')).digest('hex')).toString('base64'),
-      isPrivate: false,
+      userId: userId,
     };
     bStamp
       .addStamp(data, { version: API_VERSION.VERSION_2 })
@@ -203,9 +209,9 @@ describe('Add stamp', () => {
       authorization: `Bearer ${invalidAuthToken}`,
     });
 
-    const data: AddStampRequestDTO = {
+    const data: AddStampRequestV2DTO = {
       hash: Buffer.from(createHash('sha256').update(randomBytes(48).toString('hex')).digest('hex')).toString('base64'),
-      isPrivate: false,
+      userId: userId,
     };
     bStamp
       .addStamp(data, { version: API_VERSION.VERSION_2 })
@@ -223,9 +229,9 @@ describe('Add stamp', () => {
       authorization: `Bearer ${token}`,
     });
 
-    const data: AddStampRequestDTO = {
+    const data: AddStampRequestV2DTO = {
       hash: Buffer.from(createHash('sha256').update(randomBytes(48).toString('hex')).digest('hex')).toString('base64'),
-      isPrivate: false,
+      userId: userId,
     };
     bStamp
       .addStamp(data, { version: API_VERSION.VERSION_2 })
@@ -242,11 +248,9 @@ describe('Add stamp', () => {
       ...settings,
       authorization: `Bearer ${token}`,
     });
-    const data: AddStampRequestDTO = {
+    const data: AddStampRequestV2DTO = {
       hash: Buffer.from(createHash('sha256').update(randomBytes(48).toString('hex')).digest('hex')).toString('base64'),
-      isPrivate: false,
       userId: userId,
-      type: '0',
     };
     bStamp
       .addStamp(data, { version: API_VERSION.VERSION_2 })
@@ -270,9 +274,9 @@ describe('Add stamp', () => {
       authorization: `Bearer ${token}`,
     });
 
-    const data: AddStampRequestDTO = {
+    const data: AddStampRequestV2DTO = {
       hash: Buffer.from(createHash('sha256').update(randomBytes(48).toString('hex')).digest('hex')).toString('base64'),
-      isPrivate: false,
+      userId: userId,
     };
     bStamp
       .addStamp(data, { version: API_VERSION.VERSION_2 })
@@ -367,7 +371,7 @@ describe('Get stamp Detail', () => {
       ...settings,
     });
 
-    const data: GetStampDetailsDTO = { id: stampId };
+    const data: GetStampDetailsV2DTO = { id: stampId, userId: userId };
     bStamp
       .getStampDetail(data, { version: API_VERSION.VERSION_2 })
       .then(data => {
@@ -383,7 +387,7 @@ describe('Get stamp Detail', () => {
       authorization: `Bearer ${invalidAuthToken}`,
     });
 
-    const data: GetStampDetailsDTO = { id: stampId };
+    const data: GetStampDetailsV2DTO = { id: stampId, userId: userId };
     bStamp
       .getStampDetail(data, { version: API_VERSION.VERSION_2 })
       .then(data => {
@@ -399,7 +403,7 @@ describe('Get stamp Detail', () => {
       authorization: `Bearer ${token}`,
     });
 
-    const data: GetStampDetailsDTO = { id: '123', userId: userId };
+    const data: GetStampDetailsV2DTO = { id: invalidStampId, userId: userId };
     bStamp
       .getStampDetail(data, { version: API_VERSION.VERSION_2 })
       .then(data => {
@@ -414,7 +418,7 @@ describe('Get stamp Detail', () => {
       ...settings,
       authorization: `Bearer ${token}`,
     });
-    const data: GetStampDetailsDTO = { id: stampId, userId: userId };
+    const data: GetStampDetailsV2DTO = { id: stampId, userId: userId };
     bStamp
       .getStampDetail(data, { version: API_VERSION.VERSION_2 })
       .then(data => {
