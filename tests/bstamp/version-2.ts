@@ -43,7 +43,7 @@ describe('Authenticate user', function () {
       });
   });
 
-  it.skip('It should return user not found', function (done) {
+  it('It should return user not found', function (done) {
     const authSettings = {
       headers: {
         'client-id': 'b1451bc9-4d8a-4e51-838c-c2341a1c13c2',
@@ -64,7 +64,7 @@ describe('Authenticate user', function () {
       });
   });
 
-  it.skip('It should return something went wrong', function (done) {
+  it('It should return something went wrong', function (done) {
     const authSettings = {
       headers: {
         'client-id': '',
@@ -86,7 +86,7 @@ describe('Authenticate user', function () {
 });
 
 describe('Enroll user', () => {
-  it.skip('It should return Authorization token not found', done => {
+  it('It should return Authorization token not found', done => {
     const bStamp = new Bstamp({
       ...settings,
     });
@@ -106,7 +106,7 @@ describe('Enroll user', () => {
         done();
       });
   });
-  it.skip('It should return invalid auth token', done => {
+  it('It should return invalid auth token', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${invalidAuthToken}`,
@@ -178,7 +178,7 @@ describe('Enroll user', () => {
 });
 
 describe('Add stamp', () => {
-  it.skip('It should return Authorization token not found', done => {
+  it('It should return Authorization token not found', done => {
     const bStamp = new Bstamp({
       ...settings,
     });
@@ -197,7 +197,7 @@ describe('Add stamp', () => {
         done();
       });
   });
-  it.skip('It should return invalid auth token', done => {
+  it('It should return invalid auth token', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${invalidAuthToken}`,
@@ -217,7 +217,7 @@ describe('Add stamp', () => {
         done();
       });
   });
-  it.skip('It should return stamped already exist', done => {
+  it('It should return stamped already exist', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -264,7 +264,7 @@ describe('Add stamp', () => {
         done();
       });
   });
-  it.skip('It should return something went wrong', done => {
+  it('It should return something went wrong', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -286,7 +286,7 @@ describe('Add stamp', () => {
   });
 });
 
-describe.skip('Get stamp List', () => {
+describe('Get stamp List', () => {
   it('It should return Authorization token not found', done => {
     const bStamp = new Bstamp({
       ...settings,
@@ -362,7 +362,7 @@ describe.skip('Get stamp List', () => {
 });
 
 describe('Get stamp Detail', () => {
-  it.skip('It should return Authorization token not found', done => {
+  it('It should return Authorization token not found', done => {
     const bStamp = new Bstamp({
       ...settings,
     });
@@ -377,7 +377,7 @@ describe('Get stamp Detail', () => {
         done();
       });
   });
-  it.skip('It should return invalid auth token', done => {
+  it('It should return invalid auth token', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${invalidAuthToken}`,
@@ -393,7 +393,7 @@ describe('Get stamp Detail', () => {
         done();
       });
   });
-  it.skip('It should return stamped file not found', done => {
+  it('It should return stamped file not found', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
