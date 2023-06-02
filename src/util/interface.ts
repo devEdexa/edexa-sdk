@@ -67,8 +67,24 @@ export interface AddStampRequestDTO {
   isPrivate: boolean;
 }
 
+export interface AddStampRequestV2DTO {
+  hash: string;
+  userId: string;
+}
+
 export interface GetStampDetailsDTO {
   id: string;
+}
+
+export interface GetStampDetailsV2DTO {
+  userId: string;
+  id: string;
+}
+export interface GetStampV2DTO {
+  userId: string;
+  search?: string;
+  page: string;
+  number: string;
 }
 
 export interface EnrollUserDTO {

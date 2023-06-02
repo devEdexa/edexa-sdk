@@ -48,3 +48,8 @@ export enum REQUEST_METHOD {
   GET = 'GET',
   POST = 'POST',
 }
+
+export const IS_PRIVATE = {
+  TRUE: true,
+  FALSE: false,
+};
