@@ -1,8 +1,8 @@
 /**
- * Configuration settings for the Edexa SDK.
+ * Configuration settings for the edeXa SDK.
  */
 export interface EdexaSettings {
-  authorization?: string; // Optional Edexa auth token for sending requests with the Notify API
+  authorization?: string; // Optional edeXa auth token for sending requests with the Notify API
   url?: string; // Optional custom URL to send requests to instead of using the network and apiKey
   clientId?: string; // Optional client ID for authentication
   clientSecret?: string; // Optional client secret for authentication
@@ -11,7 +11,7 @@ export interface EdexaSettings {
 }
 
 /**
- * Enum defining different network options for the Edexa SDK.
+ * Enum defining different network options for the edeXa SDK.
  */
 export enum Network {
   SANDBOX = 'io-world', // Sandbox network

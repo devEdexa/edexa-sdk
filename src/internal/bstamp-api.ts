@@ -1,14 +1,14 @@
 // Import necessary dependencies and types
 import { EdexaConfig } from '../api/config';
-import { API_VERSION, EdexaApiType, REQUEST_METHOD } from '../util/constant';
+import { API_METHOD, API_VERSION, EdexaApiType, REQUEST_METHOD } from '../util/constant';
 import { IbstampGetStampDetail, Ibstamp, IbstampGetAllStampRaw, IbstampGetStampDetailRaw } from '../util/interface';
 import { getAllStampFromRaw, getStampAuthFromRaw, getStampDetailFromRaw, getStampFromRaw } from '../util/util';
 import { requestHttp } from './dispatch';
 
 /**
- * Authenticates the client with the Edexa API.
+ * Authenticates the client with the edeXa API.
  *
- * @param settings - Configuration settings for Edexa.
+ * @param settings - Configuration settings for edeXa.
  * @param config - Configuration object with client ID and secret.
  * @param srcMethod - Source method for the authentication request (defaults to 'authenticate').
  * @returns A Promise that resolves to the authentication response.
@@ -16,7 +16,7 @@ import { requestHttp } from './dispatch';
 export async function authenticate(
   settings: EdexaConfig,
   config: { headers: { 'client-id': string; 'client-secret': string } },
-  srcMethod = 'authenticate'
+  srcMethod = API_METHOD.AUTHENTICATE
 ): Promise<any> {
   const response: any = await requestHttp(
     settings,
@@ -36,7 +36,7 @@ export async function authenticate(
 /**
  * Adds a stamp.
  *
- * @param settings - Configuration settings for Edexa.
+ * @param settings - Configuration settings for edeXa.
  * @param data - Data for adding the stamp.
  * @param config - Configuration for the request.
  * @param srcMethod - Source method for adding the stamp (defaults to 'addStamp').
@@ -46,7 +46,7 @@ export async function addStamp(
   settings: EdexaConfig,
   data: string | object,
   config?: any,
-  srcMethod = 'addStamp'
+  srcMethod = API_METHOD.ADD_STAMP
 ): Promise<Ibstamp> {
   const response = await requestHttp(
     settings,
@@ -67,7 +67,7 @@ export async function addStamp(
 /**
  * Retrieves all stamps.
  *
- * @param settings - Configuration settings for Edexa.
+ * @param settings - Configuration settings for edeXa.
  * @param data - Data for retrieving all stamps.
  * @param config - Configuration for the request.
  * @param srcMethod - Source method for retrieving all stamps (defaults to 'getAllStamp').
@@ -77,7 +77,7 @@ export async function getAllStamp(
   settings: EdexaConfig,
   data: string | object,
   config?: any,
-  srcMethod = 'getAllStamp'
+  srcMethod = API_METHOD.GET_ALL_STAMP
 ): Promise<any> {
   const response: IbstampGetAllStampRaw = await requestHttp(settings, EdexaApiType.BSTAMP, 'hash', srcMethod, data, {
     ...config,
@@ -91,7 +91,7 @@ export async function getAllStamp(
 /**
  * Retrieves the details of a specific stamp.
  *
- * @param settings - Configuration settings for Edexa.
+ * @param settings - Configuration settings for edeXa.
  * @param data - Data for retrieving the stamp details.
  * @param config - Configuration for the request.
  * @param srcMethod - Source method for retrieving the stamp details (defaults to 'getStampDetail').
@@ -101,7 +101,7 @@ export async function getStampDetail(
   settings: EdexaConfig,
   data: string | object,
   config?: any,
-  srcMethod = 'getStampDetail'
+  srcMethod = API_METHOD.STAMP_DETAILS
 ): Promise<IbstampGetStampDetail> {
   const response: IbstampGetStampDetailRaw = await requestHttp(settings, EdexaApiType.BSTAMP, 'hash', srcMethod, data, {
     ...config,
@@ -115,7 +115,7 @@ export async function getStampDetail(
 /**
  * Adds an electronic signature.
  *
- * @param settings - Configuration settings for Edexa.
+ * @param settings - Configuration settings for edeXa.
  * @param data - Data for adding the electronic signature.
  * @param config - Configuration for the request.
  * @param srcMethod - Source method for adding the electronic signature (defaults to 'addElectronicSign').
@@ -125,7 +125,7 @@ export async function addElectronicSign(
   settings: EdexaConfig,
   data: any,
   config?: any,
-  srcMethod = 'addElectronicSign'
+  srcMethod = API_METHOD.ELECTRONIC_SIGN
 ): Promise<any> {
   const response: any = await requestHttp(
     settings,
@@ -147,7 +147,7 @@ export async function addElectronicSign(
 /**
  * Enrolls a user.
  *
- * @param settings - Configuration settings for Edexa.
+ * @param settings - Configuration settings for edeXa.
  * @param data - Data for enrolling the user.
  * @param config - Configuration for the request.
  * @param srcMethod - Source method for enrolling the user (defaults to 'enrollUser').
@@ -157,7 +157,7 @@ export async function enrollUser(
   settings: EdexaConfig,
   data: object,
   config?: any,
-  srcMethod = 'enrollUser'
+  srcMethod = API_METHOD.ENROLL_USER
 ): Promise<any> {
   const response: any = await requestHttp(
     settings,

@@ -1,6 +1,6 @@
 import { Network } from '../types/types';
 
-// Default network for the Edexa API
+// Default network for the edeXa API
 export const DEFAULT_NETWORK = Network.SANDBOX;
 
 // Default maximum number of retries for HTTP requests
@@ -10,30 +10,30 @@ export const DEFAULT_MAX_RETRIES = 5;
 export const DEFAULT_REQUEST_TIMEOUT = 5000;
 
 /**
- * Returns the HTTP URL for the Edexa Bstamp API based on the network and API key.
+ * Returns the HTTP URL for the edeXa bStamp API based on the network and API key.
  *
  * @param network - The network to use (e.g., 'mainnet', 'testnet').
- * @returns The HTTP URL for the Edexa Bstamp API.
+ * @returns The HTTP URL for the edeXa bStamp API.
  */
 export function getEdexaBstampHttpUrl(network: Network): string {
   return `https://api-edexagw.${network}.com/bstamp`;
 }
 
 /**
- * Returns the HTTP URL for the Edexa Bstamp v2 API based on the network and API key.
+ * Returns the HTTP URL for the edeXa bStamp v2 API based on the network and API key.
  *
  * @param network - The network to use (e.g., 'mainnet', 'testnet').
- * @returns The HTTP URL for the Edexa Bstamp v2 API.
+ * @returns The HTTP URL for the edeXa bStamp v2 API.
  */
 export function getEdexaBstampV2HttpUrl(network: Network): string {
   return `https://api-edexagw.${network}.com/bstamp/v2`;
 }
 
 /**
- * Represents the types of Edexa APIs.
+ * Represents the types of edeXa APIs.
  */
 export enum EdexaApiType {
-  BSTAMP, // Edexa Bstamp API
+  BSTAMP, // edeXa bStamp API
 }
 
 /**
@@ -53,3 +53,13 @@ export const IS_PRIVATE = {
   TRUE: true,
   FALSE: false,
 };
+
+export const API_METHOD = {
+  AUTHENTICATE: 'authenticate',
+  ADD_STAMP: 'addStamp',
+  GET_ALL_STAMP: 'getAllStamp',
+  STAMP_DETAILS: 'getStampDetail',
+  ELECTRONIC_SIGN: 'addElectronicSign',
+  ENROLL_USER: 'enrollUser'
+
+}

@@ -33,7 +33,7 @@ export class Bstamp {
   }
 
   /**
-   * Authenticates the client with the Edexa API.
+   * Authenticates the client with the edeXa API.
    *
    * @param settings - Configuration settings for the authentication request.
    * @returns A Promise that resolves to the authentication response.
