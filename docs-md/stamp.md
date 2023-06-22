@@ -1,6 +1,6 @@
 # 📝 Add Stamp
 
-## To add stamp with the Edexa API, use the addStamp method:
+## To add stamp with the edeXa API, use the addStamp method:
 
 ---
 
@@ -21,7 +21,7 @@ async function addStamp() {
     isPrivate: 'true' // or false for public network
   }
 
-  const version = { 
+  const version = {
     version: API_VERSION.VERSION_1 // or API_VERSION.VERSION_2 for version 2
   }
 
@@ -34,7 +34,9 @@ async function addStamp() {
 }
 
 ```
+
 ---
+
 - Make sure to replace `token` used in `Authorization` with your `token`, which you will get in response of [authentication method](./authenticate.md)
 - In this example, the `addStamp` function is an `async` function that uses `await` to wait for the `bstamp.addStamp` promise to resolve. If the promise resolves successfully, the stamped response is logged. If an error occurs, it is caught and logged using `console.error`.
 - Make sure to replace `HASH` with your actual hash value.
@@ -43,12 +45,12 @@ async function addStamp() {
 
 ---
 
-- Response Description: In resposne `id`, `txId`, `code`, `hash`, `filename` 
+- Response Description: In resposne `id`, `txId`, `code`, `hash`, `filename`
 
-  | Key | Type |
-  | --- | --- |
-  | id  | String |
-  | txId  | String |
-  | code  | String |
-  | hash  | String |
-  | filename  |String |
+  | Key      | Type   |
+  | -------- | ------ |
+  | id       | String |
+  | txId     | String |
+  | code     | String |
+  | hash     | String |
+  | filename | String |

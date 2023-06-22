@@ -18,7 +18,7 @@ export class EdexaConfig {
   /** The Network that this SDK is associated with. */
   readonly network: Network;
 
-  /** The optional Edexa auth token to use when sending requests with the Notify API. */
+  /** The optional edeXa auth token to use when sending requests with the Notify API. */
   readonly authorization?: string;
 
   /**

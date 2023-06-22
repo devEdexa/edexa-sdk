@@ -1,6 +1,6 @@
 # 🛣️ Authenticating the Client
 
-## To authenticate the client with the Edexa API, use the authenticate method.
+## To authenticate the client with the edeXa API, use the authenticate method.
 
 ---
 
@@ -24,6 +24,7 @@ async function authenticateClient() {
 }
 
 ```
+
 ---
 
 - In this example, the `authenticateClient` function is an `async` function that uses `await` to wait for the `bstamp.authenticate` promise to resolve. If the promise resolves successfully, the authentication response is logged. If an error occurs, it is caught and logged using `console.error`.
@@ -32,12 +33,11 @@ async function authenticateClient() {
 
 ---
 
+- Response Description:
 
-- Response Description: 
-
-  | Key | Type |
-  | --- | --- |
-  | id  | String |
-  | token  | String |
-  | username  | String |
-  | name  | String |
+  | Key      | Type   |
+  | -------- | ------ |
+  | id       | String |
+  | token    | String |
+  | username | String |
+  | name     | String |

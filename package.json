@@ -1,7 +1,7 @@
 {
   "name": "edexa-sdk",
   "version": "0.0.1",
-  "description": "Extended version of OpenAPI SDK for Edexa platform",
+  "description": "Extended version of OpenAPI SDK for edeXa platform",
   "main": "src/index.ts",
   "scripts": {
     "clean": "rimraf dist",
