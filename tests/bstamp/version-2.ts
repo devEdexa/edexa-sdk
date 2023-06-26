@@ -8,6 +8,7 @@ import { API_VERSION, DEFAULT_NETWORK } from '../../src/util/constant';
 import {
   AddStampRequestDTO,
   AddStampRequestV2DTO,
+  CreateWebhookDTO,
   EnrollUserDTO,
   GetStampDetailsV2DTO,
 } from '../../src/util/interface';
@@ -450,6 +451,230 @@ describe('Get stamp Detail', () => {
         expect(data.userVerify).to.be.an('number');
         expect(data.isEsign).to.be.an('boolean');
         expect(data.isPrivateBc).to.be.an('boolean');
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+});
+
+describe('Create Webhook', () => {
+  it('It should return Authorization token not found', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+    });
+
+    const data: CreateWebhookDTO = {
+      redirectUrl: 'https://edexa.network/',
+      description: 'For bstamp file which have short code as b7ab41',
+      action: ['64799d3c4bfb861eee61aca6', '64799d3c4bfb861eee61aca7'],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return Authorization token not found', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+
+    const data: CreateWebhookDTO = {
+      redirectUrl: 'https://edexa.network/',
+      description: 'For bstamp file which have short code as b7ab41',
+      action: ['64799d3c4bfb861eee61aca6', '64799d3c4bfb861eee61aca7'],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return Redirect URL can not be empty', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    const data: CreateWebhookDTO = {
+      redirectUrl: '',
+      description: 'For bstamp file which have short code as ******',
+      action: ['64799d3c4bfb861eee61aca6', '64799d3c4bfb861eee61aca7'],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return Description can not be empty', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    const data: CreateWebhookDTO = {
+      redirectUrl: 'https://edexa.network/',
+      description: '',
+      action: ['64799d3c4bfb861eee61aca6', '64799d3c4bfb861eee61aca7'],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return ActionID can not be empty', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    const data: CreateWebhookDTO = {
+      redirectUrl: 'https://edexa.network/',
+      description: 'For bstamp file which have short code as ******',
+      action: [],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return create webhook', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    const data: CreateWebhookDTO = {
+      redirectUrl: 'https://edexa.network/',
+      description: 'For bstamp file which have short code as ******',
+      action: ['64799d3c4bfb861eee61aca6', '64799d3c4bfb861eee61aca7'],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
+        expect(data.data)
+          .to.be.an('object')
+          .with.all.keys('userId', 'redirectUrl', 'description', 'action', 'status', '_id', 'createdAt', 'updatedAt');
+        expect(data.data.userId).to.be.an('string');
+        expect(data.data.redirectUrl).to.be.an('string');
+        expect(data.data.description).to.be.an('string');
+        expect(data.data.action).to.be.an('array').to.include('string');
+        expect(data.data._id).to.be.an('string');
+        expect(data.data.status).to.be.an('number');
+        expect(data.data.createdAt).to.be.an('string');
+        expect(data.data.updatedAt).to.be.an('string');
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+});
+
+describe.skip('Get Webhook Information', () => {
+  it('It should return Authorization token not found', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+    });
+
+    bStamp
+      .getWebhook({ version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return Authorization token not found', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+    bStamp
+      .getWebhook({ version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return details of webhooks', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    bStamp
+      .getWebhook({ version: API_VERSION.VERSION_2 })
+      .then(data => {
+        expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
+        expect(data.data)
+          .to.be.an('array')
+          .with.all.keys(
+            '_id',
+            'userId',
+            'redirectUrl',
+            'description',
+            'action',
+            'status',
+            'createdAt',
+            'updatedAt',
+            'event',
+            'users'
+          );
+        data.data.forEach(webhook => {
+          expect(webhook._id).to.be.an('string');
+          expect(webhook.userId).to.be.an('string');
+          expect(webhook.redirectUrl).to.be.an('string');
+          expect(webhook.description).to.be.an('string');
+          expect(webhook.action).to.be.an('array').to.include('string');
+          expect(webhook.status).to.be.an('number');
+          expect(webhook.createdAt).to.be.an('string');
+          expect(webhook.updatedAt).to.be.an('string');
+          expect(webhook.event).to.be.an('array');
+          expect(webhook.users)
+            .to.be.an('object')
+            .with.all.keys(
+              '_id',
+              'name',
+              'clientId',
+              'orgId',
+              'username',
+              'email',
+              'status',
+              'loginType',
+              'profilePicture',
+              'language',
+              'viewType',
+              'totalStamps',
+              'watermark',
+              'usedStamps',
+              'align',
+              'publicAddress',
+              'createdAt',
+              'updatedAt'
+            );
+        });
         done();
       })
       .catch(error => {
