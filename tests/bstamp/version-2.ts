@@ -479,7 +479,7 @@ describe('Create Webhook', () => {
         done();
       });
   });
-  it('It should return Authorization token not found', done => {
+  it('It should return invald authorization token', done => {
     const bStamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${invalidAuthToken}`,
@@ -507,7 +507,7 @@ describe('Create Webhook', () => {
     const data: CreateWebhookDTO = {
       redirectUrl: '',
       description: 'For bstamp file which have short code as ******',
-      action: ['64799d3c4bfb861eee61aca6', '64799d3c4bfb861eee61aca7'],
+      action: ['hash.failed', 'hash.succeed'],
     };
     bStamp
       .createWebhook(data, { version: API_VERSION.VERSION_2 })
@@ -526,7 +526,7 @@ describe('Create Webhook', () => {
     const data: CreateWebhookDTO = {
       redirectUrl: 'https://edexa.network/',
       description: '',
-      action: ['64799d3c4bfb861eee61aca6', '64799d3c4bfb861eee61aca7'],
+      action: ['hash.failed', 'hash.succeed'],
     };
     bStamp
       .createWebhook(data, { version: API_VERSION.VERSION_2 })
@@ -564,7 +564,7 @@ describe('Create Webhook', () => {
     const data: CreateWebhookDTO = {
       redirectUrl: 'https://edexa.network/',
       description: 'For bstamp file which have short code as ******',
-      action: ['64799d3c4bfb861eee61aca6', '64799d3c4bfb861eee61aca7'],
+      action: ['hash.failed', 'hash.succeed'],
     };
     bStamp
       .createWebhook(data, { version: API_VERSION.VERSION_2 })
@@ -589,7 +589,7 @@ describe('Create Webhook', () => {
   });
 });
 
-describe.skip('Get Webhook Information', () => {
+describe('Get Webhook Information', () => {
   it('It should return Authorization token not found', done => {
     const bStamp = new Bstamp({
       ...settings,

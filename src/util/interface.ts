@@ -148,7 +148,7 @@ export interface GetWebhookDetailsDTO {
   data: GetWebhookDTO;
 }
 
-export interface IGETWebhook {
+export interface IGetWebhook {
   status: number;
   message: number;
   data: any[];

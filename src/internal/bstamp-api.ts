@@ -191,7 +191,7 @@ export async function createWebhook(
   const response: any = await requestHttp(
     settings,
     EdexaApiType.BSTAMP,
-    'create-webhook',
+    'api/webhooks',
     srcMethod,
     {},
     {

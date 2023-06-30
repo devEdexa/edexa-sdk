@@ -20,8 +20,7 @@ import {
   GetStampDetailsDTO,
   GetStampDetailsV2DTO,
   GetStampV2DTO,
-  GetWebhookDetailsDTO,
-  IGETWebhook,
+  IGetWebhook,
   Ibstamp,
   IbstampAuth,
   IbstampGetAllStamp,
@@ -122,7 +121,7 @@ export class Bstamp {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the result of details of webhook.
    */
-  getWebhook(config?: CommonConfigDTO): Promise<IGETWebhook> {
+  getWebhook(config?: CommonConfigDTO): Promise<IGetWebhook> {
     return getWebhook(this.config, config);
   }
 }
