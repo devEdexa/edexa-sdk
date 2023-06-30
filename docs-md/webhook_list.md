@@ -5,7 +5,7 @@
 ---
 
 ```SDK.js
-import { Bstamp, Network } from 'bstamp-library';
+import { Bstamp, Network } from 'edeXa-sdk';
 
 async function getWebhook() {
   const bStamp = new Bstamp({

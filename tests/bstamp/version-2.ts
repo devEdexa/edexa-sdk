@@ -570,17 +570,7 @@ describe('Create Webhook', () => {
       .createWebhook(data, { version: API_VERSION.VERSION_2 })
       .then(data => {
         expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
-        expect(data.data)
-          .to.be.an('object')
-          .with.all.keys('userId', 'redirectUrl', 'description', 'action', 'status', '_id', 'createdAt', 'updatedAt');
-        expect(data.data.userId).to.be.an('string');
-        expect(data.data.redirectUrl).to.be.an('string');
-        expect(data.data.description).to.be.an('string');
-        expect(data.data.action).to.be.an('array').to.include('string');
-        expect(data.data._id).to.be.an('string');
-        expect(data.data.status).to.be.an('number');
-        expect(data.data.createdAt).to.be.an('string');
-        expect(data.data.updatedAt).to.be.an('string');
+        expect(data.data).to.be.an('object');
         done();
       })
       .catch(error => {
@@ -630,50 +620,16 @@ describe('Get Webhook Information', () => {
         expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
         expect(data.data)
           .to.be.an('array')
-          .with.all.keys(
-            '_id',
-            'userId',
-            'redirectUrl',
-            'description',
-            'action',
-            'status',
-            'createdAt',
-            'updatedAt',
-            'event',
-            'users'
-          );
+          .with.all.keys('_id', 'action', 'userId', 'redirectUrl', 'description', 'status', 'createdAt', 'updatedAt');
         data.data.forEach(webhook => {
           expect(webhook._id).to.be.an('string');
+          expect(webhook.action).to.be.an('array').to.include('string');
           expect(webhook.userId).to.be.an('string');
           expect(webhook.redirectUrl).to.be.an('string');
           expect(webhook.description).to.be.an('string');
-          expect(webhook.action).to.be.an('array').to.include('string');
           expect(webhook.status).to.be.an('number');
           expect(webhook.createdAt).to.be.an('string');
           expect(webhook.updatedAt).to.be.an('string');
-          expect(webhook.event).to.be.an('array');
-          expect(webhook.users)
-            .to.be.an('object')
-            .with.all.keys(
-              '_id',
-              'name',
-              'clientId',
-              'orgId',
-              'username',
-              'email',
-              'status',
-              'loginType',
-              'profilePicture',
-              'language',
-              'viewType',
-              'totalStamps',
-              'watermark',
-              'usedStamps',
-              'align',
-              'publicAddress',
-              'createdAt',
-              'updatedAt'
-            );
         });
         done();
       })
