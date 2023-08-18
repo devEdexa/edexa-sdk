@@ -1,11 +1,11 @@
-# Add Stamp
+# Enroll User
 
-## To add stamp with the Edexa API, use the addStamp method
+## To register-user with the edeXa API, use the enrollUser method
 
 ---
 
 ```SDK.js
-import { Bstamp, Network } from 'bstamp-library';
+import { Bstamp, Network } from 'edeXa-sdk';
 
 async function enrollUser() {
   const bStamp = new Bstamp({
@@ -32,12 +32,15 @@ async function enrollUser() {
 }
 
 ```
+
 ---
+
 - Make sure to replace `token` used in `Authorization` with your `token`, which you will get in response of [authentication method](./authenticate.md)
 
 ---
 
 - In this example, the `enrollUser` function is an `async` function that uses `await` to wait for the `bstamp.enrollUser` promise to resolve. If the promise resolves successfully, the stamped response is logged. If an error occurs, it is caught and logged using `console.error`.
+
 ---
 
 - Make sure to replace `USER_ID` with your actual `userId` of user, to whom you want to enroll in system.
@@ -46,10 +49,9 @@ async function enrollUser() {
 
 ---
 
-Response Description: 
+Response Description:
 
-  | Key | Type |
-  | --- | --- |
-  | publicAddress  | String |
-  | userId  | String |
-  
+| Key           | Type   |
+| ------------- | ------ |
+| publicAddress | String |
+| userId        | String |

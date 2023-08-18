@@ -8,15 +8,19 @@ import {
   enrollUser,
   getAllStamp,
   getStampDetail,
+  createWebhook,
+  getWebhook,
 } from '../internal/bstamp-api';
 import {
   AddStampRequestDTO,
   AddStampRequestV2DTO,
   CommonConfigDTO,
+  CreateWebhookDTO,
   EnrollUserDTO,
   GetStampDetailsDTO,
   GetStampDetailsV2DTO,
   GetStampV2DTO,
+  IGetWebhook,
   Ibstamp,
   IbstampAuth,
   IbstampGetAllStamp,
@@ -98,5 +102,26 @@ export class Bstamp {
    */
   enrollUser(data: EnrollUserDTO, config?: CommonConfigDTO): Promise<any> {
     return enrollUser(this.config, data, config);
+  }
+
+  /**
+   * Creates a webhook.
+   *
+   * @param data - Data for creating the webhook.
+   * @param config - Configuration for the request.
+   * @returns A Promise that resolves to the result of creation of webhook.
+   */
+  createWebhook(data: CreateWebhookDTO, config?: CommonConfigDTO): Promise<any> {
+    return createWebhook(this.config, data, config);
+  }
+
+  /**
+   * Get a webhook.
+   *
+   * @param config - Configuration for the request.
+   * @returns A Promise that resolves to the result of details of webhook.
+   */
+  getWebhook(config?: CommonConfigDTO): Promise<IGetWebhook> {
+    return getWebhook(this.config, config);
   }
 }

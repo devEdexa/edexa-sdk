@@ -8,6 +8,7 @@ import { API_VERSION, DEFAULT_NETWORK } from '../../src/util/constant';
 import {
   AddStampRequestDTO,
   AddStampRequestV2DTO,
+  CreateWebhookDTO,
   EnrollUserDTO,
   GetStampDetailsV2DTO,
 } from '../../src/util/interface';
@@ -450,6 +451,186 @@ describe('Get stamp Detail', () => {
         expect(data.userVerify).to.be.an('number');
         expect(data.isEsign).to.be.an('boolean');
         expect(data.isPrivateBc).to.be.an('boolean');
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+});
+
+describe('Create Webhook', () => {
+  it('It should return Authorization token not found', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+    });
+
+    const data: CreateWebhookDTO = {
+      redirectUrl: 'https://edexa.network/',
+      description: 'For bstamp file which have short code as b7ab41',
+      action: ['64799d3c4bfb861eee61aca6', '64799d3c4bfb861eee61aca7'],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return invald authorization token', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+
+    const data: CreateWebhookDTO = {
+      redirectUrl: 'https://edexa.network/',
+      description: 'For bstamp file which have short code as b7ab41',
+      action: ['64799d3c4bfb861eee61aca6', '64799d3c4bfb861eee61aca7'],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return Redirect URL can not be empty', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    const data: CreateWebhookDTO = {
+      redirectUrl: '',
+      description: 'For bstamp file which have short code as ******',
+      action: ['hash.failed', 'hash.succeed'],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return Description can not be empty', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    const data: CreateWebhookDTO = {
+      redirectUrl: 'https://edexa.network/',
+      description: '',
+      action: ['hash.failed', 'hash.succeed'],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return ActionID can not be empty', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    const data: CreateWebhookDTO = {
+      redirectUrl: 'https://edexa.network/',
+      description: 'For bstamp file which have short code as ******',
+      action: [],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return create webhook', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    const data: CreateWebhookDTO = {
+      redirectUrl: 'https://edexa.network/',
+      description: 'For bstamp file which have short code as ******',
+      action: ['hash.failed', 'hash.succeed'],
+    };
+    bStamp
+      .createWebhook(data, { version: API_VERSION.VERSION_2 })
+      .then(data => {
+        expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
+        expect(data.data).to.be.an('object');
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+});
+
+describe('Get Webhook Information', () => {
+  it('It should return Authorization token not found', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+    });
+
+    bStamp
+      .getWebhook({ version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return Authorization token not found', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+    bStamp
+      .getWebhook({ version: API_VERSION.VERSION_2 })
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return details of webhooks', done => {
+    const bStamp = new Bstamp({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    bStamp
+      .getWebhook({ version: API_VERSION.VERSION_2 })
+      .then(data => {
+        expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
+        expect(data.data)
+          .to.be.an('array')
+          .with.all.keys('_id', 'action', 'userId', 'redirectUrl', 'description', 'status', 'createdAt', 'updatedAt');
+        data.data.forEach(webhook => {
+          expect(webhook._id).to.be.an('string');
+          expect(webhook.action).to.be.an('array').to.include('string');
+          expect(webhook.userId).to.be.an('string');
+          expect(webhook.redirectUrl).to.be.an('string');
+          expect(webhook.description).to.be.an('string');
+          expect(webhook.status).to.be.an('number');
+          expect(webhook.createdAt).to.be.an('string');
+          expect(webhook.updatedAt).to.be.an('string');
+        });
         done();
       })
       .catch(error => {

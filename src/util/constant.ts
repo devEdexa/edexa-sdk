@@ -60,6 +60,7 @@ export const API_METHOD = {
   GET_ALL_STAMP: 'getAllStamp',
   STAMP_DETAILS: 'getStampDetail',
   ELECTRONIC_SIGN: 'addElectronicSign',
-  ENROLL_USER: 'enrollUser'
-
-}
+  ENROLL_USER: 'enrollUser',
+  CREATE_WEBHOOK: 'createWebhook',
+  GET_WEBHOOK: 'getWebhook',
+};

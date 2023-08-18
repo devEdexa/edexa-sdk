@@ -1,7 +1,14 @@
 // Import necessary dependencies and types
 import { EdexaConfig } from '../api/config';
 import { API_METHOD, API_VERSION, EdexaApiType, REQUEST_METHOD } from '../util/constant';
-import { IbstampGetStampDetail, Ibstamp, IbstampGetAllStampRaw, IbstampGetStampDetailRaw } from '../util/interface';
+import {
+  IbstampGetStampDetail,
+  Ibstamp,
+  IbstampGetAllStampRaw,
+  IbstampGetStampDetailRaw,
+  GetWebhookDetailsDTO,
+  IbstampCreateWebhook,
+} from '../util/interface';
 import { getAllStampFromRaw, getStampAuthFromRaw, getStampDetailFromRaw, getStampFromRaw } from '../util/util';
 import { requestHttp } from './dispatch';
 
@@ -162,7 +169,7 @@ export async function enrollUser(
   const response: any = await requestHttp(
     settings,
     EdexaApiType.BSTAMP,
-    'enroll-user',
+    'api/webhooks',
     srcMethod,
     {},
     {
@@ -170,6 +177,56 @@ export async function enrollUser(
       data,
       method: REQUEST_METHOD.POST,
       headers: { authorization: settings.authorization, version: API_VERSION.VERSION_2 },
+    }
+  );
+  return response;
+}
+
+export async function createWebhook(
+  settings: EdexaConfig,
+  data: object,
+  config?: any,
+  srcMethod = API_METHOD.CREATE_WEBHOOK
+): Promise<IbstampCreateWebhook> {
+  const response: any = await requestHttp(
+    settings,
+    EdexaApiType.BSTAMP,
+    'api/webhooks',
+    srcMethod,
+    {},
+    {
+      ...config,
+      data,
+      method: REQUEST_METHOD.POST,
+      headers: {
+        authorization: settings.authorization,
+        version: API_VERSION.VERSION_2,
+      },
+    }
+  );
+  return response;
+}
+
+export async function getWebhook(
+  settings: EdexaConfig,
+  data: object,
+  config?: any,
+  srcMethod = API_METHOD.GET_WEBHOOK
+): Promise<any> {
+  const response: GetWebhookDetailsDTO = await requestHttp(
+    settings,
+    EdexaApiType.BSTAMP,
+    'api/webhooks',
+    srcMethod,
+    {},
+    {
+      ...config,
+      data,
+      method: REQUEST_METHOD.GET,
+      headers: {
+        authorization: settings.authorization,
+        version: API_VERSION.VERSION_2,
+      },
     }
   );
   return response;

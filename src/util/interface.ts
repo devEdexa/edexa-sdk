@@ -96,3 +96,60 @@ export interface EnrollUserDTO {
 export interface CommonConfigDTO {
   version: string;
 }
+
+export interface IbstampCreateWebhook {
+  redirectUrl: string;
+  description: string;
+  action: string[];
+}
+
+export interface CreateWebhookDTO {
+  redirectUrl: string;
+  description: string;
+  action: string[];
+}
+
+class UsersDto {
+  _id: string;
+  name: string;
+  clientId: string;
+  orgId: string;
+  username: string;
+  email: string;
+  status: string;
+  loginType: string;
+  profilePicture: string;
+  language: string;
+  viewType: string;
+  totalStamps: string;
+  watermark: string;
+  usedStamps: string;
+  align: string;
+  publicAddress: string;
+  createdAt: string;
+  updatedAt: string;
+}
+class GetWebhookDTO {
+  _id: string;
+  userId: string;
+  redirectUrl: string;
+  description: string;
+  action: string[];
+  status: number;
+  createdAt: string;
+  updatedAt: string;
+  event: any[];
+  users: UsersDto;
+}
+
+export interface GetWebhookDetailsDTO {
+  status: number;
+  message: string;
+  data: GetWebhookDTO;
+}
+
+export interface IGetWebhook {
+  status: number;
+  message: number;
+  data: any[];
+}
