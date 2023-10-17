@@ -6,6 +6,14 @@ import {
   IbstampGetStampDetail,
   IbstampGetStampDetailRaw,
 } from './interface';
+import {
+  Ibarchive,
+  IbarchiveAddFile,
+  IbarchiveDeleteFile,
+  IbarchiveFileData,
+  IbarchiveUpdateFile,
+} from './interface/IBarchive';
+import { ICommonAuth } from './interface/ICommon';
 
 /**
  * Parses the raw stamp data and returns a formatted Ibstamp object.
@@ -93,5 +101,100 @@ export function getStampDetailFromRaw(rawGetStampDetail: IbstampGetStampDetailRa
     };
   } catch (e) {
     throw new Error('Error parsing the Bstamp response: ' + e);
+  }
+}
+
+/**
+ * Parses the raw archive authentication data and returns a formatted IbarchiveAuth object.
+ *
+ * @param rawArchiveAuth - Raw archive authentication data.
+ * @returns The parsed IbarchiveAuth object.
+ */
+export function getArchiveAuthFromRaw(rawArchiveAuth: {
+  data: { _id: string; token: string; username: string; name: string };
+}): ICommonAuth {
+  try {
+    return {
+      id: rawArchiveAuth?.data?._id,
+      token: rawArchiveAuth?.data?.token,
+      username: rawArchiveAuth?.data?.username,
+      name: rawArchiveAuth?.data?.name,
+    };
+  } catch (e) {
+    throw new Error('Error parsing the Barchive auth response: ' + e);
+  }
+}
+
+/**
+ * Parses the raw archive authentication data and returns a formatted IbarchiveAuth object.
+ *
+ * @param rawArchiveAddFile - Raw archive authentication data.
+ * @returns The parsed IbarchiveAuth object.
+ */
+export async function addArchiveFileFromRaw(rawArchiveAddFile: IbarchiveAddFile): Promise<IbarchiveAddFile> {
+  try {
+    return {
+      status: rawArchiveAddFile?.status,
+      message: rawArchiveAddFile?.message,
+      data: rawArchiveAddFile?.data,
+    };
+  } catch (e) {
+    throw new Error('Error parsing the Barchive addFile response: ' + e);
+  }
+}
+
+/**
+ * Parses the raw archive authentication data and returns a formatted IbarchiveAuth object.
+ *
+ * @param rawArchiveAddFile - Raw archive authentication data.
+ * @returns The parsed IbarchiveAuth object.
+ */
+export async function getArchiveFileFromRaw(rawArchiveAddFile: IbarchiveAddFile): Promise<IbarchiveAddFile> {
+  try {
+    return {
+      status: rawArchiveAddFile?.status,
+      message: rawArchiveAddFile?.message,
+      data: rawArchiveAddFile?.data,
+    };
+  } catch (e) {
+    throw new Error('Error parsing the Barchive getFile response: ' + e);
+  }
+}
+
+/**
+ * Parses the raw archive file updation data and returns a formatted IbarchiveUpdateFile object.
+ *
+ * @param rawArchiveUpdateFile - Raw archive file updation data.
+ * @returns The parsed IbarchiveUpdateFile object.
+ */
+export async function updateArchiveFileFromRaw(
+  rawArchiveUpdateFile: IbarchiveUpdateFile
+): Promise<IbarchiveUpdateFile> {
+  try {
+    return {
+      status: rawArchiveUpdateFile?.status,
+      message: rawArchiveUpdateFile?.message,
+    };
+  } catch (e) {
+    throw new Error('Error parsing the Barchive update file response: ' + e);
+  }
+}
+
+/**
+ * Parses the raw archive file delete data and returns a formatted IbarchiveAuth object.
+ *
+ * @param rawArchiveDeleteFile - Raw archive file delation data.
+ * @returns The parsed IbarchiveDeleteFile object.
+ */
+export async function deleteArchiveFileFromRaw(
+  rawArchiveDeleteFile: IbarchiveDeleteFile
+): Promise<IbarchiveDeleteFile> {
+  try {
+    return {
+      status: rawArchiveDeleteFile?.status,
+      message: rawArchiveDeleteFile?.message,
+    };
+  } catch (e) {
+    throw new Error('Error parsing the Barchive delete file response: ' + e);
   }
 }

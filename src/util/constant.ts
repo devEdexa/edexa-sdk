@@ -30,10 +30,21 @@ export function getEdexaBstampV2HttpUrl(network: Network): string {
 }
 
 /**
+ * Returns the HTTP URL for the edeXa bArchive API based on the network and API key.
+ *
+ * @param network - The network to use (e.g., 'mainnet', 'testnet').
+ * @returns The HTTP URL for the edeXa bArchive.
+ */
+export function getEdexaBarchiveHttpUrl(network: Network): string {
+  return `https://api-edexagw.${network}.com/barchive`;
+}
+
+/**
  * Represents the types of edeXa APIs.
  */
 export enum EdexaApiType {
   BSTAMP, // edeXa bStamp API
+  BARCHIVE, // edeXa bArchive API
 }
 
 /**
@@ -47,6 +58,8 @@ export enum API_VERSION {
 export enum REQUEST_METHOD {
   GET = 'GET',
   POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
 }
 
 export const IS_PRIVATE = {
@@ -63,4 +76,5 @@ export const API_METHOD = {
   ENROLL_USER: 'enrollUser',
   CREATE_WEBHOOK: 'createWebhook',
   GET_WEBHOOK: 'getWebhook',
+  FILE: 'file',
 };

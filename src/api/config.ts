@@ -4,6 +4,7 @@ import {
   DEFAULT_NETWORK,
   DEFAULT_REQUEST_TIMEOUT,
   EdexaApiType,
+  getEdexaBarchiveHttpUrl,
   getEdexaBstampHttpUrl,
   getEdexaBstampV2HttpUrl,
 } from '../util/constant';
@@ -48,6 +49,8 @@ export class EdexaConfig {
       return getEdexaBstampHttpUrl(this.network);
     } else if (apiType === EdexaApiType.BSTAMP && version == API_VERSION.VERSION_2) {
       return getEdexaBstampV2HttpUrl(this.network);
+    } else if (apiType === EdexaApiType.BARCHIVE) {
+      return getEdexaBarchiveHttpUrl(this.network);
     }
   }
 }

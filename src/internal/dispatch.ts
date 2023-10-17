@@ -21,7 +21,7 @@ export async function requestHttp<Req, Res>(
   restApiName: string,
   methodName: string,
   data: Req,
-  overrides?: AxiosRequestConfig
+  overrides?: any
 ): Promise<Res> {
   try {
     // Send the Axios request using the provided configuration
