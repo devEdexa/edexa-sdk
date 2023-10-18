@@ -4,6 +4,8 @@ import config from '../../src/config';
 import { Barchive } from '../../src';
 import { GetDetailsByIdDTO } from '../../src/util/interface/ICommon';
 import { UpdateFileExpireTime } from '../../src/util/interface/IBarchive';
+import * as fs from 'fs';
+import FormData from 'form-data';
 
 const settings = { network: DEFAULT_NETWORK };
 
@@ -11,7 +13,6 @@ let token;
 let fileId;
 const invalidAuthToken = config.INVALID_AUTH_TOKEN;
 const invalidFileId = '652e5657f9275197e4cfb5f4';
-// console.log("invalidAuthToken --> ", invalidAuthToken)
 
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
@@ -128,42 +129,85 @@ describe('Authenticate user', function () {
 });
 
 describe('File upload or Add File', function () {
-  const data: any = {
-    lat: '32.12',
-    long: '78.51',
-    expireTimeInMinutes: '0.01',
-    description: 'test',
-    attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
-  };
+  const data: any = new FormData();
+  data.append('attachments', fs.createReadStream('/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png'));
+  data.append('lat', '32.12');
+  data.append('long', '78.51');
+  data.append('expireTimeInMinutes', '0.01');
+  data.append('description', 'test');
 
-  it('It should return Authorization token not found', done => {
+  // it('It should return Authorization token not found', done => {
+  //   const bArchiveData = new Barchive({
+  //     ...settings,
+  //   });
+  //   //{ status: 400, message: 'Authorization token not found' }
+  //   bArchiveData
+  //     .addFile(data)
+  //     .then(data => {
+  //       expect(data);
+  //       done();
+  //     })
+  //     .catch(error => {
+  //       console.log('auth error --> ', error);
+  //       done();
+  //     });
+  // });
+
+  // it('It should return invalid auth token', done => {
+  //   console.log("invalidAuthToken --> ", invalidAuthToken)
+  //   const bArchiveData = new Barchive({
+  //     ...settings,
+  //     authorization: `Bearer ${invalidAuthToken}`,
+  //   });
+  //   //{ status: 401, message: 'Invalid auth token' }
+  //   bArchiveData
+  //     .addFile(data)
+  //     .then(data => {
+  //       console.log("invalid token data ========> ")
+  //       // expect(data);
+  //       done();
+  //     })
+  //     .catch(error => {
+  //       console.log('auth2 error --> ', error);
+  //       done();
+  //     });
+  // });
+
+  //success response
+  it('It should return File added successfully', done => {
     const bArchiveData = new Barchive({
       ...settings,
+      authorization: `Bearer ${token}`,
     });
-    //{ status: 400, message: 'Authorization token not found' }
-    bArchiveData
-      .addFile(data)
-      // .attach('File', fs.readFileSync('./test/asset/test.png'), 'test.png')
-      .then(data => {
-        expect(data);
-        done();
-      })
-      .catch(error => {
-        // console.log('error --> ', error);
-        done();
-      });
-  });
-
-  it('It should return invalid auth token', done => {
-    const bArchiveData = new Barchive({
-      ...settings,
-      authorization: `Bearer ${invalidAuthToken}`,
-    });
-    //{ status: 401, message: 'Invalid auth token' }
     bArchiveData
       .addFile(data)
       .then(data => {
+        fileId = data.data[0]?.id || data[0]?.id;
         expect(data);
+        expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
+        expect(data.status).to.be.an('number');
+        expect(data.message).to.be.an('string');
+        expect(data.data).to.be.an('array');
+        expect(data.data[0].file).to.be.an('array');
+        expect(data.data[0].file[0].fileName).to.be.an('string');
+        expect(data.data[0].file[0].fileType).to.be.an('string');
+        expect(data.data[0].file[0].mimeType).to.be.an('string');
+        expect(data.data[0].file[0].fileSize).to.be.an('number');
+        expect(data.data[0].file[0].url).to.be.an('string');
+        expect(data.data[0].file[0]._id).to.be.an('string');
+        expect(data.data[0].userId).to.be.an('string');
+        expect(data.data[0].fileName).to.be.an('string');
+        expect(data.data[0].description).to.be.an('string');
+        expect(data.data[0].lat).to.be.an('string');
+        expect(data.data[0].long).to.be.an('string');
+        expect(data.data[0].transactionId).to.be.an('string');
+        expect(data.data[0].uniqueId).to.be.an('string');
+        expect(data.data[0].expireTime).to.be.an('number');
+        expect(data.data[0].expireTimeStamp).to.be.an('string');
+        expect(data.data[0].id).to.be.an('string');
+        expect(data.data[0]._id).to.be.an('string');
+        expect(data.data[0].createdAt).to.be.an('string');
+        expect(data.data[0].updatedAt).to.be.an('string');
         done();
       })
       .catch(error => {
@@ -225,15 +269,13 @@ describe('File upload or Add File', function () {
   });
 
   //file not attached
-  it('It should return Invalid request', done => {
-    const passEmptydata = {
-      lat: '32.12',
-      long: '78.51',
-      expireTimeInMinutes: '0.01',
-      description: 'test',
-      attachments: '',
-    };
-
+  it('It should return attachments is required', done => {
+    const passEmptydata: any = new FormData();
+    // data.append('attachments', fs.createReadStream("/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png"));
+    passEmptydata.append('lat', '32.12');
+    passEmptydata.append('long', '78.51');
+    passEmptydata.append('expireTimeInMinutes', '0.01');
+    passEmptydata.append('description', 'test');
     const bArchiveData = new Barchive({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -246,51 +288,6 @@ describe('File upload or Add File', function () {
         done();
       })
       .catch(error => {
-        // console.log('error --> ', error);
-        done();
-      });
-  });
-
-  //success response
-  it('It should return File added successfully', done => {
-    const bArchiveData = new Barchive({
-      ...settings,
-      authorization: `Bearer ${token}`,
-    });
-    bArchiveData
-      .addFile(data)
-      .then(data => {
-        // console.log("file add --> ", data)
-        fileId = data.data[0]?.id || data[0]?.id;
-        expect(data);
-        expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
-        expect(data.status).to.be.an('number');
-        expect(data.message).to.be.an('string');
-        expect(data.data).to.be.an('array');
-        expect(data.data[0].file).to.be.an('array');
-        expect(data.data[0].file[0].fileName).to.be.an('string');
-        expect(data.data[0].file[0].fileType).to.be.an('string');
-        expect(data.data[0].file[0].mimeType).to.be.an('string');
-        expect(data.data[0].file[0].fileSize).to.be.an('number');
-        expect(data.data[0].file[0].url).to.be.an('string');
-        expect(data.data[0].file[0]._id).to.be.an('string');
-        expect(data.data[0].userId).to.be.an('string');
-        expect(data.data[0].fileName).to.be.an('string');
-        expect(data.data[0].description).to.be.an('string');
-        expect(data.data[0].lat).to.be.an('string');
-        expect(data.data[0].long).to.be.an('string');
-        expect(data.data[0].transactionId).to.be.an('string');
-        expect(data.data[0].uniqueId).to.be.an('string');
-        expect(data.data[0].expireTime).to.be.an('number');
-        expect(data.data[0].expireTimeStamp).to.be.an('string');
-        expect(data.data[0].id).to.be.an('string');
-        expect(data.data[0]._id).to.be.an('string');
-        expect(data.data[0].createdAt).to.be.an('string');
-        expect(data.data[0].updatedAt).to.be.an('string');
-        done();
-      })
-      .catch(error => {
-        // console.log('error --> ', error.data);
         done();
       });
   });

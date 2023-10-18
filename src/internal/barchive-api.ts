@@ -54,33 +54,16 @@ export async function addFile(
   data: string | object | any,
   srcMethod = API_METHOD.FILE
 ): Promise<IbarchiveAddFile> {
-  // let formdata: any = new FormData();
-  // formdata.append(
-  //   'attachments',
-  //   fs.createReadStream('/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png')
-  // );
-  // formdata.append('lat', '32.10');
-  // formdata.append('long', '78.52');
-  // formdata.append('expireTimeInMinutes', '5');
-  // formdata.append('description', 'BUCKET');
-
-  const formdata: any = new FormData();
-  formdata.append('attachments', fs.createReadStream(data?.attachments || ''));
-  formdata.append('lat', data?.lat || '');
-  formdata.append('long', data?.long || '');
-  formdata.append('expireTimeInMinutes', data?.expireTimeInMinutes || '');
-  formdata.append('description', data?.description || '');
-
   const response: any = await requestHttp(
     settings,
     EdexaApiType.BARCHIVE,
     'file',
     srcMethod,
-    { ...formdata },
+    {},
     {
       method: REQUEST_METHOD.POST,
-      data: formdata,
-      headers: { authorization: settings.authorization, version: '', ...formdata.getHeaders() },
+      data,
+      headers: { authorization: settings.authorization, version: '', ...data.getHeaders() },
       'content-type': 'multipart/form-data',
       'Content-Type': 'application/x-www-form-urlencoded',
     }
