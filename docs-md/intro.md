@@ -1,24 +1,11 @@
-# edeXa bStamp SDK
+# edeXa SDK
 
-The Alchemy SDK is the most comprehensive, stable, and powerful Javascript SDK available today to interact with the blockchain.
+The edeXa SDK stands out as the preeminent, steadfast, and potent JavaScript SDK currently accessible for seamless interaction with blockchain technology.
 
-# What bStamp SDK is:
+# List of SDK
 
-[<img src="https://account-files-bucket.s3.ap-south-1.amazonaws.com/accounts/assets/images/edexa-blue.svg" width="50%">](https://youtu.be/-9YlRpETt7U 'Now at edeXa')
-
-# SDK Core Methods
-
-List of all SDK Core methods.
-
-- [Authentication](/docs-md/authenticate.md)
-- [Add Stamp](/docs-md/stamp.md)
-- [Stamp list](/docs-md/stamps_list.md)
-
-| Method         | Description                                    |
-| -------------- | ---------------------------------------------- |
-| Authentication | List all new or modified files                 |
-| Add Stamp      | Show file differences that haven't been staged |
-| List Stamps    | Show file differences that haven't been staged |
+- [bStamp](/docs-md/bStamp/intro.md)
+- [bArchive](/docs-md/stamp.md)
 
 > **Note**
 > This is a note
@@ -37,7 +24,7 @@ List of all SDK Core methods.
 
 - Install the SDK
 - After installing the app, you can then import and use the SDK:
-
+<!-- 
 ## 🖖 Become a part of bStamp community
 
-> Connect and get the latest updates of bStamp : [bStamp Discord](https://discord.gg/mzqgaUz6)
+> Connect and get the latest updates of bStamp : [bStamp Discord](https://discord.gg/mzqgaUz6) -->

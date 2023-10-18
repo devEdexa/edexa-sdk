@@ -26,7 +26,7 @@ async function getAllStamp() {
   }
 
   try {
-    const stamps = await bstamp.getAllStamp(data, version);
+    const stamps = await bstamp.getAllStamp(dataToStamp, version);
     console.log('Success: ', stamps);
   } catch (error) {
     console.error('Failure: ', error);

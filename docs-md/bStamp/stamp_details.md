@@ -8,7 +8,7 @@
 import { Bstamp, Network } from 'edeXa-sdk';
 
 async function getStampDetail() {
-  const bStamp = new Bstamp({
+  const bstamp = new Bstamp({
       ...settings,
       authorization: `Bearer ${token}`,
     });

@@ -26,7 +26,7 @@ async function addStamp() {
   }
 
   try {
-    const addedStampResponse = await bstamp.addStamp(data, version);
+    const addedStampResponse = await bstamp.addStamp(dataToStamp, version);
     console.log('Success: ', addedStampResponse);
   } catch (error) {
     console.error('Failure: ', error);
