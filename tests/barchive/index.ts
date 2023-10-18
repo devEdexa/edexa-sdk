@@ -128,10 +128,10 @@ describe('Authenticate user', function () {
 });
 
 describe('File upload or Add File', function () {
-  let data: any = {
+  const data: any = {
     lat: '32.12',
     long: '78.51',
-    expireTimeInMinutes: '2',
+    expireTimeInMinutes: '0.01',
     description: 'test',
     attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
   };
@@ -174,9 +174,9 @@ describe('File upload or Add File', function () {
 
   //field missing
   it('It should return lat is required', done => {
-    data = {
+    const passMissingfield = {
       long: '72.12',
-      expireTimeInMinutes: '2',
+      expireTimeInMinutes: '0.01',
       description: 'test',
       attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
     };
@@ -187,7 +187,7 @@ describe('File upload or Add File', function () {
     });
     //{ status: 400, message: 'lat is required' }
     bArchiveData
-      .addFile(data)
+      .addFile(passMissingfield)
       .then(data => {
         expect(data);
         done();
@@ -200,10 +200,10 @@ describe('File upload or Add File', function () {
 
   // pass empty filed
   it('It should return lat is not allowed to be empty', done => {
-    data = {
+    const passEmptydata = {
       lat: '',
       long: '78.51',
-      expireTimeInMinutes: '2',
+      expireTimeInMinutes: '0.01',
       description: 'test',
       attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
     };
@@ -214,23 +214,22 @@ describe('File upload or Add File', function () {
     });
     //{ status: 400, message: 'lat is not allowed to be empty' }
     bArchiveData
-      .addFile(data)
+      .addFile(passEmptydata)
       .then(data => {
         expect(data);
         done();
       })
       .catch(error => {
-        // console.log('error --> ', error);
         done();
       });
   });
 
   //file not attached
   it('It should return Invalid request', done => {
-    data = {
+    const passEmptydata = {
       lat: '32.12',
       long: '78.51',
-      expireTimeInMinutes: '2',
+      expireTimeInMinutes: '0.01',
       description: 'test',
       attachments: '',
     };
@@ -241,7 +240,7 @@ describe('File upload or Add File', function () {
     });
     //{ status: 400, message: 'Invalid request' }
     bArchiveData
-      .addFile(data)
+      .addFile(passEmptydata)
       .then(data => {
         expect(data);
         done();
@@ -258,11 +257,10 @@ describe('File upload or Add File', function () {
       ...settings,
       authorization: `Bearer ${token}`,
     });
-
     bArchiveData
       .addFile(data)
       .then(data => {
-        // console.log("response data --> ", data)
+        // console.log("file add --> ", data)
         fileId = data.data[0]?.id || data[0]?.id;
         expect(data);
         expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
@@ -299,9 +297,9 @@ describe('File upload or Add File', function () {
 });
 
 describe('File Update', function () {
-  fileId = '652e5657f9275197e4cfb5f6';
+  // fileId = '652e5657f9275197e4cfb5f6';
   it('It should return Authorization token not found', done => {
-    const updateFileData: UpdateFileExpireTime = { id: fileId, expireTimeInMinutes: '2' };
+    const updateFileData: UpdateFileExpireTime = { id: fileId, expireTimeInMinutes: '0.001' };
     const bArchiveData = new Barchive({
       ...settings,
     });
@@ -317,7 +315,7 @@ describe('File Update', function () {
       });
   });
   it('It should return invalid auth token', done => {
-    const updateFileData: UpdateFileExpireTime = { id: fileId, expireTimeInMinutes: '2' };
+    const updateFileData: UpdateFileExpireTime = { id: fileId, expireTimeInMinutes: '0.001' };
     const bArchiveData = new Barchive({
       ...settings,
       authorization: `Bearer ${invalidAuthToken}`,
@@ -334,7 +332,7 @@ describe('File Update', function () {
       });
   });
   it('It should return id is required', done => {
-    const updateFileData: { expireTimeInMinutes: string } = { expireTimeInMinutes: '2' };
+    const updateFileData: { expireTimeInMinutes: string } = { expireTimeInMinutes: '0.001' };
     const bArchiveData = new Barchive({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -369,8 +367,29 @@ describe('File Update', function () {
       });
   });
 
+  it('It should return expireTimeInMinutes is not allowed to be empty', done => {
+    fileId = '652f68e495d4312129912302';
+    const updateFileData: UpdateFileExpireTime = { id: fileId, expireTimeInMinutes: 2 };
+    const bArchiveData = new Barchive({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    // { status: 400, message: 'expireTimeInMinutes is not allowed to be empty' }
+    bArchiveData
+      .updateFile(updateFileData)
+      .then((data: any) => {
+        // console.log("file update---> ", data)
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        // console.log("file update error ---> ", error)
+        done();
+      });
+  });
+
   it('It should return File updated successfully', done => {
-    const updateFileData: UpdateFileExpireTime = { id: fileId, expireTimeInMinutes: '2' };
+    const updateFileData: UpdateFileExpireTime = { id: fileId, expireTimeInMinutes: '0.001' };
     const bArchiveData = new Barchive({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -396,7 +415,6 @@ describe('File Update', function () {
 
 /*********************** get File and dlete file ***********************/
 describe('Get File details', function () {
-  // fileId = '652d0be5c2023abeee8a4012';
   it('It should return Authorization token not found', done => {
     const fileIdData: GetDetailsByIdDTO = { id: fileId };
     const bArchiveData = new Barchive({
@@ -409,7 +427,6 @@ describe('Get File details', function () {
         done();
       })
       .catch(error => {
-        // console.log('error --> ', error);
         done();
       });
   });
@@ -454,32 +471,32 @@ describe('Get File details', function () {
       authorization: `Bearer ${token}`,
     });
     //{ status: 200, message: 'File get successfully' }
-    bArchiveData
-      .getFile(fileIdData)
-      .then((data: any) => {
-        // console.log(data);
-        // console.log("get file data ---> ", data)
-        expect(data);
-        expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
-        expect(data.status).to.be.an('number');
-        expect(data.message).to.be.an('string');
-        expect(data.data).to.be.an('array');
-        expect(data.data[0].file).to.be.an('string');
-        expect(data.data[0].fileName).to.be.an('string');
-        expect(data.data[0].fileSize).to.be.an('number');
-        expect(data.data[0].mimeType).to.be.an('string');
-        done();
-      })
-      .catch(error => {
-        // console.log('error --> ', error);
-        done();
-      });
+    setTimeout(() => {
+      bArchiveData
+        .getFile(fileIdData)
+        .then((data: any) => {
+          // console.log(data);
+          // console.log("get file data ---> ", data)
+          expect(data);
+          expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
+          expect(data.status).to.be.an('number');
+          expect(data.message).to.be.an('string');
+          expect(data.data).to.be.an('array');
+          expect(data.data[0].file).to.be.an('string');
+          expect(data.data[0].fileName).to.be.an('string');
+          expect(data.data[0].fileSize).to.be.an('number');
+          expect(data.data[0].mimeType).to.be.an('string');
+          done();
+        })
+        .catch(error => {
+          // console.log('error --> ', error);
+          done();
+        });
+    }, 1500);
   });
 });
 
 describe('Delete File', function () {
-  // fileId = '652d0be5c2023abeee8a4012';
-  // const data: GetDetailsByIdDTO = { id: fileId };
   it('It should return Authorization token not found', done => {
     const data: GetDetailsByIdDTO = { id: fileId };
     const bArchiveData = new Barchive({
@@ -492,7 +509,6 @@ describe('Delete File', function () {
         done();
       })
       .catch(error => {
-        // console.log('error --> ', error);
         done();
       });
   });
@@ -522,6 +538,23 @@ describe('Delete File', function () {
     // { status: 400, message: 'id is required' }
     bArchiveData
       .deleteFile('')
+      .then((data: any) => {
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+
+  it('It should return File not found', done => {
+    const wrondFileId: GetDetailsByIdDTO = { id: '00006f1295d4312129910000' };
+    const bArchiveData = new Barchive({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    // { status: 400, message: 'File not found' }
+    bArchiveData
+      .deleteFile(wrondFileId)
       .then((data: any) => {
         done();
       })

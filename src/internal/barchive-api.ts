@@ -6,6 +6,7 @@ import {
   deleteArchiveFileFromRaw,
   getArchiveAuthFromRaw,
   getArchiveFileFromRaw,
+  updateArchiveFileFromRaw,
 } from '../util/util';
 import { requestHttp } from './dispatch';
 import * as fs from 'fs';
@@ -128,7 +129,7 @@ export async function updateFile(
     data,
     headers: { authorization: settings.authorization, version: '' },
   });
-  return await getArchiveFileFromRaw(response);
+  return await updateArchiveFileFromRaw(response);
 }
 
 /**
