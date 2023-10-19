@@ -23,9 +23,8 @@ async function getStampDetail() {
 
   try {
     const fileDetails = await barchive.getFile(fileId);
-    console.log('Success: ', fileDetails);
   } catch (error) {
-    console.error('Failure: ', error);
+    // Handle the error
   }
 }
 
@@ -42,6 +41,16 @@ async function getStampDetail() {
 ---
 
 - Make sure to replace `FILE_ID` with your actual `id` of adding file.
-- The `FILE_ID`, can be retrieved from :
-  - [Add File](./file_add.md) : In success response of `add file` method you can get `id` of adding file.
+- The `FILE_ID`, can be retrieved from the following source:
+  - [Add File](./file_add.md) : In the success response of the `addFile` method, you can find the `id` of the added file.
 
+---
+
+- Response Description: In response, the following attributes are included—`file`, `fileName`, `fileSize` and `mimeType`.
+
+  | Key             | Type   |
+  | --------------- | ------ |
+  | file            | String |
+  | fileName        | String |
+  | fileSize        | Number |
+  | mimeType        | String |

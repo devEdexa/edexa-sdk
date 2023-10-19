@@ -1,6 +1,6 @@
 # 🛣️ Authenticating the Client
 
-## To authenticate the client with the edeXa API, use the authenticate method.
+## To authenticate the client with the Barchive API, use the authenticate method.
 
 ---
 
@@ -17,9 +17,8 @@ async function authenticateClient() {
 
   try {
     const authResponse = await barchive.authenticate(settings);
-    console.log('Authentication successful:', authResponse);
   } catch (error) {
-    console.error('Authentication failed:', error);
+    // Handle the error
   }
 }
 

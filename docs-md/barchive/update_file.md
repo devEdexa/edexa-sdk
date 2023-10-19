@@ -1,6 +1,6 @@
 # 📝 Update File Expire Time
 
-## Update file expire time with the edeXa API, use the updateFile method:
+## Update file expire time with the Barchive API, use the updateFile method:
 
 ---
 
@@ -23,9 +23,8 @@ async function updateFileExpireTime() {
 
   try {
     const addedFileResponse = await barchive.updateFile(dataToUpdateFile);
-    console.log('Success: ', addedFileResponse);
   } catch (error) {
-    console.error('Failure: ', error);
+    // Handle the error
   }
 }
 
@@ -35,8 +34,8 @@ async function updateFileExpireTime() {
 
 - Make sure to replace `token` used in `Authorization` with your `token`, which you will get in response of [authentication method](./authenticate.md)
 - In this example, the `updateFile` function is an `async` function that uses `await` to wait for the `barchive.updateFile` promise to resolve. If the promise resolves successfully, the updating file response is logged. If an error occurs, it is caught and logged using `console.error`.
-- Make sure to replace `FILE_ID` with your actual file id which are receive on `addFile`.
-- Make sure to replace `EXPIRE_TIME` with actual file expire time whatever you want to update.
+- Please make sure to replace `FILE_ID` with the actual file ID received when using the `addFile` method.
+- Make sure to replace `EXPIRE_TIME` with the actual file expiration time you wish to set
 
 ---
 
@@ -44,6 +43,6 @@ async function updateFileExpireTime() {
 
   | Key     | Type   |
   | ------- | ------ |
-  | status  | number |
+  | status  | Number |
   | message | String |
 
