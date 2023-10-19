@@ -31,7 +31,6 @@ export class Barchive {
    * @returns A Promise that resolves to the added file.
    */
   async addFile(data: any): Promise<any> {
-    // console.log({ data });
     return addFile(this.config, data);
   }
 
@@ -43,7 +42,6 @@ export class Barchive {
    * @returns A Promise that resolves to the file details.
    */
   async getFile(data: any): Promise<IbarchiveAddFile> {
-    // console.log({ data });
     return getFile(this.config, data);
   }
 
@@ -55,7 +53,6 @@ export class Barchive {
    * @returns A Promise that resolves to the file updation.
    */
   async updateFile(data: any): Promise<IbarchiveUpdateFile> {
-    // console.log({ data });
     return updateFile(this.config, data);
   }
 
@@ -67,7 +64,6 @@ export class Barchive {
    * @returns A Promise that resolves to the deleted file.
    */
   async deleteFile(data): Promise<IbarchiveDeleteFile> {
-    // console.log({ data });
     return deleteFile(this.config, data);
   }
 }

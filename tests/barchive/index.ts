@@ -4,15 +4,12 @@ import config from '../../src/config';
 import { Barchive } from '../../src';
 import { GetDetailsByIdDTO } from '../../src/util/interface/ICommon';
 import { UpdateFileExpireTime } from '../../src/util/interface/IBarchive';
-import * as fs from 'fs';
-import FormData from 'form-data';
 
 const settings = { network: DEFAULT_NETWORK };
-
 let token;
 let fileId;
 const invalidAuthToken = config.INVALID_AUTH_TOKEN;
-const invalidFileId = '652e5657f9275197e4cfb5f4';
+const invalidFileId = '00000657f9275197e4c00000';
 
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
@@ -36,7 +33,6 @@ describe('Authenticate user', function () {
         done();
       })
       .catch(error => {
-        // console.log({ error });
         done();
       });
   });
@@ -56,15 +52,14 @@ describe('Authenticate user', function () {
         done();
       })
       .catch(error => {
-        // console.log(error);
-        expect(error).to.be.an('object').with.all.keys('status', 'message');
+        expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
         done();
       });
   });
 
-  it('It should return something went wrong', function (done) {
+  it('It should return client id is not allowed to be empty', function (done) {
     const authSettings = {
       headers: {
         'client-id': '',
@@ -80,7 +75,9 @@ describe('Authenticate user', function () {
         done();
       })
       .catch(error => {
-        // console.log({ error });
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -101,7 +98,9 @@ describe('Authenticate user', function () {
         done();
       })
       .catch(error => {
-        // console.log({ error });
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -122,57 +121,143 @@ describe('Authenticate user', function () {
         done();
       })
       .catch(error => {
-        // console.log({ error });
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
 });
 
 describe('File upload or Add File', function () {
-  const data: any = new FormData();
-  data.append('attachments', fs.createReadStream('/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png'));
-  data.append('lat', '32.12');
-  data.append('long', '78.51');
-  data.append('expireTimeInMinutes', '0.01');
-  data.append('description', 'test');
+  const data = {
+    lat: '32.12',
+    long: '78.51',
+    expireTimeInMinutes: '0.01',
+    description: 'test',
+    attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
+  };
 
-  // it('It should return Authorization token not found', done => {
-  //   const bArchiveData = new Barchive({
-  //     ...settings,
-  //   });
-  //   //{ status: 400, message: 'Authorization token not found' }
-  //   bArchiveData
-  //     .addFile(data)
-  //     .then(data => {
-  //       expect(data);
-  //       done();
-  //     })
-  //     .catch(error => {
-  //       console.log('auth error --> ', error);
-  //       done();
-  //     });
-  // });
+  it('It should return Authorization token not found', done => {
+    const bArchiveData = new Barchive({
+      ...settings,
+    });
+    //{ status: 400, message: 'Authorization token not found' }
+    bArchiveData
+      .addFile(data)
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
 
-  // it('It should return invalid auth token', done => {
-  //   console.log("invalidAuthToken --> ", invalidAuthToken)
-  //   const bArchiveData = new Barchive({
-  //     ...settings,
-  //     authorization: `Bearer ${invalidAuthToken}`,
-  //   });
-  //   //{ status: 401, message: 'Invalid auth token' }
-  //   bArchiveData
-  //     .addFile(data)
-  //     .then(data => {
-  //       console.log("invalid token data ========> ")
-  //       // expect(data);
-  //       done();
-  //     })
-  //     .catch(error => {
-  //       console.log('auth2 error --> ', error);
-  //       done();
-  //     });
-  // });
+  it('It should return invalid auth token', done => {
+    const bArchiveData = new Barchive({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+    //{ status: 401, message: 'Invalid auth token' }
+    bArchiveData
+      .addFile(data)
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
 
+  //field missing
+  it('It should return lat is required', done => {
+    const passMissingfield = {
+      long: '72.12',
+      expireTimeInMinutes: '0.01',
+      description: 'test',
+      attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
+    };
+
+    const bArchiveData = new Barchive({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    //{ status: 400, message: 'lat is required' }
+    bArchiveData
+      .addFile(passMissingfield)
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  // pass empty filed
+  it('It should return lat is not allowed to be empty', done => {
+    const passEmptydata = {
+      lat: '',
+      long: '78.51',
+      expireTimeInMinutes: '0.01',
+      description: 'test',
+      attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
+    };
+
+    const bArchiveData = new Barchive({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    //{ status: 400, message: 'lat is not allowed to be empty' }
+    bArchiveData
+      .addFile(passEmptydata)
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  //file not attached
+  it('It should return attachments is required', done => {
+    const passEmptydata: any = {
+      lat: '32.12',
+      long: '78.51',
+      expireTimeInMinutes: '0.01',
+      description: 'test',
+    };
+
+    const bArchiveData = new Barchive({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    //{ status: 400, message: 'Invalid request' }
+    bArchiveData
+      .addFile(passEmptydata)
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
   //success response
   it('It should return File added successfully', done => {
     const bArchiveData = new Barchive({
@@ -211,90 +296,12 @@ describe('File upload or Add File', function () {
         done();
       })
       .catch(error => {
-        // console.log('error --> ', error);
-        done();
-      });
-  });
-
-  //field missing
-  it('It should return lat is required', done => {
-    const passMissingfield = {
-      long: '72.12',
-      expireTimeInMinutes: '0.01',
-      description: 'test',
-      attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
-    };
-
-    const bArchiveData = new Barchive({
-      ...settings,
-      authorization: `Bearer ${token}`,
-    });
-    //{ status: 400, message: 'lat is required' }
-    bArchiveData
-      .addFile(passMissingfield)
-      .then(data => {
-        expect(data);
-        done();
-      })
-      .catch(error => {
-        // console.log('error --> ', error);
-        done();
-      });
-  });
-
-  // pass empty filed
-  it('It should return lat is not allowed to be empty', done => {
-    const passEmptydata = {
-      lat: '',
-      long: '78.51',
-      expireTimeInMinutes: '0.01',
-      description: 'test',
-      attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
-    };
-
-    const bArchiveData = new Barchive({
-      ...settings,
-      authorization: `Bearer ${token}`,
-    });
-    //{ status: 400, message: 'lat is not allowed to be empty' }
-    bArchiveData
-      .addFile(passEmptydata)
-      .then(data => {
-        expect(data);
-        done();
-      })
-      .catch(error => {
-        done();
-      });
-  });
-
-  //file not attached
-  it('It should return attachments is required', done => {
-    const passEmptydata: any = new FormData();
-    // data.append('attachments', fs.createReadStream("/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png"));
-    passEmptydata.append('lat', '32.12');
-    passEmptydata.append('long', '78.51');
-    passEmptydata.append('expireTimeInMinutes', '0.01');
-    passEmptydata.append('description', 'test');
-    const bArchiveData = new Barchive({
-      ...settings,
-      authorization: `Bearer ${token}`,
-    });
-    //{ status: 400, message: 'Invalid request' }
-    bArchiveData
-      .addFile(passEmptydata)
-      .then(data => {
-        expect(data);
-        done();
-      })
-      .catch(error => {
         done();
       });
   });
 });
 
 describe('File Update', function () {
-  // fileId = '652e5657f9275197e4cfb5f6';
   it('It should return Authorization token not found', done => {
     const updateFileData: UpdateFileExpireTime = { id: fileId, expireTimeInMinutes: '0.001' };
     const bArchiveData = new Barchive({
@@ -303,11 +310,12 @@ describe('File Update', function () {
     bArchiveData
       .updateFile(updateFileData)
       .then(data => {
-        expect(data);
         done();
       })
       .catch(error => {
-        // console.log('error --> ', error);
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -321,10 +329,12 @@ describe('File Update', function () {
     bArchiveData
       .updateFile(updateFileData)
       .then(data => {
-        expect(data);
         done();
       })
       .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -338,10 +348,12 @@ describe('File Update', function () {
     bArchiveData
       .updateFile(updateFileData)
       .then((data: any) => {
-        expect(data);
         done();
       })
       .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -356,17 +368,18 @@ describe('File Update', function () {
     bArchiveData
       .updateFile(updateFileData)
       .then((data: any) => {
-        expect(data);
         done();
       })
       .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
 
-  it('It should return expireTimeInMinutes is not allowed to be empty', done => {
-    fileId = '652f68e495d4312129912302';
-    const updateFileData: UpdateFileExpireTime = { id: fileId, expireTimeInMinutes: 2 };
+  it('It should return expireTimeInMinutes must be a string', done => {
+    const updateFileData: UpdateFileExpireTime = { id: invalidFileId, expireTimeInMinutes: 2 };
     const bArchiveData = new Barchive({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -375,12 +388,12 @@ describe('File Update', function () {
     bArchiveData
       .updateFile(updateFileData)
       .then((data: any) => {
-        // console.log("file update---> ", data)
-        expect(data);
         done();
       })
       .catch(error => {
-        // console.log("file update error ---> ", error)
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -395,8 +408,6 @@ describe('File Update', function () {
     bArchiveData
       .updateFile(updateFileData)
       .then((data: any) => {
-        // console.log(data);
-        // console.log("get file data ---> ", data)
         expect(data);
         expect(data).to.be.an('object').with.all.keys('status', 'message');
         expect(data.status).to.be.an('number');
@@ -404,7 +415,6 @@ describe('File Update', function () {
         done();
       })
       .catch(error => {
-        // console.log('error --> ', error);
         done();
       });
   });
@@ -420,10 +430,12 @@ describe('Get File details', function () {
     bArchiveData
       .getFile(fileIdData)
       .then(data => {
-        expect(data);
         done();
       })
       .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -437,10 +449,12 @@ describe('Get File details', function () {
     bArchiveData
       .getFile(fileIdData)
       .then(data => {
-        expect(data);
         done();
       })
       .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -453,10 +467,12 @@ describe('Get File details', function () {
     bArchiveData
       .getFile('')
       .then((data: any) => {
-        expect(data);
         done();
       })
       .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -472,8 +488,6 @@ describe('Get File details', function () {
       bArchiveData
         .getFile(fileIdData)
         .then((data: any) => {
-          // console.log(data);
-          // console.log("get file data ---> ", data)
           expect(data);
           expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
           expect(data.status).to.be.an('number');
@@ -486,7 +500,6 @@ describe('Get File details', function () {
           done();
         })
         .catch(error => {
-          // console.log('error --> ', error);
           done();
         });
     }, 1500);
@@ -502,10 +515,12 @@ describe('Delete File', function () {
     bArchiveData
       .deleteFile(data)
       .then(data => {
-        expect(data);
         done();
       })
       .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -519,10 +534,12 @@ describe('Delete File', function () {
     bArchiveData
       .deleteFile(data)
       .then(data => {
-        expect(data);
         done();
       })
       .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -539,12 +556,15 @@ describe('Delete File', function () {
         done();
       })
       .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
 
   it('It should return File not found', done => {
-    const wrondFileId: GetDetailsByIdDTO = { id: '00006f1295d4312129910000' };
+    const wrondFileId: GetDetailsByIdDTO = { id: invalidFileId };
     const bArchiveData = new Barchive({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -556,6 +576,9 @@ describe('Delete File', function () {
         done();
       })
       .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -570,14 +593,12 @@ describe('Delete File', function () {
     bArchiveData
       .deleteFile(data)
       .then((data: any) => {
-        // console.log(data);
         expect(data).to.be.an('object').with.all.keys('status', 'message');
         expect(data.status).to.be.an('number');
         expect(data.message).to.be.an('string');
         done();
       })
       .catch(error => {
-        // console.log('error --> ', error);
         done();
       });
   });

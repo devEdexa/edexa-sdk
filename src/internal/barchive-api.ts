@@ -28,7 +28,7 @@ export async function authenticate(
   const response: any = await requestHttp(
     settings,
     EdexaApiType.BARCHIVE,
-    'authenticate',
+    API_METHOD.AUTHENTICATE,
     srcMethod,
     {},
     {
@@ -45,7 +45,6 @@ export async function authenticate(
  *
  * @param settings - Configuration settings for edeXa.
  * @param data - Data for adding the file.
- * @param config - Configuration for the request.
  * @param srcMethod - Source method for adding the file.
  * @returns A Promise that resolves to the added file.
  */
@@ -54,39 +53,47 @@ export async function addFile(
   data: string | object | any,
   srcMethod = API_METHOD.FILE
 ): Promise<IbarchiveAddFile> {
+  const formData: any = new FormData();
+  data?.attachments ? formData.append('attachments', fs.createReadStream(data?.attachments || '')) : '';
+  formData.append('lat', data?.lat || '');
+  formData.append('long', data?.long || '');
+  formData.append('expireTimeInMinutes', data?.expireTimeInMinutes || '');
+  formData.append('description', data?.description || '');
+
   const response: any = await requestHttp(
     settings,
     EdexaApiType.BARCHIVE,
-    'file',
+    API_METHOD.FILE,
     srcMethod,
     {},
     {
       method: REQUEST_METHOD.POST,
-      data,
-      headers: { authorization: settings.authorization, version: '', ...data.getHeaders() },
-      'content-type': 'multipart/form-data',
-      'Content-Type': 'application/x-www-form-urlencoded',
+      data: formData,
+      maxBodyLength: Infinity,
+      headers: {
+        authorization: settings.authorization,
+        version: '',
+        'Content-Type': 'multipart/form-data',
+      },
     }
   );
   return await addArchiveFileFromRaw(response);
 }
 
 /**
- * Adds a file.
+ * Geting a file details.
  *
  * @param settings - Configuration settings for edeXa.
- * @param data - Data for adding the stamp.
- * @param config - Configuration for the request.
- * @param srcMethod - Source method for adding the file.
- * @returns A Promise that resolves to the added file.
+ * @param data - Data for geting a file.
+ * @param srcMethod - Source method for geting a file.
+ * @returns A Promise that resolves to the geting a file.
  */
 export async function getFile(
   settings: EdexaConfig,
   data: string | object,
   srcMethod = API_METHOD.FILE
 ): Promise<IbarchiveAddFile> {
-  // console.log("settings ======> ", settings)
-  const response: any = await requestHttp(settings, EdexaApiType.BARCHIVE, 'file', srcMethod, data, {
+  const response: any = await requestHttp(settings, EdexaApiType.BARCHIVE, API_METHOD.FILE, srcMethod, data, {
     method: REQUEST_METHOD.GET,
     data,
     headers: { authorization: settings.authorization, version: '' },
@@ -107,7 +114,7 @@ export async function updateFile(
   data: string | object,
   srcMethod = API_METHOD.FILE
 ): Promise<IbarchiveUpdateFile> {
-  const response: any = await requestHttp(settings, EdexaApiType.BARCHIVE, 'file', srcMethod, data, {
+  const response: any = await requestHttp(settings, EdexaApiType.BARCHIVE, API_METHOD.FILE, srcMethod, data, {
     method: REQUEST_METHOD.PUT,
     data,
     headers: { authorization: settings.authorization, version: '' },
@@ -128,8 +135,7 @@ export async function deleteFile(
   data: string | object,
   srcMethod = API_METHOD.FILE
 ): Promise<IbarchiveDeleteFile> {
-  // console.log("settings ======> ", settings)
-  const response: any = await requestHttp(settings, EdexaApiType.BARCHIVE, 'file', srcMethod, data, {
+  const response: any = await requestHttp(settings, EdexaApiType.BARCHIVE, API_METHOD.FILE, srcMethod, data, {
     method: REQUEST_METHOD.DELETE,
     data,
     headers: { authorization: settings.authorization, version: '' },
