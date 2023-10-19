@@ -15,3 +15,8 @@ export interface ICommonAuth {
 export interface GetDetailsByIdDTO {
   id: string;
 }
+
+export interface CommonResponse {
+  status: number;
+  message: string;
+}

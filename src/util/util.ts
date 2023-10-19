@@ -6,14 +6,8 @@ import {
   IbstampGetStampDetail,
   IbstampGetStampDetailRaw,
 } from './interface';
-import {
-  Ibarchive,
-  IbarchiveAddFile,
-  IbarchiveDeleteFile,
-  IbarchiveFileData,
-  IbarchiveUpdateFile,
-} from './interface/IBarchive';
-import { ICommonAuth } from './interface/ICommon';
+import { IbarchiveAddFile, IbarchiveAddFileData, IbarchiveGetFile, IbarchiveGetFileData } from './interface/IBarchive';
+import { CommonResponse, ICommonAuth } from './interface/ICommon';
 
 /**
  * Parses the raw stamp data and returns a formatted Ibstamp object.
@@ -131,13 +125,9 @@ export function getArchiveAuthFromRaw(rawArchiveAuth: {
  * @param rawArchiveAddFile - Raw archive authentication data.
  * @returns The parsed IbarchiveAuth object.
  */
-export async function addArchiveFileFromRaw(rawArchiveAddFile: IbarchiveAddFile): Promise<IbarchiveAddFile> {
+export async function addArchiveFileFromRaw(rawArchiveAddFile: IbarchiveAddFileData): Promise<Array<IbarchiveAddFile>> {
   try {
-    return {
-      status: rawArchiveAddFile?.status,
-      message: rawArchiveAddFile?.message,
-      data: rawArchiveAddFile?.data,
-    };
+    return rawArchiveAddFile?.data;
   } catch (e) {
     throw new Error('Error parsing the Barchive addFile response: ' + e);
   }
@@ -149,27 +139,21 @@ export async function addArchiveFileFromRaw(rawArchiveAddFile: IbarchiveAddFile)
  * @param rawArchiveAddFile - Raw archive authentication data.
  * @returns The parsed IbarchiveAuth object.
  */
-export async function getArchiveFileFromRaw(rawArchiveAddFile: IbarchiveAddFile): Promise<IbarchiveAddFile> {
+export async function getArchiveFileFromRaw(rawArchiveAddFile: IbarchiveGetFileData): Promise<Array<IbarchiveGetFile>> {
   try {
-    return {
-      status: rawArchiveAddFile?.status,
-      message: rawArchiveAddFile?.message,
-      data: rawArchiveAddFile?.data,
-    };
+    return rawArchiveAddFile.data;
   } catch (e) {
     throw new Error('Error parsing the Barchive getFile response: ' + e);
   }
 }
 
 /**
- * Parses the raw archive file updation data and returns a formatted IbarchiveUpdateFile object.
+ * Parses the raw archive file updation data and returns a formatted CommonResponse object.
  *
  * @param rawArchiveUpdateFile - Raw archive file updation data.
- * @returns The parsed IbarchiveUpdateFile object.
+ * @returns The parsed CommonResponse object.
  */
-export async function updateArchiveFileFromRaw(
-  rawArchiveUpdateFile: IbarchiveUpdateFile
-): Promise<IbarchiveUpdateFile> {
+export async function updateArchiveFileFromRaw(rawArchiveUpdateFile: CommonResponse): Promise<CommonResponse> {
   try {
     return {
       status: rawArchiveUpdateFile?.status,
@@ -184,11 +168,9 @@ export async function updateArchiveFileFromRaw(
  * Parses the raw archive file delete data and returns a formatted IbarchiveAuth object.
  *
  * @param rawArchiveDeleteFile - Raw archive file delation data.
- * @returns The parsed IbarchiveDeleteFile object.
+ * @returns The parsed CommonResponse object.
  */
-export async function deleteArchiveFileFromRaw(
-  rawArchiveDeleteFile: IbarchiveDeleteFile
-): Promise<IbarchiveDeleteFile> {
+export async function deleteArchiveFileFromRaw(rawArchiveDeleteFile: CommonResponse): Promise<CommonResponse> {
   try {
     return {
       status: rawArchiveDeleteFile?.status,

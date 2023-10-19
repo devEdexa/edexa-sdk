@@ -1,6 +1,12 @@
 import { EdexaConfig } from '../api/config';
 import { API_METHOD, API_VERSION, EdexaApiType, REQUEST_METHOD } from '../util/constant';
-import { Ibarchive, IbarchiveAddFile, IbarchiveDeleteFile, IbarchiveUpdateFile } from '../util/interface/IBarchive';
+import {
+  Ibarchive,
+  IbarchiveAddFile,
+  IbarchiveAddFileData,
+  IbarchiveGetFile,
+  IbarchiveGetFileData,
+} from '../util/interface/IBarchive';
 import {
   addArchiveFileFromRaw,
   deleteArchiveFileFromRaw,
@@ -11,6 +17,7 @@ import {
 import { requestHttp } from './dispatch';
 import * as fs from 'fs';
 import FormData from 'form-data';
+import { CommonResponse } from '../util/interface/ICommon';
 
 /**
  * Authenticates the client with the edeXa API.
@@ -52,7 +59,7 @@ export async function addFile(
   settings: EdexaConfig,
   data: string | object | any,
   srcMethod = API_METHOD.FILE
-): Promise<IbarchiveAddFile> {
+): Promise<Array<IbarchiveAddFile>> {
   const formData: any = new FormData();
   data?.attachments ? formData.append('attachments', fs.createReadStream(data?.attachments || '')) : '';
   formData.append('lat', data?.lat || '');
@@ -60,7 +67,7 @@ export async function addFile(
   formData.append('expireTimeInMinutes', data?.expireTimeInMinutes || '');
   formData.append('description', data?.description || '');
 
-  const response: any = await requestHttp(
+  const response: IbarchiveAddFileData = await requestHttp(
     settings,
     EdexaApiType.BARCHIVE,
     API_METHOD.FILE,
@@ -92,12 +99,19 @@ export async function getFile(
   settings: EdexaConfig,
   data: string | object,
   srcMethod = API_METHOD.FILE
-): Promise<IbarchiveAddFile> {
-  const response: any = await requestHttp(settings, EdexaApiType.BARCHIVE, API_METHOD.FILE, srcMethod, data, {
-    method: REQUEST_METHOD.GET,
+): Promise<Array<IbarchiveGetFile>> {
+  const response: IbarchiveGetFileData = await requestHttp(
+    settings,
+    EdexaApiType.BARCHIVE,
+    API_METHOD.FILE,
+    srcMethod,
     data,
-    headers: { authorization: settings.authorization, version: '' },
-  });
+    {
+      method: REQUEST_METHOD.GET,
+      data,
+      headers: { authorization: settings.authorization, version: '' },
+    }
+  );
   return await getArchiveFileFromRaw(response);
 }
 
@@ -113,7 +127,7 @@ export async function updateFile(
   settings: EdexaConfig,
   data: string | object,
   srcMethod = API_METHOD.FILE
-): Promise<IbarchiveUpdateFile> {
+): Promise<CommonResponse> {
   const response: any = await requestHttp(settings, EdexaApiType.BARCHIVE, API_METHOD.FILE, srcMethod, data, {
     method: REQUEST_METHOD.PUT,
     data,
@@ -134,7 +148,7 @@ export async function deleteFile(
   settings: EdexaConfig,
   data: string | object,
   srcMethod = API_METHOD.FILE
-): Promise<IbarchiveDeleteFile> {
+): Promise<CommonResponse> {
   const response: any = await requestHttp(settings, EdexaApiType.BARCHIVE, API_METHOD.FILE, srcMethod, data, {
     method: REQUEST_METHOD.DELETE,
     data,

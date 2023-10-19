@@ -1,8 +1,8 @@
 import { addFile, authenticate, deleteFile, getFile, updateFile } from '../internal/barchive-api';
 import { EdexaSettings } from '../types/types';
 import { CommonConfigDTO } from '../util/interface';
-import { Ibarchive, IbarchiveAddFile, IbarchiveDeleteFile, IbarchiveUpdateFile } from '../util/interface/IBarchive';
-import { ICommonAuth } from '../util/interface/ICommon';
+import { Ibarchive, IbarchiveAddFile, IbarchiveGetFile } from '../util/interface/IBarchive';
+import { CommonResponse, ICommonAuth } from '../util/interface/ICommon';
 import { EdexaConfig } from './config';
 
 export class Barchive {
@@ -30,7 +30,7 @@ export class Barchive {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the added file.
    */
-  async addFile(data: any): Promise<any> {
+  async addFile(data: Ibarchive): Promise<Array<IbarchiveAddFile>> {
     return addFile(this.config, data);
   }
 
@@ -41,7 +41,7 @@ export class Barchive {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the file details.
    */
-  async getFile(data: any): Promise<IbarchiveAddFile> {
+  async getFile(data: any): Promise<Array<IbarchiveGetFile>> {
     return getFile(this.config, data);
   }
 
@@ -52,7 +52,7 @@ export class Barchive {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the file updation.
    */
-  async updateFile(data: any): Promise<IbarchiveUpdateFile> {
+  async updateFile(data: any): Promise<CommonResponse> {
     return updateFile(this.config, data);
   }
 
@@ -63,7 +63,7 @@ export class Barchive {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the deleted file.
    */
-  async deleteFile(data): Promise<IbarchiveDeleteFile> {
+  async deleteFile(data): Promise<CommonResponse> {
     return deleteFile(this.config, data);
   }
 }

@@ -3,7 +3,7 @@ import { DEFAULT_NETWORK } from '../../src/util/constant';
 import config from '../../src/config';
 import { Barchive } from '../../src';
 import { GetDetailsByIdDTO } from '../../src/util/interface/ICommon';
-import { UpdateFileExpireTime } from '../../src/util/interface/IBarchive';
+import { Ibarchive, UpdateFileExpireTime } from '../../src/util/interface/IBarchive';
 
 const settings = { network: DEFAULT_NETWORK };
 let token;
@@ -130,7 +130,7 @@ describe('Authenticate user', function () {
 });
 
 describe('File upload or Add File', function () {
-  const data = {
+  const data: Ibarchive = {
     lat: '32.12',
     long: '78.51',
     expireTimeInMinutes: '0.01',
@@ -267,32 +267,28 @@ describe('File upload or Add File', function () {
     bArchiveData
       .addFile(data)
       .then(data => {
-        fileId = data.data[0]?.id || data[0]?.id;
+        fileId = data[0]?.id;
         expect(data);
-        expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
-        expect(data.status).to.be.an('number');
-        expect(data.message).to.be.an('string');
-        expect(data.data).to.be.an('array');
-        expect(data.data[0].file).to.be.an('array');
-        expect(data.data[0].file[0].fileName).to.be.an('string');
-        expect(data.data[0].file[0].fileType).to.be.an('string');
-        expect(data.data[0].file[0].mimeType).to.be.an('string');
-        expect(data.data[0].file[0].fileSize).to.be.an('number');
-        expect(data.data[0].file[0].url).to.be.an('string');
-        expect(data.data[0].file[0]._id).to.be.an('string');
-        expect(data.data[0].userId).to.be.an('string');
-        expect(data.data[0].fileName).to.be.an('string');
-        expect(data.data[0].description).to.be.an('string');
-        expect(data.data[0].lat).to.be.an('string');
-        expect(data.data[0].long).to.be.an('string');
-        expect(data.data[0].transactionId).to.be.an('string');
-        expect(data.data[0].uniqueId).to.be.an('string');
-        expect(data.data[0].expireTime).to.be.an('number');
-        expect(data.data[0].expireTimeStamp).to.be.an('string');
-        expect(data.data[0].id).to.be.an('string');
-        expect(data.data[0]._id).to.be.an('string');
-        expect(data.data[0].createdAt).to.be.an('string');
-        expect(data.data[0].updatedAt).to.be.an('string');
+        expect(data).to.be.an('array');
+        expect(data[0].file).to.be.an('array');
+        expect(data[0].file[0].fileName).to.be.an('string');
+        expect(data[0].file[0].fileType).to.be.an('string');
+        expect(data[0].file[0].mimeType).to.be.an('string');
+        expect(data[0].file[0].fileSize).to.be.an('number');
+        expect(data[0].file[0].url).to.be.an('string');
+        expect(data[0].file[0]._id).to.be.an('string');
+        expect(data[0].userId).to.be.an('string');
+        expect(data[0].fileName).to.be.an('string');
+        expect(data[0].description).to.be.an('string');
+        expect(data[0].lat).to.be.an('string');
+        expect(data[0].long).to.be.an('string');
+        expect(data[0].transactionId).to.be.an('string');
+        expect(data[0].uniqueId).to.be.an('string');
+        expect(data[0].expireTime).to.be.an('number');
+        expect(data[0].expireTimeStamp).to.be.an('string');
+        expect(data[0].id).to.be.an('string');
+        expect(data[0].createdAt).to.be.an('string');
+        expect(data[0].updatedAt).to.be.an('string');
         done();
       })
       .catch(error => {
@@ -489,9 +485,6 @@ describe('Get File details', function () {
         .getFile(fileIdData)
         .then((data: any) => {
           expect(data);
-          expect(data).to.be.an('object').with.all.keys('status', 'message', 'data');
-          expect(data.status).to.be.an('number');
-          expect(data.message).to.be.an('string');
           expect(data.data).to.be.an('array');
           expect(data.data[0].file).to.be.an('string');
           expect(data.data[0].fileName).to.be.an('string');

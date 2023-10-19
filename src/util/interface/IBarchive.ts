@@ -1,16 +1,8 @@
-// export interface Ibarchive {
-//   id: string;
-//   attachments: string;
-//   lat: string;
-//   long: string;
-//   expireTimeInMinutes: string;
-// }
-
 export interface Ibarchive {
-  attachments: [string];
-  lat: string;
+  attachments?: string | [string];
+  lat?: string;
   long: string;
-  expireTimeInMinutes: string;
+  expireTimeInMinutes?: string;
   description: string;
 }
 
@@ -22,47 +14,39 @@ interface file {
   id: string;
 }
 
-export interface IbarchiveFileData {
-  file: [file];
+export interface IbarchiveAddFile {
+  file: file | [file];
   userId: string;
   categoryId?: string;
   fileName: string;
-  let: string;
+  lat: string;
   long: string;
   transactionId: string;
   uniqueId: string;
   expireTime: number;
   expireTimeStamp: string;
+  description?: string;
+  createdAt?: string;
+  updatedAt?: string;
   id: string;
 }
 
-export interface IbarchiveAddFile {
+export interface IbarchiveAddFileData {
   status: number;
   message: string;
-  data: [IbarchiveFileData];
+  data: [IbarchiveAddFile];
 }
 
+export interface IbarchiveGetFileData {
+  status: number;
+  message: string;
+  data: [IbarchiveGetFile];
+}
 export interface IbarchiveGetFile {
-  status: number;
-  message: string;
-  data: [
-    {
-      file: string;
-      fileName: string;
-      fileSize?: string;
-      mimeType: string;
-    }
-  ];
-}
-
-export interface IbarchiveDeleteFile {
-  status: number;
-  message: string;
-}
-
-export interface IbarchiveUpdateFile {
-  status: number;
-  message: string;
+  file: string;
+  fileName: string;
+  fileSize?: string;
+  mimeType: string;
 }
 
 export interface UpdateFileExpireTime {
