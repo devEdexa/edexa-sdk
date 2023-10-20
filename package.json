@@ -16,6 +16,10 @@
     "coverage": "nyc --reporter=html npm run test",
     "prepare": "rm -rf ./.husky && husky install && npx husky add .husky/pre-commit \"npx validate-branch-name\" && npx husky add .husky/commit-msg \".git/hooks/commit-msg $1\" && npx husky add .husky/pre-commit \"npx lint-staged\" && npx husky add .husky/pre-commit \"npm run test\""
   },
+  "browser": {
+    "fs": false,
+    "path": false
+  },
   "author": "edeXa",
   "license": "MIT",
   "devDependencies": {

@@ -1,22 +1,24 @@
 import { expect } from 'chai';
 import { DEFAULT_NETWORK } from '../../src/util/constant';
-import config from '../../src/config';
 import { Barchive } from '../../src';
-import { GetDetailsByIdDTO } from '../../src/util/interface/ICommon';
 import { Ibarchive, UpdateFileExpireTime } from '../../src/util/interface/IBarchive';
+import path from 'path';
+import dotenv from 'dotenv';
+import { GetDetailsByIdDTO } from '../../src/util/interface/ICommon';
+const envFound = dotenv.config();
 
 const settings = { network: DEFAULT_NETWORK };
 let token;
 let fileId;
-const invalidAuthToken = config.INVALID_AUTH_TOKEN;
+const invalidAuthToken = process.env.INVALID_AUTH_TOKEN;
 const invalidFileId = '00000657f9275197e4c00000';
 
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
     const authSettings = {
       headers: {
-        'client-id': config.CLIENT_ID,
-        'secret-key': config.SECRET_KEY,
+        'client-id': process.env.BARCHIVE_CLIENT_ID,
+        'secret-key': process.env.BARCHIVE_SECRET_KEY,
       },
     };
 
@@ -40,8 +42,8 @@ describe('Authenticate user', function () {
   it('It should returns invalid user or user not found', function (done) {
     const authSettings = {
       headers: {
-        'client-id': config.INVALID_CLIENT_ID,
-        'secret-key': config.INVALID_SECRET_KEY,
+        'client-id': process.env.INVALID_CLIENT_ID,
+        'secret-key': process.env.INVALID_SECRET_KEY,
       },
     };
 
@@ -85,7 +87,7 @@ describe('Authenticate user', function () {
   it('It should return secret key is required', function (done) {
     const authSettings = {
       headers: {
-        'client-id': config.CLIENT_ID,
+        'client-id': process.env.BARCHIVE_CLIENT_ID,
         'secret-key': '',
       },
     };
@@ -109,7 +111,7 @@ describe('Authenticate user', function () {
     const authSettings = {
       headers: {
         'client-id': '',
-        'secret-key': config.SECRET_KEY,
+        'secret-key': process.env.BARCHIVE_SECRET_KEY,
       },
     };
 
@@ -135,7 +137,7 @@ describe('File upload or Add File', function () {
     long: '78.51',
     expireTimeInMinutes: '0.01',
     description: 'test',
-    attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
+    attachments: path.join(__dirname, './index.ts'),
   };
 
   it('It should return Authorization token not found', done => {
@@ -182,7 +184,7 @@ describe('File upload or Add File', function () {
       long: '72.12',
       expireTimeInMinutes: '0.01',
       description: 'test',
-      attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
+      attachments: path.join(__dirname, './index.ts'), // 'http://placehold.it/120x120&text=image1',
     };
 
     const bArchiveData = new Barchive({
@@ -211,7 +213,7 @@ describe('File upload or Add File', function () {
       long: '78.51',
       expireTimeInMinutes: '0.01',
       description: 'test',
-      attachments: '/home/yogesh/Pictures/Screenshot from 2023-07-20 12-18-45.png',
+      attachments: path.join(__dirname, './index.ts'),
     };
 
     const bArchiveData = new Barchive({
@@ -485,11 +487,11 @@ describe('Get File details', function () {
         .getFile(fileIdData)
         .then((data: any) => {
           expect(data);
-          expect(data.data).to.be.an('array');
-          expect(data.data[0].file).to.be.an('string');
-          expect(data.data[0].fileName).to.be.an('string');
-          expect(data.data[0].fileSize).to.be.an('number');
-          expect(data.data[0].mimeType).to.be.an('string');
+          expect(data).to.be.an('array');
+          expect(data[0].file).to.be.an('string');
+          expect(data[0].fileName).to.be.an('string');
+          expect(data[0].fileSize).to.be.an('number');
+          expect(data[0].mimeType).to.be.an('string');
           done();
         })
         .catch(error => {

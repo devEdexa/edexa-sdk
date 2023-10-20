@@ -13,6 +13,8 @@ import {
   GetStampDetailsV2DTO,
 } from '../../src/util/interface';
 import config from '../../src/config';
+import dotenv from 'dotenv';
+const envFound = dotenv.config();
 
 chai.use(chaiHttp);
 
@@ -21,7 +23,7 @@ const settings = { network: DEFAULT_NETWORK };
 let token;
 let stampId;
 let userId;
-const invalidAuthToken = config.INVALID_AUTH_TOKEN;
+const invalidAuthToken = process.env.INVALID_AUTH_TOKEN;
 const alreadyEnrolledUserId = 'b2ace90e-d042-4d68-a81c-5b07f0bc5551';
 const invalidStampId = 'abc123';
 
@@ -29,8 +31,8 @@ describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
     const authSettings = {
       headers: {
-        'client-id': config.CLIENT_ID,
-        'secret-key': config.SECRET_KEY,
+        'client-id': process.env.CLIENT_ID,
+        'secret-key': process.env.SECRET_KEY,
       },
     };
 
@@ -54,8 +56,8 @@ describe('Authenticate user', function () {
   it('It should return user not found', function (done) {
     const authSettings = {
       headers: {
-        'client-id': config.CLIENT_ID,
-        'secret-key': config.SECRET_KEY,
+        'client-id': process.env.CLIENT_ID,
+        'secret-key': process.env.SECRET_KEY,
       },
     };
 

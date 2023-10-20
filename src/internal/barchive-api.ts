@@ -1,7 +1,6 @@
 import { EdexaConfig } from '../api/config';
-import { API_METHOD, API_VERSION, EdexaApiType, REQUEST_METHOD } from '../util/constant';
+import { API_METHOD, EdexaApiType, REQUEST_METHOD } from '../util/constant';
 import {
-  Ibarchive,
   IbarchiveAddFile,
   IbarchiveAddFileData,
   IbarchiveGetFile,

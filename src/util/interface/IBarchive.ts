@@ -45,7 +45,7 @@ export interface IbarchiveGetFileData {
 export interface IbarchiveGetFile {
   file: string;
   fileName: string;
-  fileSize?: string;
+  fileSize?: number;
   mimeType: string;
 }
 
