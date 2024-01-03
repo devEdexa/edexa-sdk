@@ -13,3 +13,6 @@ dist/
 
 # VSCode History Extension
 .history
+
+coverage
+.nyc_output
