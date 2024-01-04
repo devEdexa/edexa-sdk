@@ -40,11 +40,23 @@ export function getEdexaBarchiveHttpUrl(network: Network): string {
 }
 
 /**
+ * Returns the HTTP URL for the edeXa bArchive API based on the network and API key.
+ *
+ * @param network - The network to use (e.g., 'mainnet', 'testnet').
+ * @returns The HTTP URL for the edeXa bArchive.
+ */
+export function getEdexaERC721HttpUrl(network: Network): string {
+  // return `https://api-edexagw.${network}.com/barchive`;
+  return `http://localhost:6000`;
+}
+
+/**
  * Represents the types of edeXa APIs.
  */
 export enum EdexaApiType {
   BSTAMP, // edeXa bStamp API
   BARCHIVE, // edeXa bArchive API
+  ERC721, // edeXa ERC-Token-Engine API
 }
 
 /**
@@ -61,6 +73,29 @@ export enum REQUEST_METHOD {
   PUT = 'PUT',
   DELETE = 'DELETE',
 }
+
+const ERC_SERVICE = {
+  ERC721: 'erc721',
+  ERC20: 'erc20',
+  ERC1155: 'erc1155',
+};
+
+export const API_METHOD_ERC = {
+  AUTHENTICATE: 'authenticate',
+  ACCOUNT: `${ERC_SERVICE.ERC721}/client`,
+  BALANCE: `${ERC_SERVICE.ERC721}/balance`,
+  MINT: `${ERC_SERVICE.ERC721}/mint`,
+  BURN: `${ERC_SERVICE.ERC721}/burn`,
+  SUPPLY: `${ERC_SERVICE.ERC721}/supply`,
+  URI: `${ERC_SERVICE.ERC721}/uri`,
+  TRANSFER: `${ERC_SERVICE.ERC721}/transfer`,
+  OWNER: `${ERC_SERVICE.ERC721}/owner`,
+  OWNER_DETAIL: `${ERC_SERVICE.ERC721}/owner/detail`,
+  OPERATOR: `${ERC_SERVICE.ERC721}/operator`,
+  OPERATOR_ALL: `${ERC_SERVICE.ERC721}/operator/All`,
+  APPROVE: `${ERC_SERVICE.ERC721}/approve`,
+  TRANSFER_FROM: `${ERC_SERVICE.ERC721}/transfer-from`,
+};
 
 export const IS_PRIVATE = {
   TRUE: true,
