@@ -40,11 +40,23 @@ export function getEdexaBarchiveHttpUrl(network: Network): string {
 }
 
 /**
+ * Returns the HTTP URL for the edeXa bArchive API based on the network and API key.
+ *
+ * @param network - The network to use (e.g., 'mainnet', 'testnet').
+ * @returns The HTTP URL for the edeXa bArchive.
+ */
+export function getEdexaERC20HttpUrl(network: Network): string {
+  // return `https://api-edexagw.${network}.com/barchive`;
+  return `http://localhost:6000`;
+}
+
+/**
  * Represents the types of edeXa APIs.
  */
 export enum EdexaApiType {
   BSTAMP, // edeXa bStamp API
   BARCHIVE, // edeXa bArchive API
+  ERC20, // edeXa erc20 API
 }
 
 /**
@@ -77,4 +89,14 @@ export const API_METHOD = {
   CREATE_WEBHOOK: 'createWebhook',
   GET_WEBHOOK: 'getWebhook',
   FILE: 'file',
+  MINT_TOKEN: 'erc20/mint',
+  BALANCEOF: 'erc20/balance',
+  ENROLL_USERS: 'user/register',
+  ACCOUNTID: 'erc20/client',
+  TRANSFER_TOKEN: 'erc20/transfer',
+  TOTAL_SUPPLY: 'erc20/supply',
+  BURN_TOKENS: 'erc20/burn',
+  SET_OPERATOR: 'erc20/approve',
+  CHECK_ALLOWANCE: 'erc20/allowance',
+  TRANSFER_FROM: 'erc20/transfer-from',
 };
