@@ -1,13 +1,10 @@
 import { expect } from 'chai';
 import { DEFAULT_NETWORK } from '../../src/util/constant';
 import { ERC20 } from '../../src';
-import dotenv from 'dotenv';
-const envFound = dotenv.config();
 
 const settings = { network: DEFAULT_NETWORK };
 let token, enrollUser, transferToken;
 const invalidAuthToken = process.env.INVALID_AUTH_TOKEN;
-const invalidFileId = '00000657f9275197e4c00000';
 
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
@@ -132,7 +129,7 @@ describe('Mint token', function () {
   const requestData: any = {
     value: '1000',
   };
-  it('It should return Authorization token not found', done => {
+  it('It should return Authorization token not found', function (done) {
     const erc20 = new ERC20({
       ...settings,
     });
@@ -150,24 +147,43 @@ describe('Mint token', function () {
       });
   });
 
-  // it('It should return value is required', done => {
-  //   const erc20 = new ERC20({
-  //     ...settings,
-  //     authorization: `Bearer ${token}`,
-  //   });
-  //   erc20
-  //     .mintToken({ value: '' })
-  //     .then((data: any) => {
-  //       expect(data)
-  //       done();
-  //     })
-  //     .catch(error => {
-  //       expect(error).to.be.an('object');
-  //       expect(error.status).to.be.an('number');
-  //       expect(error.message).to.be.an('string');
-  //       done();
-  //     });
-  // });
+  it('It should return invalid auth token', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+    erc20
+      .mintToken(requestData)
+      .then((data: any) => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should return value is required', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    erc20
+      .mintToken({})
+      .then((data: any) => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
 
   it('It should returns token minted data', function (done) {
     const erc20 = new ERC20({
@@ -190,51 +206,8 @@ describe('Mint token', function () {
   });
 });
 
-describe('BalanceOf', function () {
-  it('It should return Authorization token not found', done => {
-    const requestData: any = {
-      // value: '1000',
-    };
-    const erc20 = new ERC20({
-      ...settings,
-    });
-    erc20
-      .balanceOf(requestData)
-      .then(data => {
-        expect(data);
-        done();
-      })
-      .catch(error => {
-        expect(error).to.be.an('object');
-        expect(error.status).to.be.an('number');
-        expect(error.message).to.be.an('string');
-        done();
-      });
-  });
-
-  it('It should returns balance object', function (done) {
-    const requestData: any = {};
-    const erc20 = new ERC20({
-      ...settings,
-      authorization: `Bearer ${token}`,
-    });
-
-    erc20
-      .balanceOf(requestData)
-      .then(data => {
-        expect(data).to.be.an('object').with.all.keys('balance');
-        expect(data.balance).to.be.an('number');
-        done();
-      })
-      .catch(error => {
-        console.log({ error });
-        done();
-      });
-  });
-});
-
 describe('Enroll users', function () {
-  it('It should return Authorization token not found', done => {
+  it('It should return Authorization token not found', function (done) {
     const requestData: any = {
       firstName: 'token',
       lastName: 'user3',
@@ -327,10 +300,70 @@ describe('Enroll users', function () {
         done();
       });
   });
+
+  it('It should returns email is required', function (done) {
+    const requestData: any = {
+      firstName: 'token',
+      lastName: 'user3',
+      phone: '148424673678',
+      role: 'user',
+      countryCode: '+91',
+      location: 'test',
+      serviceName: 'erc20',
+    };
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .enrollUser(requestData)
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('string');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns invalid auth token', function (done) {
+    const uniquemail = `k.koul${Date.now()}@edexa.team`;
+    const requestData: any = {
+      firstName: 'token',
+      lastName: 'user3',
+      phone: '148424673678',
+      role: 'user',
+      email: uniquemail,
+      countryCode: '+91',
+      location: 'test',
+      serviceName: 'erc20',
+    };
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+
+    erc20
+      .enrollUser(requestData)
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
 });
 
 describe('AccountId of users', function () {
-  it('It should return Authorization token not found', done => {
+  it('It should return Authorization token not found', function (done) {
     const erc20 = new ERC20({
       ...settings,
     });
@@ -366,10 +399,51 @@ describe('AccountId of users', function () {
         done();
       });
   });
+
+  it('It should returns userId is required', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .accountId({})
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        console.log({ error });
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns invalid auth token', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+
+    erc20
+      .accountId({ userId: enrollUser.uuid })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
 });
 
 describe('TransferToken to users', function () {
-  it('It should return Authorization token not found', done => {
+  it('It should return Authorization token not found', function (done) {
     const erc20 = new ERC20({
       ...settings,
     });
@@ -414,6 +488,174 @@ describe('TransferToken to users', function () {
         done();
       });
   });
+
+  it('It should returns invalid auth token', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+
+    erc20
+      .transferToken({
+        value: '100',
+      })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns to is required', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .transferToken({
+        value: '100',
+      })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('string');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns invalid user', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .transferToken({
+        to: 'kk@edexa',
+        value: '100',
+      })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+});
+
+describe('BalanceOf', function () {
+  it('It should return Authorization token not found', function (done) {
+    const requestData: any = {};
+    const erc20 = new ERC20({
+      ...settings,
+    });
+    erc20
+      .balanceOf(requestData)
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns balance object', function (done) {
+    const requestData: any = {};
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .balanceOf(requestData)
+      .then(data => {
+        expect(data).to.be.an('object').with.all.keys('balance');
+        expect(data.balance).to.be.an('number');
+        done();
+      })
+      .catch(error => {
+        console.log({ error });
+        done();
+      });
+  });
+
+  it('It should returns balance object of user', function (done) {
+    const requestData: any = {};
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .balanceOf({ userId: transferToken.username })
+      .then(data => {
+        expect(data).to.be.an('object').with.all.keys('balance');
+        expect(data.balance).to.be.an('number');
+        done();
+      })
+      .catch(error => {
+        console.log({ error });
+        done();
+      });
+  });
+
+  it('It should returns invalid user', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .balanceOf({ userId: 'kk@edexa' })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns invalid auth token', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+
+    erc20
+      .balanceOf({ userId: 'kk@edexa' })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
 });
 
 describe('Total Supply', function () {
@@ -454,13 +696,32 @@ describe('Total Supply', function () {
         done();
       });
   });
+  it('It should returns invalid auth token', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+
+    erc20
+      .totalSupply(requestData)
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
 });
 
 describe('Burn Token', function () {
   const requestData = {
     value: '20',
   };
-  it('It should return Authorization token not found', done => {
+  it('It should return Authorization token not found', function (done) {
     const erc20 = new ERC20({
       ...settings,
     });
@@ -497,10 +758,50 @@ describe('Burn Token', function () {
         done();
       });
   });
+
+  it('It should returns value is required', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .burnToken({})
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('string');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns invalid auth token', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+
+    erc20
+      .burnToken({})
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
 });
 
 describe('Set operator for token', function () {
-  it('It should return Authorization token not found', done => {
+  it('It should return Authorization token not found', function (done) {
     const erc20 = new ERC20({
       ...settings,
     });
@@ -543,10 +844,99 @@ describe('Set operator for token', function () {
         done();
       });
   });
+
+  it('It should returns invalid auth token', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+
+    erc20
+      .setOperator({
+        value: '100',
+      })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns spender is required', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .setOperator({
+        value: '100',
+      })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('string');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns invalid spender', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .setOperator({
+        spender: 'kk@edexa',
+        value: '100',
+      })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns value is required', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .setOperator({
+        spender: enrollUser.username,
+      })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('string');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
 });
 
 describe('check spender allowance limit for token', function () {
-  it('It should return Authorization token not found', done => {
+  it('It should return Authorization token not found', function (done) {
     const erc20 = new ERC20({
       ...settings,
     });
@@ -584,6 +974,66 @@ describe('check spender allowance limit for token', function () {
       })
       .catch(error => {
         console.log({ error });
+        done();
+      });
+  });
+
+  it('It should returns spender is required', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .checkAllowanceLimit({})
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns invalid auth token', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+
+    erc20
+      .checkAllowanceLimit({})
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns invalid spender', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .checkAllowanceLimit({ spender: 'kk@edexa' })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -633,6 +1083,76 @@ describe('TransferToken from one to another users', function () {
       })
       .catch(error => {
         console.log({ error });
+        done();
+      });
+  });
+
+  it('It should returns invalid auth token', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${invalidAuthToken}`,
+    });
+
+    erc20
+      .transferTokenFrom({
+        from: transferToken.to,
+        value: '10',
+      })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns to is required', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .transferTokenFrom({
+        from: transferToken.to,
+        value: '10',
+      })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('string');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns invalid to value', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .transferTokenFrom({
+        to: 'kk@edexa',
+        from: transferToken.to,
+        value: '10',
+      })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
         done();
       });
   });
