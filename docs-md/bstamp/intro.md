@@ -10,9 +10,9 @@ The edeXa SDK is the most comprehensive, stable, and powerful Javascript SDK ava
 
 List of all SDK Core methods.
 
-- [Authentication](/docs-md/bStamp/authenticate.md)
-- [Add Stamp](/docs-md/bStamp/stamp.md)
-- [Stamp list](/docs-md/bStamp/stamps_list.md)
+- [Authentication](/docs-md/bstamp/authenticate.md)
+- [Add Stamp](/docs-md/bstamp/stamp.md)
+- [Stamp list](/docs-md/bstamp/stamps_list.md)
 
 | Method         | Description                                    |
 | -------------- | ---------------------------------------------- |
