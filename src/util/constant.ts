@@ -97,6 +97,24 @@ export const API_METHOD_ERC = {
   TRANSFER_FROM: `${ERC_SERVICE.ERC721}/transfer-from`,
 };
 
+export const API_METHOD_ERC1155 = {
+  AUTHENTICATE: 'authenticate',
+  ACCOUNT: `${ERC_SERVICE.ERC1155}/client`,
+  BALANCE: `${ERC_SERVICE.ERC1155}/balance`,
+  BATCH_BALANCE: `${ERC_SERVICE.ERC1155}/batch/balance`,
+  MINT: `${ERC_SERVICE.ERC1155}/mint`,
+  BATCH_MINT: `${ERC_SERVICE.ERC1155}/batch/mint`,
+  BURN: `${ERC_SERVICE.ERC1155}/burn`,
+  BATCH_BURN: `${ERC_SERVICE.ERC1155}/batch/burn`,
+  SET_URI: `${ERC_SERVICE.ERC1155}/setTokenURI`,
+  GET_URI: `${ERC_SERVICE.ERC1155}/getURI`,
+  TRANSFER: `${ERC_SERVICE.ERC1155}/transfer`,
+  BATCH_TRANSFER: `${ERC_SERVICE.ERC1155}/batch/transfer`,
+  MULTI_USER_TRANSFER: `${ERC_SERVICE.ERC1155}/batch/multiUser-transfer`,
+  APPROVE: `${ERC_SERVICE.ERC1155}/approve`,
+  APPROVE_STATUS: `${ERC_SERVICE.ERC1155}/approve/check`,
+};
+
 export const IS_PRIVATE = {
   TRUE: true,
   FALSE: false,
