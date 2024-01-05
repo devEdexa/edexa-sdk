@@ -13,7 +13,6 @@ import {
   transferTokenFrom,
 } from '../internal/erc20-api';
 import { EdexaSettings } from '../types/types';
-// import { GetBalanceOfDTO } from '../util/interface';
 import { ICommonAuth } from '../util/interface/ICommon';
 import {
   erc20AccountIdDTO,
@@ -24,7 +23,6 @@ import {
   erc20TransferTokenDTO,
   erc20commonDTO,
 } from '../util/interface/erc20';
-// import {  mintToken } from '../util/interface/erc20';
 import { EdexaConfig } from './config';
 
 // Bstamp class
