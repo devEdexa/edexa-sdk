@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import { DEFAULT_NETWORK } from '../../src/util/constant';
 import { ERC721 } from '../../src';
-import path from 'path';
 import dotenv from 'dotenv';
 import {
   IAccount,
@@ -42,7 +41,7 @@ describe('Authenticate user', function () {
         expect(data.name).to.be.an('string');
         done();
       })
-      .catch(() => {
+      .catch(error => {
         done();
       });
   });
@@ -640,7 +639,7 @@ describe('Token Transfer From one user to another user', function () {
   //success response
   it('It should return "Token transfer successfully"', done => {
     const data: ITokenTransferFromBody = {
-      to: 'test00@edexa',
+      to: 'test@edexa',
       from: userName,
       tokenId,
     };
@@ -664,7 +663,7 @@ describe('Token Transfer From one user to another user', function () {
 
   it('It should return "Authorization token not found or Invalid token"', done => {
     const data: ITokenTransferFromBody = {
-      to: 'test00@edexa',
+      to: 'test@edexa',
       from: userName,
       tokenId,
     };
@@ -686,7 +685,7 @@ describe('Token Transfer From one user to another user', function () {
   });
   it('It should return "Invalid token"', done => {
     const data: ITokenTransferFromBody = {
-      to: 'test00@edexa',
+      to: 'test@edexa',
       from: userName,
       tokenId,
     };
@@ -708,7 +707,7 @@ describe('Token Transfer From one user to another user', function () {
   });
   it('It should return "tokenId is not allowed to be empty"', done => {
     const data: ITokenTransferFromBody = {
-      to: 'test00@edexa',
+      to: 'test@edexa',
       from: userName,
       tokenId: '',
     };
@@ -889,7 +888,7 @@ describe('Set Operator', function () {
   });
 });
 
-describe.skip('Get Owner', function () {
+describe('Get Owner', function () {
   //success response
   it('It should return "Operator get successfully"', done => {
     const data: IOwnerBody = {
@@ -977,7 +976,7 @@ describe.skip('Get Owner', function () {
   });
 });
 
-describe.skip('Get Approve status', function () {
+describe('Get Approve status', function () {
   //success response
   it('It should return "Operator get successfully"', done => {
     const data: IApproveBody = {
@@ -1065,7 +1064,7 @@ describe.skip('Get Approve status', function () {
   });
 });
 
-describe.skip('Getting list of Token with Owner name', function () {
+describe('Getting list of Token with Owner name', function () {
   //success response
   it('Get admin owned token list "Total Token Owned get successfully"', done => {
     const data: IOwnerDetailsBody = {
