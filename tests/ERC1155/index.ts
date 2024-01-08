@@ -5,19 +5,15 @@ import dotenv from 'dotenv';
 import {
   IAccount,
   IApproveBody,
+  IApproveStatusBody,
   IBatchBalance,
   IBatchBurnBody,
   IBatchMintBody,
   IBatchTokenTransferBody,
   IMintBody,
   IMultiUserTokenTransferBody,
-  IOwnerBody,
-  IOwnerDetailsBody,
-  ISetOperatorAllBody,
-  ISetOperatorBody,
   ISetURIBody,
   ITokenTransferBody,
-  ITokenTransferFromBody,
 } from '../../src/util/interface/IERC1155';
 import { IBurnBody } from '../../src/util/interface/IERC1155';
 const envFound = dotenv.config();
@@ -958,7 +954,7 @@ describe('Batch Token Transfer from multiple users', function () {
   });
 });
 
-describe('Get Approve status', function () {
+describe('Approve permission to the user', function () {
   //success response
   it('It should return "Operator get successfully"', done => {
     const data: IApproveBody = {
@@ -1051,93 +1047,96 @@ describe('Get Approve status', function () {
   });
 });
 
-// describe('Get Approve status', function () {
-//   //success response
-//   it('It should return "Operator get successfully"', done => {
-//     const data: IApproveBody = {
-//       operator: userName,
-//     };
-//     const erc1155Data = new ERC1155({
-//       ...settings,
-//       authorization: `Bearer ${token}`,
-//     });
-//     erc1155Data
-//       .getApproveStatus(data)
-//       .then(data => {
-//         expect(data);
-//         expect(data).to.be.an('object').with.all.keys('approve');
-//         expect(data.approve).to.be.an('boolean');
-//         done();
-//       })
-//       .catch(error => {
-//         expect(error);
-//         done();
-//       });
-//   });
+describe('Get Approve status', function () {
+  //success response
+  it('It should return "Spender request status"', done => {
+    const data: IApproveStatusBody = {
+      spender: userName,
+    };
+    const erc1155Data = new ERC1155({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    erc1155Data
+      .getApproveStatus(data)
+      .then(data => {
+        expect(data);
+        expect(data).to.be.an('object').with.all.keys('spender', 'status');
+        expect(data.spender).to.be.an('string');
+        expect(data.status).to.be.an('boolean');
+        done();
+      })
+      .catch(error => {
+        expect(error);
+        done();
+      });
+  });
 
-//   it('It should return "Authorization token not found or Invalid token"', done => {
-//     const data: IApproveBody = {
-//       operator: userName,
-//     };
-//     const erc1155Data = new ERC1155({
-//       ...settings,
-//     });
-//     erc1155Data
-//       .getApproveStatus(data)
-//       .then(data => {
-//         expect(data);
-//         done();
-//       })
-//       .catch(error => {
-//         expect(error).to.be.an('object');
-//         expect(error.status).to.be.an('number');
-//         expect(error.message).to.be.an('string');
-//         done();
-//       });
-//   });
-//   it('It should return "Invalid token"', done => {
-//     const data: IApproveBody = {
-//       operator: userName,
-//     };
-//     const erc1155Data = new ERC1155({
-//       ...settings,
-//       authorization: `Bearer ${token} invalid`,
-//     });
-//     erc1155Data
-//       .getApproveStatus(data)
-//       .then(data => {
-//         expect(data);
-//         done();
-//       })
-//       .catch(error => {
-//         expect(error).to.be.an('object');
-//         expect(error.status).to.be.an('number');
-//         expect(error.message).to.be.an('string');
-//         done();
-//       });
-//   });
-//   it('It should return "User not found"', done => {
-//     const data: IApproveBody = {
-//       operator: 'wrong user',
-//     };
-//     const erc1155Data = new ERC1155({
-//       ...settings,
-//       authorization: `Bearer ${token}`,
-//     });
-//     erc1155Data
-//       .getApproveStatus(data)
-//       .then(data => {
-//         expect(data);
-//         done();
-//       })
-//       .catch(error => {
-//         expect(error).to.be.an('object');
-//         expect(error.status).to.be.an('number');
-//         expect(error.message).to.be.an('string');
-//         done();
-//       });
-//   });
-// });
+  it('It should return "Authorization token not found or Invalid token"', done => {
+    const data: IApproveStatusBody = {
+      spender: userName,
+    };
+    const erc1155Data = new ERC1155({
+      ...settings,
+    });
+    erc1155Data
+      .getApproveStatus(data)
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error);
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+  it('It should return "Invalid token"', done => {
+    const data: IApproveStatusBody = {
+      spender: userName,
+    };
+    const erc1155Data = new ERC1155({
+      ...settings,
+      authorization: `Bearer ${token} invalid`,
+    });
+    erc1155Data
+      .getApproveStatus(data)
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+  it('It should return "User not found"', done => {
+    const data: IApproveStatusBody = {
+      spender: 'wrong user',
+    };
+    const erc1155Data = new ERC1155({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    erc1155Data
+      .getApproveStatus(data)
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error);
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+});
 
 describe('Burn Token', function () {
   //success response

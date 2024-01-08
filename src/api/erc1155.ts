@@ -21,6 +21,8 @@ import {
   IAccount,
   IApproveBody,
   IApproveResponse,
+  IApproveStatusBody,
+  IApproveStatusResponse,
   IBalanceResponse,
   IBatchBalance,
   IBatchBalanceResponse,
@@ -36,19 +38,9 @@ import {
   IMintResponse,
   IMultiUserTokenTransferBody,
   IMultiUserTokenTransferResponse,
-  IOwnerBody,
-  IOwnerDetailsBody,
-  IOwnerDetailsResponse,
-  IOwnerResponse,
-  ISetOperatorAllBody,
-  ISetOperatorAllResponse,
-  ISetOperatorBody,
-  ISetOperatorResponse,
   ISetURIBody,
   ISetURIResponse,
   ITokenTransferBody,
-  ITokenTransferFromBody,
-  ITokenTransferFromResponse,
   ITokenTransferResponse,
 } from '../util/interface/IERC1155';
 import { EdexaConfig } from './config';
@@ -188,7 +180,7 @@ export class ERC1155 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the check approve data.
    */
-  async getApproveStatus(data: IApproveBody): Promise<IApproveResponse> {
+  async getApproveStatus(data: IApproveStatusBody): Promise<IApproveStatusResponse> {
     return getApproveStatus(this.config, data);
   }
 

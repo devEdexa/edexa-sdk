@@ -2,19 +2,14 @@ import { EdexaConfig } from '../api/config';
 import { API_METHOD, API_METHOD_ERC1155, EdexaApiType, REQUEST_METHOD } from '../util/constant';
 import {
   getERCAccountFromRaw,
+  getERCApproveAccessFromRaw,
   getERCApproveStatusFromRaw,
-  // getERCAuthFromRaw,
   getERCBalanceFromRaw,
   getERCBatchBalanceFromRaw,
   getERCBatchMintedFromRaw,
   getERCBurnFromRaw,
   getERCMintedFromRaw,
   getERCMultiUserTokenTransferRaw,
-  getERCOperatorAllFromRaw,
-  getERCOperatorFromRaw,
-  getERCOwnerDetailsFromRaw,
-  getERCOwnerFromRaw,
-  getERCTokenTransferFromRaw,
   getERCTokenTransferRaw,
   getERCURIFromRaw,
   setERCTokenURIFromRaw,
@@ -22,33 +17,25 @@ import {
 import { requestHttp } from './dispatch';
 import {
   ERCApproveResponse,
+  ERCApproveStatusResponse,
   ERCBatchBalanceResponse,
   ERCBatchMintResponse,
   ERCBurnResponse,
   ERCMintResponse,
   ERCMultiUserTokenTransferResponse,
-  ERCOwnerDetailsResponse,
-  ERCOwnerResponse,
-  ERCSetOperatorAllResponse,
-  ERCSetOperatorResponse,
   ERCSetURIResponse,
-  ERCTokenTransferFromResponse,
   ERCTokenTransferResponse,
   ERCURIResponse,
   IAccountResponse,
   IApproveResponse,
+  IApproveStatusResponse,
   IBatchMintResponse,
   IBurnResponse,
   IERCResponse,
   IGetURIResponse,
   IMintResponse,
   IMultiUserTokenTransferResponse,
-  IOwnerDetailsResponse,
-  IOwnerResponse,
-  ISetOperatorAllResponse,
-  ISetOperatorResponse,
   ISetURIResponse,
-  ITokenTransferFromResponse,
   ITokenTransferResponse,
 } from '../util/interface/IERC1155';
 import { getERCAuthFromRaw } from '../util/util_erc721';
@@ -422,12 +409,12 @@ export async function tokenTransferMultiUsers(
 }
 
 /**
- * Token transfer to the user.s
+ * Approve permission to the user to access token
  *
  * @param settings - Configuration settings for edeXa.
- * @param data - Data for token transfer to the user.
- * @param srcMethod - Source method for Token Transfer.
- * @returns A Promise that resolves to the Transfer data.
+ * @param data - Data for token access permssion.
+ * @param srcMethod - Source method for approve token access.
+ * @returns A Promise that resolves to the approveTokenAccess.
  */
 export async function approveTokenAccess(
   settings: EdexaConfig,
@@ -446,23 +433,23 @@ export async function approveTokenAccess(
       headers: { authorization: settings.authorization },
     }
   );
-  return await getERCApproveStatusFromRaw(response);
+  return await getERCApproveAccessFromRaw(response);
 }
 
 /**
- * Token transfer to the user.s
+ * Get approvel status of token access request
  *
  * @param settings - Configuration settings for edeXa.
- * @param data - Data for token transfer to the user.
- * @param srcMethod - Source method for Token Transfer.
- * @returns A Promise that resolves to the Transfer data.
+ * @param data - Data for getting token access request.
+ * @param srcMethod - Source method for TokenAccess request.
+ * @returns A Promise that resolves to the ApproveStatus.
  */
 export async function getApproveStatus(
   settings: EdexaConfig,
   data: string | object,
   srcMethod = API_METHOD_ERC1155.APPROVE_STATUS
-): Promise<IApproveResponse> {
-  const response: ERCApproveResponse = await requestHttp(
+): Promise<IApproveStatusResponse> {
+  const response: ERCApproveStatusResponse = await requestHttp(
     settings,
     EdexaApiType.ERC721,
     API_METHOD_ERC1155.APPROVE_STATUS,

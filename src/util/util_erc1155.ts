@@ -1,20 +1,17 @@
 import { ICommonAuth } from './interface/ICommon';
 import {
   ERCApproveResponse,
+  ERCApproveStatusResponse,
   ERCBatchMintResponse,
   ERCBurnResponse,
   ERCMintResponse,
   ERCMultiUserTokenTransferResponse,
-  ERCOwnerDetailsResponse,
-  ERCOwnerResponse,
-  ERCSetOperatorAllResponse,
-  ERCSetOperatorResponse,
   ERCSetURIResponse,
-  ERCTokenTransferFromResponse,
   ERCTokenTransferResponse,
   ERCURIResponse,
   IAccountResponse,
   IApproveResponse,
+  IApproveStatusResponse,
   IBalanceResponse,
   IBatchBalanceResponse,
   IBatchMintResponse,
@@ -22,12 +19,7 @@ import {
   IGetURIResponse,
   IMintResponse,
   IMultiUserTokenTransferResponse,
-  IOwnerDetailsResponse,
-  IOwnerResponse,
-  ISetOperatorAllResponse,
-  ISetOperatorResponse,
   ISetURIResponse,
-  ITokenTransferFromResponse,
   ITokenTransferResponse,
 } from './interface/IERC1155';
 
@@ -48,7 +40,7 @@ export function getERCAuthFromRaw(rawArchiveAuth: {
       name: rawArchiveAuth?.data?.name,
     };
   } catch (e) {
-    throw new Error('Error parsing the ERC721 auth response: ' + e);
+    throw new Error('Error parsing the ERC1155 auth response: ' + e);
   }
 }
 
@@ -64,7 +56,7 @@ export function getERCAccountFromRaw(rawArchiveAuth: { data: { username: string 
       username: rawArchiveAuth?.data?.username,
     };
   } catch (e) {
-    throw new Error('Error parsing the ERC721 account response: ' + e);
+    throw new Error('Error parsing the ERC1155 account response: ' + e);
   }
 }
 
@@ -82,7 +74,7 @@ export function getERCBalanceFromRaw(rawGetBalance: {
       balance: rawGetBalance?.data?.balance,
     };
   } catch (e) {
-    throw new Error('Error parsing the ERC721 balance response: ' + e);
+    throw new Error('Error parsing the ERC1155 balance response: ' + e);
   }
 }
 
@@ -100,7 +92,7 @@ export function getERCBatchBalanceFromRaw(rawBatchBalance: {
       balance: rawBatchBalance?.data?.balance,
     };
   } catch (e) {
-    throw new Error('Error parsing the ERC721 batch balance response: ' + e);
+    throw new Error('Error parsing the ERC1155 batch balance response: ' + e);
   }
 }
 
@@ -114,7 +106,7 @@ export function getERCMintedFromRaw(rawMintData: ERCMintResponse): IMintResponse
   try {
     return rawMintData?.data;
   } catch (e) {
-    throw new Error('Error parsing the ERC721 mint token response: ' + e);
+    throw new Error('Error parsing the ERC1155 mint token response: ' + e);
   }
 }
 
@@ -128,7 +120,7 @@ export function getERCBatchMintedFromRaw(rawBatchMintData: ERCBatchMintResponse)
   try {
     return rawBatchMintData?.data;
   } catch (e) {
-    throw new Error('Error parsing the ERC721 batch mint token response: ' + e);
+    throw new Error('Error parsing the ERC1155 batch mint token response: ' + e);
   }
 }
 
@@ -142,7 +134,7 @@ export function getERCBurnFromRaw(rawBurnData: ERCBurnResponse): IBurnResponse {
   try {
     return rawBurnData?.data;
   } catch (e) {
-    throw new Error('Error parsing the ERC721 burn token response: ' + e);
+    throw new Error('Error parsing the ERC1155 burn token response: ' + e);
   }
 }
 
@@ -156,7 +148,7 @@ export function setERCTokenURIFromRaw(rawURIData: ERCSetURIResponse): ISetURIRes
   try {
     return rawURIData?.data;
   } catch (e) {
-    throw new Error('Error parsing the ERC721 set token URI response: ' + e);
+    throw new Error('Error parsing the ERC1155 set token URI response: ' + e);
   }
 }
 
@@ -170,7 +162,7 @@ export function getERCURIFromRaw(rawURIData: ERCURIResponse): IGetURIResponse {
   try {
     return rawURIData?.data;
   } catch (e) {
-    throw new Error('Error parsing the ERC721 token URI response: ' + e);
+    throw new Error('Error parsing the ERC1155 token URI response: ' + e);
   }
 }
 
@@ -184,7 +176,7 @@ export function getERCTokenTransferRaw(rawTokenTransferData: ERCTokenTransferRes
   try {
     return rawTokenTransferData?.data;
   } catch (e) {
-    throw new Error('Error parsing the ERC721 token transfer response: ' + e);
+    throw new Error('Error parsing the ERC1155 token transfer response: ' + e);
   }
 }
 
@@ -200,92 +192,34 @@ export function getERCMultiUserTokenTransferRaw(
   try {
     return rawTokenTransferData?.data;
   } catch (e) {
-    throw new Error('Error parsing the ERC721 token transfer response: ' + e);
+    throw new Error('Error parsing the ERC1155 token transfer response: ' + e);
   }
 }
 
 /**
- * Parses the raw data of tokenTransferFrom and returns a formatted ITokenTransferResponse object.
+ * Parses the raw data of approvel request and returns a formatted IApproveResponse object.
  *
- * @param rawTokenTransferFromData - Raw token URI data.
- * @returns The parsed ITokenTransferResponse object.
+ * @param rawApproveStatusData - Raw set operator data.
+ * @returns The parsed IApproveResponse object.
  */
-export function getERCTokenTransferFromRaw(
-  rawTokenTransferFromData: ERCTokenTransferFromResponse
-): ITokenTransferFromResponse {
+export function getERCApproveAccessFromRaw(rawApproveStatusData: ERCApproveResponse): IApproveResponse {
   try {
-    return rawTokenTransferFromData?.data;
+    return rawApproveStatusData?.data;
   } catch (e) {
-    throw new Error('Error parsing the ERC721 token transfer response: ' + e);
+    throw new Error('Error parsing the ERC1155 Approve Access response: ' + e);
   }
 }
 
 /**
- * Parses the raw set operator data and returns a formatted ISetOperatorResponse object.
+ * Parses the raw data of approve request status and returns a formatted IApproveStatusResponse object.
  *
- * @param rawSetOperatorData - Raw set operator data.
- * @returns The parsed ISetOperatorResponse object.
+ * @param rawApproveStatusData - Raw set operator data.
+ * @returns The parsed IApproveStatusResponse object.
  */
-export function getERCOperatorFromRaw(rawSetOperatorData: ERCSetOperatorResponse): ISetOperatorResponse {
+export function getERCApproveStatusFromRaw(rawApproveStatusData: ERCApproveStatusResponse): IApproveStatusResponse {
   try {
-    return rawSetOperatorData?.data;
+    return rawApproveStatusData?.data;
   } catch (e) {
-    throw new Error('Error parsing the ERC721 set Operator response: ' + e);
-  }
-}
-
-/**
- * Parses the raw data of setOperatorForAll and returns a formatted ISetOperatorAllResponse object.
- *
- * @param rawSetOperatorForAllData - Raw set operator data.
- * @returns The parsed ISetOperatorAllResponse object.
- */
-export function getERCOperatorAllFromRaw(rawSetOperatorForAllData: ERCSetOperatorAllResponse): ISetOperatorAllResponse {
-  try {
-    return rawSetOperatorForAllData?.data;
-  } catch (e) {
-    throw new Error('Error parsing the ERC721 set Operator response: ' + e);
-  }
-}
-
-/**
- * Parses the raw data of owner and returns a formatted IOwnerResponse object.
- *
- * @param rawOwnerData - Raw Owner data.
- * @returns The parsed IOwnerResponse object.
- */
-export function getERCOwnerFromRaw(rawOwnerData: ERCOwnerResponse): IOwnerResponse {
-  try {
-    return rawOwnerData?.data;
-  } catch (e) {
-    throw new Error('Error parsing the ERC721 set Operator response: ' + e);
-  }
-}
-
-/**
- * Parses the raw data of owner details and returns a formatted ISetOperatorResponse object.
- *
- * @param rawOwnerDetailsData - Raw set operator data.
- * @returns The parsed ISetOperatorResponse object.
- */
-export function getERCOwnerDetailsFromRaw(rawOwnerDetailsData: ERCOwnerDetailsResponse): Array<IOwnerDetailsResponse> {
-  try {
-    return rawOwnerDetailsData?.data;
-  } catch (e) {
-    throw new Error('Error parsing the ERC721 set Operator response: ' + e);
-  }
-}
-
-/**
- * Parses the raw data of owner details and returns a formatted ISetOperatorResponse object.
- *
- * @param rawOwnerDetailsData - Raw set operator data.
- * @returns The parsed ISetOperatorResponse object.
- */
-export function getERCApproveStatusFromRaw(rawOwnerDetailsData: ERCApproveResponse): IApproveResponse {
-  try {
-    return rawOwnerDetailsData?.data;
-  } catch (e) {
-    throw new Error('Error parsing the ERC721 set Operator response: ' + e);
+    throw new Error('Error parsing the ERC1155 get Approve status response: ' + e);
   }
 }

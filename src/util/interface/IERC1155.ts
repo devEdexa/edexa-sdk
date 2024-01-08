@@ -115,30 +115,6 @@ export interface IMultiUserTokenTransferResponse {
   to: Array<string>;
 }
 
-export interface ITokenTransferFromBody {
-  to: string;
-  from: string;
-  tokenId: string;
-  channel?: string;
-  chaincode?: string;
-}
-export interface ITokenTransferFromResponse {
-  spender: string;
-  to: string;
-}
-
-export interface ISetOperatorBody {
-  operator: string;
-  tokenId: string;
-  channel?: string;
-  chaincode?: string;
-}
-export interface ISetOperatorResponse {
-  operator: string;
-  owner: string;
-  tokenId: string;
-}
-
 export interface IApproveBody {
   spender: string;
   value: string;
@@ -251,38 +227,14 @@ export interface ERCMultiUserTokenTransferResponse {
   data: IMultiUserTokenTransferResponse;
 }
 
-export interface ERCTokenTransferFromResponse {
-  status: number;
-  message: string;
-  data: ITokenTransferFromResponse;
-}
-
-export interface ERCSetOperatorResponse {
-  status: number;
-  message: string;
-  data: ISetOperatorResponse;
-}
-
-export interface ERCSetOperatorAllResponse {
-  status: number;
-  message: string;
-  data: ISetOperatorAllResponse;
-}
-
-export interface ERCOwnerResponse {
-  status: number;
-  message: string;
-  data: IOwnerResponse;
-}
-
-export interface ERCOwnerDetailsResponse {
-  status: number;
-  message: string;
-  data: [IOwnerDetailsResponse];
-}
-
 export interface ERCApproveResponse {
   status: number;
   message: string;
   data: IApproveResponse;
+}
+
+export interface ERCApproveStatusResponse {
+  status: number;
+  message: string;
+  data: IApproveStatusResponse;
 }
