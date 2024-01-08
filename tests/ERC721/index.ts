@@ -26,11 +26,10 @@ const userName = 'test0@edexa';
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.ERC_CLIENT_ID,
-        'secret-key': process.env.ERC_SECRET_KEY,
-      },
+      clientId: process.env.ERC_CLIENT_ID,
+      secretKey: process.env.ERC_SECRET_KEY,
     };
+
     const erc721 = new ERC721(settings);
     erc721
       .authenticate(authSettings)
@@ -49,10 +48,8 @@ describe('Authenticate user', function () {
   });
   it('It should returns invalid user or user not found', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.INVALID_CLIENT_ID,
-        'secret-key': process.env.INVALID_SECRET_KEY,
-      },
+      clientId: process.env.INVALID_CLIENT_ID,
+      secretKey: process.env.INVALID_SECRET_KEY,
     };
     const erc721 = new ERC721(settings);
     erc721
@@ -71,10 +68,8 @@ describe('Authenticate user', function () {
 
   it('It should return client id is not allowed to be empty', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': '',
-        'secret-key': '',
-      },
+      clientId: '',
+      secretKey: '',
     };
     const erc721 = new ERC721(settings);
     erc721
@@ -93,10 +88,7 @@ describe('Authenticate user', function () {
 
   it('It should return "Secret key is required"', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.BARCHIVE_CLIENT_ID,
-        // 'secret-key': '',
-      },
+      clientId: process.env.BARCHIVE_CLIENT_ID,
     };
     const erc721 = new ERC721(settings);
     erc721
@@ -115,10 +107,7 @@ describe('Authenticate user', function () {
 
   it('It should return "Client id is required"', function (done) {
     const authSettings = {
-      headers: {
-        // 'client-id': '',
-        'secret-key': process.env.BARCHIVE_SECRET_KEY,
-      },
+      secretKey: process.env.ERC_SECRET_KEY,
     };
     const erc721 = new ERC721(settings);
     erc721
