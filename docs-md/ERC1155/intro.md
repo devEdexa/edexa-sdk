@@ -43,8 +43,8 @@ List of all SDK Core methods.
 | Approve Token Access     | Approve token access request   |
 | Check Approveal Status   | Check Approval Status          |
 | Set Token URI            | Set Token URI                  |
-| Get Token URI            | get Token URI                 |
-| Token Transfer To Multi-user  | Token Transfer to the multiple        user                 |
+| Get Token URI            | get Token URI                  |
+| Token Transfer To Multi-user  | Token Transfer to the multiple user  |
 
 
 # Getting started
