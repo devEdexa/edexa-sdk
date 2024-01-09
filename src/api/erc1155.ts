@@ -63,6 +63,15 @@ export class ERC1155 {
     return authenticate(this.config, settings);
   }
 
+  // /**   * enroll User.
+  //  * @param data - Data for enrolling the user.
+  //  * @param config - Configuration for the request.
+  //  * @returns A Promise that resolves the enroll user.
+  //  * */
+  // async enrollUser(data: erc20EnrollUsersDTO) {
+  //   return enrollUsers(this.config, data);
+  // }
+
   /**
    * Get Account data.
    *
