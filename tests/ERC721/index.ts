@@ -13,15 +13,12 @@ import {
   ITokenTransferBody,
   ITokenTransferFromBody,
 } from '../../src/util/interface/IERC721';
-const envFound = dotenv.config();
 
 const settings = { network: DEFAULT_NETWORK };
 let token;
 let tokenId;
 const userName2: string = 'test@edexa';
 const enrollUser: any = { username: 'test0@edexa' };
-// const invalidAuthToken = process.env.INVALID_AUTH_TOKEN;
-// const invalidFileId = '00000657f9275197e4c00000';
 
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
@@ -201,226 +198,6 @@ describe('Account Data', function () {
   });
 });
 
-// describe('Enroll users', function () {
-//   it('It should returns enroll user object', function (done) {
-//     const uniquemail = `test${Date.now()}@mailinator.com`;
-//     const requestData: any = {
-//       firstName: 'token',
-//       lastName: 'user3',
-//       phone: '148424673678',
-//       role: 'user',
-//       countryCode: '+91',
-//       location: 'test',
-//       email: uniquemail,
-//       serviceName: 'erc721',
-//     };
-//     const erc721 = new ERC721({
-//       ...settings,
-//       authorization: `Bearer ${token}`,
-//     });
-
-//     erc721
-//       .enrollUser(requestData)
-//       .then(data => {
-//         expect(data)
-//           .to.be.an('object')
-//           .with.all.keys(
-//             'id',
-//             'firstName',
-//             'lastName',
-//             'username',
-//             'uuid',
-//             'phone',
-//             'role',
-//             'status',
-//             'email',
-//             'chaincode',
-//             'channel',
-//             'profilePic',
-//             '_id',
-//             'createdAt',
-//             'updatedAt',
-//             'loginType',
-//             'clientId'
-//           );
-//         expect(data.id).to.be.an('string');
-//         expect(data.firstName).to.be.an('string');
-//         expect(data.lastName).to.be.an('string');
-//         expect(data.phone).to.be.an('string');
-//         expect(data.role).to.be.an('string');
-//         expect(data.status).to.be.an('string');
-//         expect(data.email).to.be.an('string');
-//         expect(data.chaincode).to.be.an('string');
-//         expect(data.channel).to.be.an('string');
-//         expect(data.profilePic).to.be.an('string');
-//         expect(data.uuid).to.be.an('string');
-//         expect(data.username).to.be.an('string');
-//         expect(data.loginType).to.be.an('null');
-//         expect(data.createdAt).to.be.an('string');
-//         expect(data.updatedAt).to.be.an('string');
-//         expect(data._id).to.be.an('string');
-//         enrollUser = data;
-//         done();
-//       })
-//       .catch(error => {
-//         done();
-//       });
-//   });
-//   it('It should returns enroll user object', function (done) {
-//     const uniquemail = `test${Date.now()}2@mailinator.com`;
-//     const requestData: any = {
-//       firstName: 'test2',
-//       lastName: 'user2',
-//       phone: '148424673678',
-//       role: 'user',
-//       countryCode: '+91',
-//       location: 'test',
-//       email: uniquemail,
-//       serviceName: 'erc721',
-//     };
-//     const erc721 = new ERC721({
-//       ...settings,
-//       authorization: `Bearer ${token}`,
-//     });
-
-//     erc721
-//       .enrollUser(requestData)
-//       .then(data => {
-//         expect(data)
-//           .to.be.an('object')
-//           .with.all.keys(
-//             'id',
-//             'firstName',
-//             'lastName',
-//             'username',
-//             'uuid',
-//             'phone',
-//             'role',
-//             'status',
-//             'email',
-//             'chaincode',
-//             'channel',
-//             'profilePic',
-//             '_id',
-//             'createdAt',
-//             'updatedAt',
-//             'loginType',
-//             'clientId'
-//           );
-//         expect(data.id).to.be.an('string');
-//         expect(data.firstName).to.be.an('string');
-//         expect(data.lastName).to.be.an('string');
-//         expect(data.phone).to.be.an('string');
-//         expect(data.role).to.be.an('string');
-//         expect(data.status).to.be.an('string');
-//         expect(data.email).to.be.an('string');
-//         expect(data.chaincode).to.be.an('string');
-//         expect(data.channel).to.be.an('string');
-//         expect(data.profilePic).to.be.an('string');
-//         expect(data.uuid).to.be.an('string');
-//         expect(data.username).to.be.an('string');
-//         expect(data.loginType).to.be.an('null');
-//         expect(data.createdAt).to.be.an('string');
-//         expect(data.updatedAt).to.be.an('string');
-//         expect(data._id).to.be.an('string');
-//         userName2 = data.username;
-//         done();
-//       })
-//       .catch(error => {
-//         done();
-//       });
-//   });
-
-//   it('It should return Authorization token not found', function (done) {
-//     const requestData: any = {
-//       firstName: 'token',
-//       lastName: 'user3',
-//       phone: '148424673678',
-//       role: 'user',
-//       countryCode: '+91',
-//       location: 'test',
-//       email: 'kk03@edexa.team',
-//       serviceName: 'erc721',
-//     };
-//     const erc721 = new ERC721({
-//       ...settings,
-//     });
-//     erc721
-//       .enrollUser(requestData)
-//       .then(data => {
-//         expect(data);
-//         done();
-//       })
-//       .catch(error => {
-//         expect(error).to.be.an('object');
-//         expect(error.status).to.be.an('number');
-//         expect(error.message).to.be.an('string');
-//         done();
-//       });
-//   });
-
-//   it('It should returns email is required', function (done) {
-//     const requestData: any = {
-//       firstName: 'token',
-//       lastName: 'user3',
-//       phone: '148424673678',
-//       role: 'user',
-//       countryCode: '+91',
-//       location: 'test',
-//       serviceName: 'erc721',
-//     };
-//     const erc721 = new ERC721({
-//       ...settings,
-//       authorization: `Bearer ${token}`,
-//     });
-
-//     erc721
-//       .enrollUser(requestData)
-//       .then(data => {
-//         expect(data);
-//         done();
-//       })
-//       .catch(error => {
-//         expect(error);
-//         expect(error).to.be.an('object');
-//         expect(error.status).to.be.an('number');
-//         expect(error.message).to.be.an('string');
-//         done();
-//       });
-//   });
-
-//   it('It should returns invalid auth token', function (done) {
-//     const uniquemail = `test${Date.now()}@mailinator.com`;
-//     const requestData: any = {
-//       firstName: 'token',
-//       lastName: 'user3',
-//       phone: '148424673678',
-//       role: 'user',
-//       email: uniquemail,
-//       countryCode: '+91',
-//       location: 'test',
-//       serviceName: 'erc721',
-//     };
-//     const erc721 = new ERC721({
-//       ...settings,
-//       authorization: `Bearer ${token} Invalid`,
-//     });
-
-//     erc721
-//       .enrollUser(requestData)
-//       .then(data => {
-//         expect(data);
-//         done();
-//       })
-//       .catch(error => {
-//         expect(error).to.be.an('object');
-//         expect(error.status).to.be.an('number');
-//         expect(error.message).to.be.an('string');
-//         done();
-//       });
-//   });
-// });
-
 describe('Get balance', function () {
   const data: IAccount = {
     // userId: 'WnCrk4D4z8Xg3LQi',
@@ -508,7 +285,7 @@ describe('Mint Token', function () {
   };
 
   //success response
-  it('It should return File added successfully', done => {
+  it('It should return token minted successfully', done => {
     const erc721Data = new ERC721({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -584,26 +361,6 @@ describe('Mint Token', function () {
         done();
       });
   });
-  // it('It should return "value should be a type of string"', done => {
-  //   const wrongData = { value: 10, tokenUrl: 'http://localhost/721' };
-  //   const erc721Data = new ERC721({
-  //     ...settings,
-  //     authorization: `Bearer ${token}`,
-  //   });
-  //   erc721Data
-  //     .mintToken(wrongData)
-  //     .then(data => {
-  //       ;
-  //       done();
-  //     })
-  //     .catch(error => {
-  //       ;
-  //       expect(error).to.be.an('object');
-  //       expect(error.status).to.be.an('number');
-  //       expect(error.message).to.be.an('string');
-  //       done();
-  //     });
-  // });
 });
 
 describe('Get the total Supply or total minted token', function () {
