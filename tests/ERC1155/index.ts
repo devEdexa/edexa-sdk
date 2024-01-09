@@ -21,12 +21,9 @@ const envFound = dotenv.config();
 const settings = { network: DEFAULT_NETWORK };
 let token: any = { username: 'yog00@edexa' };
 let tokenId;
-// const userName = 'test0@edexa';
-const userName2: string = 'test@edexa';
+// const userName2: string = 'test@edexa';
 const enrollUser: any = { username: 'test0@edexa' };
-const admin = 'yog00@edexa';
-// const invalidAuthToken = process.env.INVALID_AUTH_TOKEN;
-// const invalidFileId = '00000657f9275197e4c00000';
+// const admin = 'yog00@edexa';
 
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
