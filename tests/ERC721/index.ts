@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import { DEFAULT_NETWORK } from '../../src/util/constant';
 import { ERC721 } from '../../src';
-import path from 'path';
 import dotenv from 'dotenv';
 import {
   IAccount,
@@ -19,18 +18,18 @@ const envFound = dotenv.config();
 const settings = { network: DEFAULT_NETWORK };
 let token;
 let tokenId;
-const userName = 'test0@edexa';
+const userName2: string = 'test@edexa';
+const enrollUser: any = { username: 'test0@edexa' };
 // const invalidAuthToken = process.env.INVALID_AUTH_TOKEN;
 // const invalidFileId = '00000657f9275197e4c00000';
 
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.ERC_CLIENT_ID,
-        'secret-key': process.env.ERC_SECRET_KEY,
-      },
+      clientId: process.env.ERC_CLIENT_ID,
+      secretKey: process.env.ERC_SECRET_KEY,
     };
+
     const erc721 = new ERC721(settings);
     erc721
       .authenticate(authSettings)
@@ -43,16 +42,14 @@ describe('Authenticate user', function () {
         expect(data.name).to.be.an('string');
         done();
       })
-      .catch(() => {
+      .catch(error => {
         done();
       });
   });
   it('It should returns invalid user or user not found', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.INVALID_CLIENT_ID,
-        'secret-key': process.env.INVALID_SECRET_KEY,
-      },
+      clientId: process.env.INVALID_CLIENT_ID,
+      secretKey: process.env.INVALID_SECRET_KEY,
     };
     const erc721 = new ERC721(settings);
     erc721
@@ -71,10 +68,8 @@ describe('Authenticate user', function () {
 
   it('It should return client id is not allowed to be empty', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': '',
-        'secret-key': '',
-      },
+      clientId: '',
+      secretKey: '',
     };
     const erc721 = new ERC721(settings);
     erc721
@@ -93,10 +88,7 @@ describe('Authenticate user', function () {
 
   it('It should return "Secret key is required"', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.BARCHIVE_CLIENT_ID,
-        // 'secret-key': '',
-      },
+      clientId: process.env.BARCHIVE_CLIENT_ID,
     };
     const erc721 = new ERC721(settings);
     erc721
@@ -115,10 +107,7 @@ describe('Authenticate user', function () {
 
   it('It should return "Client id is required"', function (done) {
     const authSettings = {
-      headers: {
-        // 'client-id': '',
-        'secret-key': process.env.BARCHIVE_SECRET_KEY,
-      },
+      secretKey: process.env.ERC_SECRET_KEY,
     };
     const erc721 = new ERC721(settings);
     erc721
@@ -211,6 +200,226 @@ describe('Account Data', function () {
       });
   });
 });
+
+// describe('Enroll users', function () {
+//   it('It should returns enroll user object', function (done) {
+//     const uniquemail = `test${Date.now()}@mailinator.com`;
+//     const requestData: any = {
+//       firstName: 'token',
+//       lastName: 'user3',
+//       phone: '148424673678',
+//       role: 'user',
+//       countryCode: '+91',
+//       location: 'test',
+//       email: uniquemail,
+//       serviceName: 'erc721',
+//     };
+//     const erc721 = new ERC721({
+//       ...settings,
+//       authorization: `Bearer ${token}`,
+//     });
+
+//     erc721
+//       .enrollUser(requestData)
+//       .then(data => {
+//         expect(data)
+//           .to.be.an('object')
+//           .with.all.keys(
+//             'id',
+//             'firstName',
+//             'lastName',
+//             'username',
+//             'uuid',
+//             'phone',
+//             'role',
+//             'status',
+//             'email',
+//             'chaincode',
+//             'channel',
+//             'profilePic',
+//             '_id',
+//             'createdAt',
+//             'updatedAt',
+//             'loginType',
+//             'clientId'
+//           );
+//         expect(data.id).to.be.an('string');
+//         expect(data.firstName).to.be.an('string');
+//         expect(data.lastName).to.be.an('string');
+//         expect(data.phone).to.be.an('string');
+//         expect(data.role).to.be.an('string');
+//         expect(data.status).to.be.an('string');
+//         expect(data.email).to.be.an('string');
+//         expect(data.chaincode).to.be.an('string');
+//         expect(data.channel).to.be.an('string');
+//         expect(data.profilePic).to.be.an('string');
+//         expect(data.uuid).to.be.an('string');
+//         expect(data.username).to.be.an('string');
+//         expect(data.loginType).to.be.an('null');
+//         expect(data.createdAt).to.be.an('string');
+//         expect(data.updatedAt).to.be.an('string');
+//         expect(data._id).to.be.an('string');
+//         enrollUser = data;
+//         done();
+//       })
+//       .catch(error => {
+//         done();
+//       });
+//   });
+//   it('It should returns enroll user object', function (done) {
+//     const uniquemail = `test${Date.now()}2@mailinator.com`;
+//     const requestData: any = {
+//       firstName: 'test2',
+//       lastName: 'user2',
+//       phone: '148424673678',
+//       role: 'user',
+//       countryCode: '+91',
+//       location: 'test',
+//       email: uniquemail,
+//       serviceName: 'erc721',
+//     };
+//     const erc721 = new ERC721({
+//       ...settings,
+//       authorization: `Bearer ${token}`,
+//     });
+
+//     erc721
+//       .enrollUser(requestData)
+//       .then(data => {
+//         expect(data)
+//           .to.be.an('object')
+//           .with.all.keys(
+//             'id',
+//             'firstName',
+//             'lastName',
+//             'username',
+//             'uuid',
+//             'phone',
+//             'role',
+//             'status',
+//             'email',
+//             'chaincode',
+//             'channel',
+//             'profilePic',
+//             '_id',
+//             'createdAt',
+//             'updatedAt',
+//             'loginType',
+//             'clientId'
+//           );
+//         expect(data.id).to.be.an('string');
+//         expect(data.firstName).to.be.an('string');
+//         expect(data.lastName).to.be.an('string');
+//         expect(data.phone).to.be.an('string');
+//         expect(data.role).to.be.an('string');
+//         expect(data.status).to.be.an('string');
+//         expect(data.email).to.be.an('string');
+//         expect(data.chaincode).to.be.an('string');
+//         expect(data.channel).to.be.an('string');
+//         expect(data.profilePic).to.be.an('string');
+//         expect(data.uuid).to.be.an('string');
+//         expect(data.username).to.be.an('string');
+//         expect(data.loginType).to.be.an('null');
+//         expect(data.createdAt).to.be.an('string');
+//         expect(data.updatedAt).to.be.an('string');
+//         expect(data._id).to.be.an('string');
+//         userName2 = data.username;
+//         done();
+//       })
+//       .catch(error => {
+//         done();
+//       });
+//   });
+
+//   it('It should return Authorization token not found', function (done) {
+//     const requestData: any = {
+//       firstName: 'token',
+//       lastName: 'user3',
+//       phone: '148424673678',
+//       role: 'user',
+//       countryCode: '+91',
+//       location: 'test',
+//       email: 'kk03@edexa.team',
+//       serviceName: 'erc721',
+//     };
+//     const erc721 = new ERC721({
+//       ...settings,
+//     });
+//     erc721
+//       .enrollUser(requestData)
+//       .then(data => {
+//         expect(data);
+//         done();
+//       })
+//       .catch(error => {
+//         expect(error).to.be.an('object');
+//         expect(error.status).to.be.an('number');
+//         expect(error.message).to.be.an('string');
+//         done();
+//       });
+//   });
+
+//   it('It should returns email is required', function (done) {
+//     const requestData: any = {
+//       firstName: 'token',
+//       lastName: 'user3',
+//       phone: '148424673678',
+//       role: 'user',
+//       countryCode: '+91',
+//       location: 'test',
+//       serviceName: 'erc721',
+//     };
+//     const erc721 = new ERC721({
+//       ...settings,
+//       authorization: `Bearer ${token}`,
+//     });
+
+//     erc721
+//       .enrollUser(requestData)
+//       .then(data => {
+//         expect(data);
+//         done();
+//       })
+//       .catch(error => {
+//         expect(error);
+//         expect(error).to.be.an('object');
+//         expect(error.status).to.be.an('number');
+//         expect(error.message).to.be.an('string');
+//         done();
+//       });
+//   });
+
+//   it('It should returns invalid auth token', function (done) {
+//     const uniquemail = `test${Date.now()}@mailinator.com`;
+//     const requestData: any = {
+//       firstName: 'token',
+//       lastName: 'user3',
+//       phone: '148424673678',
+//       role: 'user',
+//       email: uniquemail,
+//       countryCode: '+91',
+//       location: 'test',
+//       serviceName: 'erc721',
+//     };
+//     const erc721 = new ERC721({
+//       ...settings,
+//       authorization: `Bearer ${token} Invalid`,
+//     });
+
+//     erc721
+//       .enrollUser(requestData)
+//       .then(data => {
+//         expect(data);
+//         done();
+//       })
+//       .catch(error => {
+//         expect(error).to.be.an('object');
+//         expect(error.status).to.be.an('number');
+//         expect(error.message).to.be.an('string');
+//         done();
+//       });
+//   });
+// });
 
 describe('Get balance', function () {
   const data: IAccount = {
@@ -536,7 +745,7 @@ describe('Token Transfer', function () {
   //success response
   it('It should return "Token transfer successfully"', done => {
     const data: ITokenTransferBody = {
-      to: userName,
+      to: enrollUser.username,
       tokenId,
     };
     const erc721Data = new ERC721({
@@ -561,7 +770,7 @@ describe('Token Transfer', function () {
 
   it('It should return "Authorization token not found or Invalid token"', done => {
     const data: ITokenTransferBody = {
-      to: userName,
+      to: enrollUser.username,
       tokenId,
     };
     const erc721Data = new ERC721({
@@ -582,7 +791,7 @@ describe('Token Transfer', function () {
   });
   it('It should return "Invalid token"', done => {
     const data: ITokenTransferBody = {
-      to: userName,
+      to: enrollUser.username,
       tokenId,
     };
     const erc721Data = new ERC721({
@@ -604,7 +813,7 @@ describe('Token Transfer', function () {
   });
   it('It should return "tokenId is not allowed to be empty"', done => {
     const data: ITokenTransferBody = {
-      to: userName,
+      to: enrollUser.username,
       tokenId: '',
     };
     const erc721Data = new ERC721({
@@ -651,8 +860,8 @@ describe('Token Transfer From one user to another user', function () {
   //success response
   it('It should return "Token transfer successfully"', done => {
     const data: ITokenTransferFromBody = {
-      to: 'test00@edexa',
-      from: userName,
+      to: userName2,
+      from: enrollUser.username,
       tokenId,
     };
     const erc721Data = new ERC721({
@@ -675,8 +884,8 @@ describe('Token Transfer From one user to another user', function () {
 
   it('It should return "Authorization token not found or Invalid token"', done => {
     const data: ITokenTransferFromBody = {
-      to: 'test00@edexa',
-      from: userName,
+      to: userName2,
+      from: enrollUser.username,
       tokenId,
     };
     const erc721Data = new ERC721({
@@ -697,8 +906,8 @@ describe('Token Transfer From one user to another user', function () {
   });
   it('It should return "Invalid token"', done => {
     const data: ITokenTransferFromBody = {
-      to: 'test00@edexa',
-      from: userName,
+      to: userName2,
+      from: enrollUser.username,
       tokenId,
     };
     const erc721Data = new ERC721({
@@ -719,8 +928,8 @@ describe('Token Transfer From one user to another user', function () {
   });
   it('It should return "tokenId is not allowed to be empty"', done => {
     const data: ITokenTransferFromBody = {
-      to: 'test00@edexa',
-      from: userName,
+      to: userName2,
+      from: enrollUser.username,
       tokenId: '',
     };
     const erc721Data = new ERC721({
@@ -742,7 +951,7 @@ describe('Token Transfer From one user to another user', function () {
   it('It should return "User not found"', done => {
     const data: ITokenTransferFromBody = {
       to: 'wrong user',
-      from: userName,
+      from: enrollUser.username,
       tokenId,
     };
     const erc721Data = new ERC721({
@@ -789,7 +998,7 @@ describe('Set Operator', function () {
   //success response
   it('It should return "Operator set successfully"', done => {
     const data: ISetOperatorBody = {
-      operator: userName,
+      operator: enrollUser.username,
       tokenId,
     };
     const erc721Data = new ERC721({
@@ -814,7 +1023,7 @@ describe('Set Operator', function () {
 
   it('It should return "Authorization token not found or Invalid token"', done => {
     const data: ISetOperatorBody = {
-      operator: userName,
+      operator: enrollUser.username,
       tokenId,
     };
     const erc721Data = new ERC721({
@@ -835,7 +1044,7 @@ describe('Set Operator', function () {
   });
   it('It should return "Invalid token"', done => {
     const data: ISetOperatorBody = {
-      operator: userName,
+      operator: enrollUser.username,
       tokenId,
     };
     const erc721Data = new ERC721({
@@ -857,7 +1066,7 @@ describe('Set Operator', function () {
   });
   it('It should return "tokenId is not allowed to be empty"', done => {
     const data: ISetOperatorBody = {
-      operator: userName,
+      operator: enrollUser.username,
       tokenId: '',
     };
     const erc721Data = new ERC721({
@@ -900,7 +1109,7 @@ describe('Set Operator', function () {
   });
 });
 
-describe.skip('Get Owner', function () {
+describe('Get Owner', function () {
   //success response
   it('It should return "Operator get successfully"', done => {
     const data: IOwnerBody = {
@@ -988,11 +1197,11 @@ describe.skip('Get Owner', function () {
   });
 });
 
-describe.skip('Get Approve status', function () {
+describe('Get Approve status', function () {
   //success response
   it('It should return "Operator get successfully"', done => {
     const data: IApproveBody = {
-      operator: userName,
+      operator: enrollUser.username,
     };
     const erc721Data = new ERC721({
       ...settings,
@@ -1014,7 +1223,7 @@ describe.skip('Get Approve status', function () {
 
   it('It should return "Authorization token not found or Invalid token"', done => {
     const data: IApproveBody = {
-      operator: userName,
+      operator: enrollUser.username,
     };
     const erc721Data = new ERC721({
       ...settings,
@@ -1034,7 +1243,7 @@ describe.skip('Get Approve status', function () {
   });
   it('It should return "Invalid token"', done => {
     const data: IApproveBody = {
-      operator: userName,
+      operator: enrollUser.username,
     };
     const erc721Data = new ERC721({
       ...settings,
@@ -1076,7 +1285,7 @@ describe.skip('Get Approve status', function () {
   });
 });
 
-describe.skip('Getting list of Token with Owner name', function () {
+describe('Getting list of Token with Owner name', function () {
   //success response
   it('Get admin owned token list "Total Token Owned get successfully"', done => {
     const data: IOwnerDetailsBody = {
@@ -1104,7 +1313,7 @@ describe.skip('Getting list of Token with Owner name', function () {
   //success response
   it('user owned token list "Total Token Owned get successfully"', done => {
     const data: IOwnerDetailsBody = {
-      userId: userName, // finding for any spacific user token
+      userId: enrollUser.username, // finding for any spacific user token
     };
     const erc721Data = new ERC721({
       ...settings,
@@ -1128,7 +1337,7 @@ describe.skip('Getting list of Token with Owner name', function () {
 
   it('It should return "Authorization token not found or Invalid token"', done => {
     const data: IOwnerDetailsBody = {
-      userId: userName, // finding for any spacific user token
+      userId: enrollUser.username, // finding for any spacific user token
     };
     const erc721Data = new ERC721({
       ...settings,
@@ -1147,7 +1356,7 @@ describe.skip('Getting list of Token with Owner name', function () {
   });
   it('It should return "Invalid token"', done => {
     const data: IOwnerDetailsBody = {
-      userId: userName, // finding for any spacific user token
+      userId: enrollUser.username, // finding for any spacific user token
     };
     const erc721Data = new ERC721({
       ...settings,
@@ -1193,7 +1402,7 @@ describe('Set Operator for all', function () {
   //success response
   it('It should return "Operator get successfully"', done => {
     const data: ISetOperatorAllBody = {
-      operator: userName,
+      operator: enrollUser.username,
       approve: true,
     };
     const erc721Data = new ERC721({
@@ -1218,7 +1427,7 @@ describe('Set Operator for all', function () {
 
   it('It should return "Authorization token not found or Invalid token"', done => {
     const data: ISetOperatorAllBody = {
-      operator: userName,
+      operator: enrollUser.username,
       approve: true,
     };
     const erc721Data = new ERC721({
@@ -1239,7 +1448,7 @@ describe('Set Operator for all', function () {
   });
   it('It should return "Invalid token"', done => {
     const data: ISetOperatorAllBody = {
-      operator: userName,
+      operator: enrollUser.username,
       approve: true,
     };
     const erc721Data = new ERC721({
