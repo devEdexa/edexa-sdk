@@ -30,10 +30,8 @@ const invalidStampId = 'abc123';
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.CLIENT_ID,
-        'secret-key': process.env.SECRET_KEY,
-      },
+      clientId: process.env.CLIENT_ID,
+      secretKey: process.env.SECRET_KEY,
     };
 
     const bStamp = new Bstamp(settings);
@@ -55,10 +53,8 @@ describe('Authenticate user', function () {
 
   it('It should return user not found', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.CLIENT_ID,
-        'secret-key': process.env.SECRET_KEY,
-      },
+      clientId: process.env.CLIENT_ID,
+      secretKey: process.env.SECRET_KEY,
     };
 
     const bStamp = new Bstamp(settings);
@@ -75,10 +71,8 @@ describe('Authenticate user', function () {
 
   it('It should return something went wrong', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': '',
-        'secret-key': '',
-      },
+      clientId: '',
+      secretKey: '',
     };
 
     const bStamp = new Bstamp(settings);

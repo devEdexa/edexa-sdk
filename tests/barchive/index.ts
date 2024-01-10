@@ -16,10 +16,8 @@ const invalidFileId = '00000657f9275197e4c00000';
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.BARCHIVE_CLIENT_ID,
-        'secret-key': process.env.BARCHIVE_SECRET_KEY,
-      },
+      clientId: process.env.BARCHIVE_CLIENT_ID,
+      secretKey: process.env.BARCHIVE_SECRET_KEY,
     };
 
     const barchive = new Barchive(settings);
@@ -41,10 +39,8 @@ describe('Authenticate user', function () {
 
   it('It should returns invalid user or user not found', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.INVALID_CLIENT_ID,
-        'secret-key': process.env.INVALID_SECRET_KEY,
-      },
+      clientId: process.env.INVALID_CLIENT_ID,
+      secretKey: process.env.INVALID_SECRET_KEY,
     };
 
     const barchive = new Barchive(settings);
@@ -63,10 +59,8 @@ describe('Authenticate user', function () {
 
   it('It should return client id is not allowed to be empty', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': '',
-        'secret-key': '',
-      },
+      clientId: '',
+      secretKey: '',
     };
 
     const bArchiveData = new Barchive(settings);
@@ -86,10 +80,8 @@ describe('Authenticate user', function () {
 
   it('It should return secret key is required', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.BARCHIVE_CLIENT_ID,
-        'secret-key': '',
-      },
+      clientId: process.env.BARCHIVE_CLIENT_ID,
+      secretKey: '',
     };
 
     const bArchiveData = new Barchive(settings);
@@ -109,10 +101,8 @@ describe('Authenticate user', function () {
 
   it('It should return client id is required', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': '',
-        'secret-key': process.env.BARCHIVE_SECRET_KEY,
-      },
+      clientId: '',
+      secretKey: process.env.BARCHIVE_SECRET_KEY,
     };
 
     const bArchiveData = new Barchive(settings);
