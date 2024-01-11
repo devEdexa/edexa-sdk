@@ -20,8 +20,6 @@ let token;
 let tokenId;
 const userName2: string = 'test@edexa';
 const enrollUser: any = { username: 'test0@edexa' };
-// const invalidAuthToken = process.env.INVALID_AUTH_TOKEN;
-// const invalidFileId = '00000657f9275197e4c00000';
 
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
@@ -112,82 +110,6 @@ describe('Authenticate user', function () {
     const erc721 = new ERC721(settings);
     erc721
       .authenticate(authSettings)
-      .then(data => {
-        expect(data);
-        done();
-      })
-      .catch(error => {
-        expect(error).to.be.an('object');
-        expect(error.status).to.be.an('number');
-        expect(error.message).to.be.an('string');
-        done();
-      });
-  });
-});
-
-describe('Account Data', function () {
-  const data: IAccount = {
-    userId: 'WnCrk4D4z8Xg3LQi',
-  };
-
-  it('It should return account get successfully', done => {
-    const erc721Data = new ERC721({
-      ...settings,
-      authorization: `Bearer ${token}`,
-    });
-    erc721Data
-      .getAccount({})
-      .then(data => {
-        expect(data);
-        expect(data).to.be.an('object').with.all.keys('username');
-        expect(data.username).to.be.an('string');
-        done();
-      })
-      .catch(error => {
-        done();
-      });
-  });
-  it('It should return "Authorization token not found or Invalid token"', done => {
-    const erc721Data = new ERC721({
-      ...settings,
-    });
-    erc721Data
-      .getAccount(data)
-      .then(data => {
-        expect(data);
-        done();
-      })
-      .catch(error => {
-        expect(error).to.be.an('object');
-        expect(error.status).to.be.an('number');
-        expect(error.message).to.be.an('string');
-        done();
-      });
-  });
-  it('It should return "Invalid token"', done => {
-    const erc721Data = new ERC721({
-      ...settings,
-      authorization: `Bearer ${token} invalid`,
-    });
-    erc721Data
-      .getAccount(data)
-      .then(data => {
-        done();
-      })
-      .catch(error => {
-        expect(error).to.be.an('object');
-        expect(error.status).to.be.an('number');
-        expect(error.message).to.be.an('string');
-        done();
-      });
-  });
-  it('It should return "User not Found"', done => {
-    const erc721Data = new ERC721({
-      ...settings,
-      authorization: `Bearer ${token}`,
-    });
-    erc721Data
-      .getAccount(data)
       .then(data => {
         expect(data);
         done();
@@ -421,13 +343,109 @@ describe('Account Data', function () {
 //   });
 // });
 
+describe('Account Data', function () {
+  const data: IAccount = {
+    userId: 'WnCrk4D4z8Xg3LQi', // // pass here users uuid for getting users account id if not pass any user id then it return admin account id
+  };
+
+  it('It should return "Account get successfully"', done => {
+    const erc721Data = new ERC721({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    erc721Data
+      .getAccount({})
+      .then(data => {
+        expect(data);
+        expect(data).to.be.an('object').with.all.keys('username');
+        expect(data.username).to.be.an('string');
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+
+  it('It should return "Get Account id of user"', done => {
+    data.userId = enrollUser.uuid;
+    const erc721Data = new ERC721({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    erc721Data
+      .getAccount({})
+      .then(data => {
+        expect(data);
+        expect(data).to.be.an('object').with.all.keys('username');
+        expect(data.username).to.be.an('string');
+        done();
+      })
+      .catch(error => {
+        done();
+      });
+  });
+  it('It should return "Authorization token not found or Invalid token"', done => {
+    const erc721Data = new ERC721({
+      ...settings,
+    });
+    erc721Data
+      .getAccount(data)
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+  it('It should return "Invalid token"', done => {
+    const erc721Data = new ERC721({
+      ...settings,
+      authorization: `Bearer ${token} invalid`,
+    });
+    erc721Data
+      .getAccount(data)
+      .then(data => {
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+  it('It should return "User not Found"', done => {
+    const erc721Data = new ERC721({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    erc721Data
+      .getAccount(data)
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+});
+
 describe('Get balance', function () {
   const data: IAccount = {
-    // userId: 'WnCrk4D4z8Xg3LQi',
+    // // if you not pass any userId then it return admin balance
+    // userId: '',
   };
 
   //success response
-  it('It should return File added successfully', done => {
+  it('It should return "Get Balance successfully"', done => {
     const erc721Data = new ERC721({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -505,10 +523,12 @@ describe('Mint Token', function () {
   const data: IMintBody = {
     value: '1000.000',
     tokenUrl: 'http://localhost/721',
+    chaincode: 'token_erc721',
+    channel: 'mychannel',
   };
 
   //success response
-  it('It should return File added successfully', done => {
+  it('It should return "Token minted successfully"', done => {
     const erc721Data = new ERC721({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -584,31 +604,11 @@ describe('Mint Token', function () {
         done();
       });
   });
-  // it('It should return "value should be a type of string"', done => {
-  //   const wrongData = { value: 10, tokenUrl: 'http://localhost/721' };
-  //   const erc721Data = new ERC721({
-  //     ...settings,
-  //     authorization: `Bearer ${token}`,
-  //   });
-  //   erc721Data
-  //     .mintToken(wrongData)
-  //     .then(data => {
-  //       ;
-  //       done();
-  //     })
-  //     .catch(error => {
-  //       ;
-  //       expect(error).to.be.an('object');
-  //       expect(error.status).to.be.an('number');
-  //       expect(error.message).to.be.an('string');
-  //       done();
-  //     });
-  // });
 });
 
 describe('Get the total Supply or total minted token', function () {
   //success response
-  it('It should return File added successfully', done => {
+  it('It should return "Get Total supply successfully"', done => {
     const erc721Data = new ERC721({
       ...settings,
       authorization: `Bearer ${token}`,
@@ -664,9 +664,6 @@ describe('Get the total Supply or total minted token', function () {
 });
 
 describe('Get the Token URI', function () {
-  const data: IAccount = {
-    // tokenId: 'WnCrk4D4z8Xg3LQi',
-  };
   //success response
   it('It should return "Token URI get successfully"', done => {
     const erc721Data = new ERC721({
@@ -1516,7 +1513,7 @@ describe('Burn Token', function () {
       });
   });
   //success response
-  it('It should return File added successfully', done => {
+  it('It should return "Token Burn successfully"', done => {
     const data: any = {
       tokenId,
     };

@@ -1,5 +1,7 @@
 export interface IAccount {
   userId?: string;
+  channel?: string;
+  chaincode?: string;
 }
 
 export interface IAccountResponse {
@@ -17,6 +19,8 @@ export interface IBalanceResponse {
 export interface IMintBody {
   value: string;
   tokenUrl: string;
+  channel?: string;
+  chaincode?: string;
 }
 
 export interface IMintResponse {
@@ -27,6 +31,8 @@ export interface IMintResponse {
 
 export interface IBurnBody {
   tokenId: string;
+  channel?: string;
+  chaincode?: string;
 }
 export interface IBurnResponse {
   burner: string;
@@ -38,6 +44,8 @@ export interface ISupplyResponse {
 
 export interface IURIBody {
   tokenId: string;
+  channel?: string;
+  chaincode?: string;
 }
 export interface IURIResponse {
   URI: string;
