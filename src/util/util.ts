@@ -9,21 +9,25 @@ import {
 import { IbarchiveAddFile, IbarchiveAddFileData, IbarchiveGetFile, IbarchiveGetFileData } from './interface/IBarchive';
 import { CommonResponse, ICommonAuth } from './interface/ICommon';
 import {
-  erc20AccountIdDTO,
-  erc20AccountIdData,
-  erc20BurnTokenDTO,
-  erc20BurnTokenData,
-  erc20EnrollUsersDTO,
-  erc20EnrollUsersData,
-  erc20GetBalanceOfDTO,
-  erc20GetBalanceOfData,
-  erc20MintTokenDTO,
-  erc20MintTokenData,
-  erc20commonData,
-  erc20TotalSupplyData,
-  erc20TransferTokenDTO,
-  erc20TransferTokenData,
-  erc20commonDTO,
+  IERC20AccountId,
+  IERC20AccountIdData,
+  IERC20AllowanceData,
+  IERC20BurnToken,
+  IERC20BurnTokenData,
+  IERC20Common,
+  IERC20EnrollUsersData,
+  IERC20GetBalance,
+  IERC20GetBalanceOfData,
+  IERC20MintToken,
+  IERC20MintTokenData,
+  IERC20SetOperatorData,
+  IERC20TotalSupply,
+  IERC20TotalSupplyData,
+  IERC20TransferToken,
+  IERC20TransferTokenData,
+  IERC20TransferTokenFrom,
+  IERC20TransferTokenFromData,
+  IEnrollUsersDTO,
 } from './interface/erc20';
 
 /**
@@ -225,7 +229,7 @@ export function getTokenEngineAuthFromRaw(rawTokenEngineAuth: {
  * @param rawErc20MintToken - Raw erc 20 mint Token.
  * @returns The parsed minted token object.
  */
-export async function mintTokenFromRaw(rawErc20MintToken: erc20MintTokenData): Promise<erc20MintTokenDTO> {
+export async function mintTokenFromRaw(rawErc20MintToken: IERC20MintTokenData): Promise<IERC20MintToken> {
   try {
     return rawErc20MintToken?.data;
   } catch (e) {
@@ -239,7 +243,7 @@ export async function mintTokenFromRaw(rawErc20MintToken: erc20MintTokenData): P
  * @param rawErc20balanceOf - Raw erc 20 balanceOf.
  * @returns The parsed balanceOf object.
  */
-export async function balanceFromRaw(rawErc20balanceOf: erc20GetBalanceOfData): Promise<erc20GetBalanceOfDTO> {
+export async function balanceFromRaw(rawErc20balanceOf: IERC20GetBalanceOfData): Promise<IERC20GetBalance> {
   try {
     return rawErc20balanceOf?.data;
   } catch (e) {
@@ -253,7 +257,7 @@ export async function balanceFromRaw(rawErc20balanceOf: erc20GetBalanceOfData): 
  * @param rawErc20enrollUsers - Raw erc 20 enroll user.
  * @returns The parsed balanceOf object.
  */
-export async function enrollUsersFromRaw(rawErc20enrollUsers: erc20EnrollUsersData): Promise<erc20EnrollUsersDTO> {
+export async function enrollUsersFromRaw(rawErc20enrollUsers: IERC20EnrollUsersData): Promise<IEnrollUsersDTO> {
   try {
     return rawErc20enrollUsers?.data;
   } catch (e) {
@@ -267,7 +271,7 @@ export async function enrollUsersFromRaw(rawErc20enrollUsers: erc20EnrollUsersDa
  * @param rawErc20AccountId - Raw erc 20 accountId of user.
  * @returns The parsed accountId of user object.
  */
-export async function accountIdFromRaw(rawErc20AccountId: erc20AccountIdData): Promise<erc20AccountIdDTO> {
+export async function accountIdFromRaw(rawErc20AccountId: IERC20AccountIdData): Promise<IERC20AccountId> {
   try {
     return rawErc20AccountId?.data;
   } catch (e) {
@@ -281,7 +285,7 @@ export async function accountIdFromRaw(rawErc20AccountId: erc20AccountIdData): P
  * @param rawErc20TransferToken - Raw erc 20 transfer token to user.
  * @returns The parsed transfer token to user object.
  */
-export async function transferTokenRaw(rawErc20TransferToken: erc20TransferTokenData): Promise<erc20TransferTokenDTO> {
+export async function transferTokenRaw(rawErc20TransferToken: IERC20TransferTokenData): Promise<IERC20TransferToken> {
   try {
     return rawErc20TransferToken?.data;
   } catch (e) {
@@ -295,7 +299,7 @@ export async function transferTokenRaw(rawErc20TransferToken: erc20TransferToken
  * @param rawErc20TotalSupply - Raw erc 20 total supply.
  * @returns The parsed total supply object.
  */
-export async function totalSupplyFromRaw(rawErc20TotalSupply: erc20TotalSupplyData): Promise<erc20TransferTokenDTO> {
+export async function totalSupplyFromRaw(rawErc20TotalSupply: IERC20TotalSupplyData): Promise<IERC20TotalSupply> {
   try {
     return rawErc20TotalSupply?.data;
   } catch (e) {
@@ -309,7 +313,7 @@ export async function totalSupplyFromRaw(rawErc20TotalSupply: erc20TotalSupplyDa
  * @param rawErc20BurnTokens - Raw erc 20 burn tokens.
  * @returns The parsed burn tokens object.
  */
-export async function burnTokenFromRaw(rawErc20BurnTokens: erc20BurnTokenData): Promise<erc20BurnTokenDTO> {
+export async function burnTokenFromRaw(rawErc20BurnTokens: IERC20BurnTokenData): Promise<IERC20BurnToken> {
   try {
     return rawErc20BurnTokens?.data;
   } catch (e) {
@@ -323,7 +327,7 @@ export async function burnTokenFromRaw(rawErc20BurnTokens: erc20BurnTokenData): 
  * @param rawErc20SetOperator - Raw erc 20 set operator for token.
  * @returns The parsed set token operator object.
  */
-export async function setOperatorFromRaw(rawErc20SetOperator: erc20commonData): Promise<erc20commonDTO> {
+export async function setOperatorFromRaw(rawErc20SetOperator: IERC20SetOperatorData): Promise<IERC20Common> {
   try {
     return rawErc20SetOperator?.data;
   } catch (e) {
@@ -337,7 +341,7 @@ export async function setOperatorFromRaw(rawErc20SetOperator: erc20commonData): 
  * @param rawErc20CheckAllowanceLimit - Raw erc 20 check spender allowance limit for token.
  * @returns The parsed set token operator object.
  */
-export async function checkAllowanceFromRaw(rawErc20CheckAllowanceLimit: erc20commonData): Promise<erc20commonDTO> {
+export async function checkAllowanceFromRaw(rawErc20CheckAllowanceLimit: IERC20AllowanceData): Promise<IERC20Common> {
   try {
     return rawErc20CheckAllowanceLimit?.data;
   } catch (e) {
@@ -351,7 +355,9 @@ export async function checkAllowanceFromRaw(rawErc20CheckAllowanceLimit: erc20co
  * @param rawErc20TransferTokenFrom - Raw erc 20 transfer token from.
  * @returns The parsed transfer token from object.
  */
-export async function transferTokenFromRaw(rawErc20TransferTokenFrom: erc20commonData): Promise<erc20commonDTO> {
+export async function transferTokenFromRaw(
+  rawErc20TransferTokenFrom: IERC20TransferTokenFromData
+): Promise<IERC20TransferTokenFrom> {
   try {
     return rawErc20TransferTokenFrom?.data;
   } catch (e) {

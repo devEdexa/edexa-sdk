@@ -1,14 +1,15 @@
 import { EdexaConfig } from '../api/config';
 import { API_METHOD, EdexaApiType, REQUEST_METHOD } from '../util/constant';
 import {
-  erc20AccountIdDTO,
-  erc20BurnTokenDTO,
-  erc20EnrollUsersDTO,
-  erc20GetBalanceOfDTO,
-  erc20MintTokenDTO,
-  erc20TotalSupplyDTO,
-  erc20TransferTokenDTO,
-  erc20commonDTO,
+  IERC20AccountId,
+  IERC20BurnToken,
+  IERC20Common,
+  IERC20GetBalance,
+  IERC20MintToken,
+  IERC20TotalSupply,
+  IERC20TransferToken,
+  IERC20TransferTokenFrom,
+  IEnrollUsersDTO,
 } from '../util/interface/erc20';
 import {
   accountIdFromRaw,
@@ -36,12 +37,12 @@ import { requestHttp } from './dispatch';
 export async function authenticate(
   settings: EdexaConfig,
   config: { clientId: string; secretKey: string },
-  srcMethod = API_METHOD.AUTHENTICATE
+  srcMethod = API_METHOD.ERC20_AUTHENTICATE
 ): Promise<any> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.ERC20,
-    API_METHOD.AUTHENTICATE,
+    API_METHOD.ERC20_AUTHENTICATE,
     srcMethod,
     {},
     {
@@ -64,10 +65,10 @@ export async function authenticate(
  */
 export async function mintToken(
   settings: EdexaConfig,
-  data: string,
+  data: string | object,
   config?: any,
   srcMethod = API_METHOD.MINT_TOKEN
-): Promise<erc20MintTokenDTO> {
+): Promise<IERC20MintToken> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.ERC20,
@@ -93,12 +94,12 @@ export async function mintToken(
  * @param srcMethod - Source method for balanceOf.
  * @returns A Promise that resolves to the balanceOf.
  */
-export async function balanceOf(
+export async function getBalance(
   settings: EdexaConfig,
   data: string | object,
   config?: any,
   srcMethod = API_METHOD.BALANCEOF
-): Promise<erc20GetBalanceOfDTO> {
+): Promise<IERC20GetBalance> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.ERC20,
@@ -129,7 +130,7 @@ export async function enrollUsers(
   data: object,
   config?: any,
   srcMethod = API_METHOD.ENROLL_USERS
-): Promise<erc20EnrollUsersDTO> {
+): Promise<IEnrollUsersDTO> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.ERC20,
@@ -155,12 +156,12 @@ export async function enrollUsers(
  * @param srcMethod - Source method for accountId of user.
  * @returns A Promise that resolves to the accountId of user.
  */
-export async function accountId(
+export async function getAccountId(
   settings: EdexaConfig,
   data: object,
   config?: any,
   srcMethod = API_METHOD.ACCOUNTID
-): Promise<erc20AccountIdDTO> {
+): Promise<IERC20AccountId> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.ERC20,
@@ -191,7 +192,7 @@ export async function transferToken(
   data: object,
   config?: any,
   srcMethod = API_METHOD.TRANSFER_TOKEN
-): Promise<erc20TransferTokenDTO> {
+): Promise<IERC20TransferToken> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.ERC20,
@@ -222,7 +223,7 @@ export async function totalSupply(
   data: object,
   config?: any,
   srcMethod = API_METHOD.TOTAL_SUPPLY
-): Promise<erc20TotalSupplyDTO> {
+): Promise<IERC20TotalSupply> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.ERC20,
@@ -253,7 +254,7 @@ export async function burnToken(
   data: object,
   config?: any,
   srcMethod = API_METHOD.BURN_TOKENS
-): Promise<erc20BurnTokenDTO> {
+): Promise<IERC20BurnToken> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.ERC20,
@@ -284,7 +285,7 @@ export async function setOperator(
   data: object,
   config?: any,
   srcMethod = API_METHOD.SET_OPERATOR
-): Promise<erc20commonDTO> {
+): Promise<IERC20Common> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.ERC20,
@@ -315,7 +316,7 @@ export async function checkAllowanceLimit(
   data: object,
   config?: any,
   srcMethod = API_METHOD.CHECK_ALLOWANCE
-): Promise<erc20commonDTO> {
+): Promise<IERC20Common> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.ERC20,
@@ -346,7 +347,7 @@ export async function transferTokenFrom(
   data: object,
   config?: any,
   srcMethod = API_METHOD.TRANSFER_FROM
-): Promise<erc20commonDTO> {
+): Promise<IERC20TransferTokenFrom> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.ERC20,

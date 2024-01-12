@@ -1,12 +1,9 @@
 import { expect } from 'chai';
 import { DEFAULT_NETWORK } from '../../src/util/constant';
 import { ERC20 } from '../../src';
-import dotenv from 'dotenv';
-const envFound = dotenv.config();
 
 const settings = { network: DEFAULT_NETWORK };
 let token, enrollUser, transferToken;
-const invalidAuthToken = process.env.INVALID_AUTH_TOKEN;
 
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
@@ -158,12 +155,15 @@ describe('Mint token', function () {
   });
 
   it('It should return value is required', function (done) {
+    const data = {
+      value: '',
+    };
     const erc20 = new ERC20({
       ...settings,
       authorization: `Bearer ${token}`,
     });
     erc20
-      .mintToken({})
+      .mintToken(data)
       .then((data: any) => {
         expect(data);
         done();
@@ -185,8 +185,9 @@ describe('Mint token', function () {
     erc20
       .mintToken(requestData)
       .then(data => {
-        expect(data).to.be.an('object').with.all.keys('minter');
+        expect(data).to.be.an('object').with.all.keys('minter', 'balance');
         expect(data.minter).to.be.an('string');
+        expect(data.balance).to.be.an('');
         done();
       })
       .catch(error => {
@@ -357,7 +358,7 @@ describe('AccountId of users', function () {
       ...settings,
     });
     erc20
-      .accountId({ userId: enrollUser.uuid })
+      .getAccountId({ userId: enrollUser.uuid })
       .then(data => {
         expect(data);
         done();
@@ -377,7 +378,7 @@ describe('AccountId of users', function () {
     });
 
     erc20
-      .accountId({ userId: enrollUser.uuid })
+      .getAccountId({ userId: enrollUser.uuid })
       .then(data => {
         expect(data).to.be.an('object').with.all.keys('username');
         expect(data.username).to.be.an('string');
@@ -389,13 +390,16 @@ describe('AccountId of users', function () {
   });
 
   it('It should returns userId is required', function (done) {
+    const data = {
+      userId: '',
+    };
     const erc20 = new ERC20({
       ...settings,
       authorization: `Bearer ${token}`,
     });
 
     erc20
-      .accountId({})
+      .getAccountId(data)
       .then(data => {
         expect(data);
         done();
@@ -415,7 +419,7 @@ describe('AccountId of users', function () {
     });
 
     erc20
-      .accountId({ userId: enrollUser.uuid })
+      .getAccountId({ userId: enrollUser.uuid })
       .then(data => {
         expect(data);
         done();
@@ -485,6 +489,7 @@ describe('TransferToken to users', function () {
 
     erc20
       .transferToken({
+        to: '',
         value: '100',
       })
       .then(data => {
@@ -508,6 +513,7 @@ describe('TransferToken to users', function () {
 
     erc20
       .transferToken({
+        to: '',
         value: '100',
       })
       .then(data => {
@@ -546,14 +552,14 @@ describe('TransferToken to users', function () {
   });
 });
 
-describe('BalanceOf', function () {
+describe('Get Balance', function () {
   it('It should return Authorization token not found', function (done) {
     const requestData: any = {};
     const erc20 = new ERC20({
       ...settings,
     });
     erc20
-      .balanceOf(requestData)
+      .getBalance(requestData)
       .then(data => {
         expect(data);
         done();
@@ -575,7 +581,7 @@ describe('BalanceOf', function () {
     });
 
     erc20
-      .balanceOf(requestData)
+      .getBalance(requestData)
       .then(data => {
         expect(data).to.be.an('object').with.all.keys('balance');
         expect(data.balance).to.be.an('number');
@@ -595,7 +601,7 @@ describe('BalanceOf', function () {
     });
 
     erc20
-      .balanceOf({ userId: enrollUser.username })
+      .getBalance({ userId: enrollUser.username })
       .then(data => {
         expect(data).to.be.an('object').with.all.keys('balance');
         expect(data.balance).to.be.an('number');
@@ -614,7 +620,7 @@ describe('BalanceOf', function () {
     });
 
     erc20
-      .balanceOf({ userId: 'kk@edexa' })
+      .getBalance({ userId: 'kk@edexa' })
       .then(data => {
         expect(data);
         done();
@@ -635,7 +641,7 @@ describe('BalanceOf', function () {
     });
 
     erc20
-      .balanceOf({ userId: 'kk@edexa' })
+      .getBalance({ userId: 'kk@edexa' })
       .then(data => {
         expect(data);
         done();
@@ -762,7 +768,7 @@ describe('Burn Token', function () {
     });
 
     erc20
-      .burnToken({})
+      .burnToken({ value: '' })
       .then(data => {
         expect(data);
         done();
@@ -783,7 +789,7 @@ describe('Burn Token', function () {
     });
 
     erc20
-      .burnToken({})
+      .burnToken(requestData)
       .then(data => {
         expect(data);
         done();
@@ -830,6 +836,7 @@ describe('Set operator for token', function () {
     erc20
       .setOperator({
         spender: enrollUser.username,
+        value: '',
       })
       .then(data => {
         expect(data);
@@ -876,6 +883,7 @@ describe('Set operator for token', function () {
 
     erc20
       .setOperator({
+        spender: enrollUser.username,
         value: '100',
       })
       .then(data => {
@@ -899,6 +907,7 @@ describe('Set operator for token', function () {
 
     erc20
       .setOperator({
+        spender: '',
         value: '100',
       })
       .then(data => {
@@ -991,7 +1000,7 @@ describe('check spender allowance limit for token', function () {
     });
 
     erc20
-      .checkAllowanceLimit({})
+      .checkAllowanceLimit({ spender: '' })
       .then(data => {
         expect(data);
         done();
@@ -1012,7 +1021,7 @@ describe('check spender allowance limit for token', function () {
     });
 
     erc20
-      .checkAllowanceLimit({})
+      .checkAllowanceLimit({ spender: enrollUser.username })
       .then(data => {
         expect(data);
         done();
@@ -1106,6 +1115,7 @@ describe('TransferToken from one to another users', function () {
 
     erc20
       .transferTokenFrom({
+        to: enrollUser.username,
         from: transferToken.to,
         value: '10',
       })
@@ -1130,6 +1140,7 @@ describe('TransferToken from one to another users', function () {
 
     erc20
       .transferTokenFrom({
+        to: '',
         from: transferToken.to,
         value: '10',
       })
