@@ -7,6 +7,7 @@ import {
   getEdexaBarchiveHttpUrl,
   getEdexaBstampHttpUrl,
   getEdexaBstampV2HttpUrl,
+  getEdexaERC20HttpUrl,
 } from '../util/constant';
 
 /**
@@ -51,6 +52,8 @@ export class EdexaConfig {
       return getEdexaBstampV2HttpUrl(this.network);
     } else if (apiType === EdexaApiType.BARCHIVE) {
       return getEdexaBarchiveHttpUrl(this.network);
+    } else if (apiType === EdexaApiType.ERC20) {
+      return getEdexaERC20HttpUrl(this.network);
     }
   }
 }

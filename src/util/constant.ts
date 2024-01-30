@@ -40,11 +40,41 @@ export function getEdexaBarchiveHttpUrl(network: Network): string {
 }
 
 /**
+ * Returns the HTTP URL for the edeXa bArchive API based on the network and API key.
+ *
+ * @param network - The network to use (e.g., 'mainnet', 'testnet').
+ * @returns The HTTP URL for the edeXa bArchive.
+ */
+export function getEdexaERC20HttpUrl(network: Network): string {
+  // return `https://api-edexagw.${network}.com/barchive`;
+  return `http://localhost:6000`;
+}
+
+/**
  * Represents the types of edeXa APIs.
  */
 export enum EdexaApiType {
   BSTAMP, // edeXa bStamp API
   BARCHIVE, // edeXa bArchive API
+  ERC20, // edeXa erc20 API
+}
+
+export enum MODULE_SLUG {
+  API = 'api',
+  Mint = 'mint',
+  BALANCE = 'balance',
+  USER = 'user',
+  REGISTER = 'register',
+  CLIENT = 'client',
+  TRANSFER = 'transfer',
+  SUPPLY = 'supply',
+  BURN = 'burn',
+  APPROVE = 'approve',
+  ALLOWANCE = 'allowance',
+  TRANSFER_FROM = 'transfer-from',
+}
+export enum TOKEN_TYPE {
+  ERC_20 = 'erc20',
 }
 
 /**
@@ -77,4 +107,15 @@ export const API_METHOD = {
   CREATE_WEBHOOK: 'createWebhook',
   GET_WEBHOOK: 'getWebhook',
   FILE: 'file',
+  ERC20_AUTHENTICATE: 'api/authenticate',
+  MINT_TOKEN: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.Mint}`,
+  BALANCEOF: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.BALANCE}`,
+  ENROLL_USERS: `${MODULE_SLUG.API}/${MODULE_SLUG.USER}/${MODULE_SLUG.REGISTER}`,
+  ACCOUNTID: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.CLIENT}`,
+  TRANSFER_TOKEN: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.TRANSFER}`,
+  TOTAL_SUPPLY: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.SUPPLY}`,
+  BURN_TOKENS: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.BURN}`,
+  SET_OPERATOR: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.APPROVE}`,
+  CHECK_ALLOWANCE: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.ALLOWANCE}`,
+  TRANSFER_FROM: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.TRANSFER_FROM}`,
 };
