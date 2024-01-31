@@ -1,19 +1,3 @@
-import { expect } from 'chai';
-import { DEFAULT_NETWORK } from '../../src/util/constant';
-import { ERC721 } from '../../src';
-import dotenv from 'dotenv';
-import {
-  IAccount,
-  IApproveBody,
-  IMintBody,
-  IOwnerBody,
-  IOwnerDetailsBody,
-  ISetOperatorAllBody,
-  ISetOperatorBody,
-  ITokenTransferBody,
-  ITokenTransferFromBody,
-} from '../../src/util/interface/IERC721';
-const envFound = dotenv.config();
 
 const settings = { network: DEFAULT_NETWORK };
 let token;
