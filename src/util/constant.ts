@@ -47,7 +47,7 @@ export function getEdexaBarchiveHttpUrl(network: Network): string {
  */
 export function getEdexaERC721HttpUrl(network: Network): string {
   // return `https://api-edexagw.${network}.com/barchive`;
-  return `http://localhost:6000`;
+  return `http://localhost:6000/api`;
 }
 
 /**

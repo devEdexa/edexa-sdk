@@ -77,6 +77,17 @@ export class ERC721 {
     return getAccount(this.config, data);
   }
 
+  // /**
+  //  * Register new user with the edeXa API.
+  //  *
+  //  * @param data - Data for adding new users.
+  //  * @param config - Configuration for the request.
+  //  * @returns A Promise that resolves to the register users data.
+  //  */
+  // async enrollUser(data: IAccount): Promise<IBalanceResponse> {
+  //   return enrollUser(this.config, data);
+  // }
+
   /**
    * Getting the admin and users balance with the edeXa API.
    *

@@ -1,12 +1,6 @@
 import { EdexaConfig } from '../api/config';
 import { API_METHOD, API_METHOD_ERC, EdexaApiType, REQUEST_METHOD } from '../util/constant';
 import {
-  IbarchiveAddFile,
-  IbarchiveAddFileData,
-  IbarchiveGetFile,
-  IbarchiveGetFileData,
-} from '../util/interface/IBarchive';
-import {
   getERCAccountFromRaw,
   getERCApproveStatusFromRaw,
   getERCAuthFromRaw,
@@ -23,9 +17,6 @@ import {
   getERCURIFromRaw,
 } from '../util/util_erc721';
 import { requestHttp } from './dispatch';
-import * as fs from 'fs';
-import FormData from 'form-data';
-import { CommonResponse } from '../util/interface/ICommon';
 import {
   ERCApproveResponse,
   ERCBurnResponse,
@@ -38,7 +29,6 @@ import {
   ERCTokenTransferFromResponse,
   ERCTokenTransferResponse,
   ERCURIResponse,
-  IAccount,
   IAccountResponse,
   IApproveResponse,
   IBurnResponse,
@@ -64,7 +54,7 @@ import {
  */
 export async function authenticate(
   settings: EdexaConfig,
-  config: { headers: { 'client-id': string; 'client-secret': string } },
+  config: { clientId: string; secretKey: string },
   srcMethod = API_METHOD.AUTHENTICATE
 ): Promise<any> {
   const response: any = await requestHttp(
@@ -76,7 +66,7 @@ export async function authenticate(
     {
       ...config,
       method: REQUEST_METHOD.POST,
-      headers: { ...config.headers },
+      headers: { ...config, 'client-id': config.clientId, 'secret-key': config.secretKey },
     }
   );
   return getERCAuthFromRaw(response);
