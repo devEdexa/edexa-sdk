@@ -4,41 +4,35 @@ import { ERC20 } from '../../src';
 
 const settings = { network: DEFAULT_NETWORK };
 let token, enrollUser, transferToken;
-const invalidAuthToken = process.env.INVALID_AUTH_TOKEN;
 
 describe('Authenticate user', function () {
   it('It should returns information about user', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.TOKEN_ENGINE_CLIENT_ID,
-        'secret-key': process.env.TOKEN_ENGINE_SECRET_KEY,
-      },
+      clientId: process.env.TOKEN_ENGINE_CLIENT_ID,
+      secretKey: process.env.TOKEN_ENGINE_SECRET_KEY,
     };
 
     const erc20 = new ERC20(settings);
     erc20
       .authenticate(authSettings)
       .then(data => {
+        token = data.token;
         expect(data).to.be.an('object').with.all.keys('id', 'email', 'token', 'username');
         expect(data.id).to.be.an('string');
         expect(data.email).to.be.an('string');
         expect(data.token).to.be.an('string');
         expect(data.username).to.be.an('string');
-        token = data.token;
         done();
       })
       .catch(error => {
-        console.log({ error });
         done();
       });
   });
 
   it('It should returns invalid user or user not found', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.INVALID_CLIENT_ID,
-        'secret-key': process.env.INVALID_SECRET_KEY,
-      },
+      clientId: process.env.INVALID_CLIENT_ID,
+      secretKey: process.env.INVALID_SECRET_KEY,
     };
 
     const erc20 = new ERC20(settings);
@@ -57,10 +51,8 @@ describe('Authenticate user', function () {
 
   it('It should return client id is not allowed to be empty', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': '',
-        'secret-key': '',
-      },
+      clientId: '',
+      secretKey: '',
     };
 
     const erc20 = new ERC20(settings);
@@ -80,10 +72,8 @@ describe('Authenticate user', function () {
 
   it('It should return secret key is required', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': process.env.TOKEN_ENGINE_CLIENT_ID,
-        'secret-key': '',
-      },
+      clientId: process.env.TOKEN_ENGINE_CLIENT_ID,
+      secretKey: '',
     };
 
     const erc20 = new ERC20(settings);
@@ -103,10 +93,8 @@ describe('Authenticate user', function () {
 
   it('It should return client id is required', function (done) {
     const authSettings = {
-      headers: {
-        'client-id': '',
-        'secret-key': process.env.TOKEN_ENGINE_SECRET_KEY,
-      },
+      clientId: '',
+      secretKey: process.env.TOKEN_ENGINE_SECRET_KEY,
     };
 
     const erc20 = new ERC20(settings);
@@ -150,7 +138,7 @@ describe('Mint token', function () {
   it('It should return invalid auth token', function (done) {
     const erc20 = new ERC20({
       ...settings,
-      authorization: `Bearer ${invalidAuthToken}`,
+      authorization: `Bearer ${token} invalid`,
     });
     erc20
       .mintToken(requestData)
@@ -167,12 +155,15 @@ describe('Mint token', function () {
   });
 
   it('It should return value is required', function (done) {
+    const data = {
+      value: '',
+    };
     const erc20 = new ERC20({
       ...settings,
       authorization: `Bearer ${token}`,
     });
     erc20
-      .mintToken({})
+      .mintToken(data)
       .then((data: any) => {
         expect(data);
         done();
@@ -194,13 +185,12 @@ describe('Mint token', function () {
     erc20
       .mintToken(requestData)
       .then(data => {
-        expect(data).to.be.an('object').with.all.keys('balance', 'minter');
-        expect(data.balance).to.be.an('number');
+        expect(data).to.be.an('object').with.all.keys('minter', 'balance');
         expect(data.minter).to.be.an('string');
+        expect(data.balance).to.be.an('');
         done();
       })
       .catch(error => {
-        console.log({ error });
         done();
       });
   });
@@ -296,7 +286,6 @@ describe('Enroll users', function () {
         done();
       })
       .catch(error => {
-        console.log({ error });
         done();
       });
   });
@@ -323,8 +312,9 @@ describe('Enroll users', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
-        expect(error.status).to.be.an('string');
+        expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
         done();
       });
@@ -344,7 +334,7 @@ describe('Enroll users', function () {
     };
     const erc20 = new ERC20({
       ...settings,
-      authorization: `Bearer ${invalidAuthToken}`,
+      authorization: `Bearer ${token} Invalid`,
     });
 
     erc20
@@ -368,7 +358,7 @@ describe('AccountId of users', function () {
       ...settings,
     });
     erc20
-      .accountId({ userId: enrollUser.uuid })
+      .getAccountId({ userId: enrollUser.uuid })
       .then(data => {
         expect(data);
         done();
@@ -388,32 +378,33 @@ describe('AccountId of users', function () {
     });
 
     erc20
-      .accountId({ userId: enrollUser.uuid })
+      .getAccountId({ userId: enrollUser.uuid })
       .then(data => {
         expect(data).to.be.an('object').with.all.keys('username');
         expect(data.username).to.be.an('string');
         done();
       })
       .catch(error => {
-        console.log({ error });
         done();
       });
   });
 
   it('It should returns userId is required', function (done) {
+    const data = {
+      userId: '',
+    };
     const erc20 = new ERC20({
       ...settings,
       authorization: `Bearer ${token}`,
     });
 
     erc20
-      .accountId({})
+      .getAccountId(data)
       .then(data => {
         expect(data);
         done();
       })
       .catch(error => {
-        console.log({ error });
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -424,11 +415,11 @@ describe('AccountId of users', function () {
   it('It should returns invalid auth token', function (done) {
     const erc20 = new ERC20({
       ...settings,
-      authorization: `Bearer ${invalidAuthToken}`,
+      authorization: `Bearer ${token} invalid`,
     });
 
     erc20
-      .accountId({ userId: enrollUser.uuid })
+      .getAccountId({ userId: enrollUser.uuid })
       .then(data => {
         expect(data);
         done();
@@ -457,6 +448,7 @@ describe('TransferToken to users', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -484,7 +476,7 @@ describe('TransferToken to users', function () {
         done();
       })
       .catch(error => {
-        console.log({ error });
+        expect(error);
         done();
       });
   });
@@ -492,11 +484,12 @@ describe('TransferToken to users', function () {
   it('It should returns invalid auth token', function (done) {
     const erc20 = new ERC20({
       ...settings,
-      authorization: `Bearer ${invalidAuthToken}`,
+      authorization: `Bearer ${token} invalid`,
     });
 
     erc20
       .transferToken({
+        to: '',
         value: '100',
       })
       .then(data => {
@@ -504,6 +497,7 @@ describe('TransferToken to users', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -519,6 +513,7 @@ describe('TransferToken to users', function () {
 
     erc20
       .transferToken({
+        to: '',
         value: '100',
       })
       .then(data => {
@@ -526,9 +521,8 @@ describe('TransferToken to users', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
-        expect(error.status).to.be.an('string');
-        expect(error.message).to.be.an('string');
         done();
       });
   });
@@ -549,6 +543,7 @@ describe('TransferToken to users', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -557,19 +552,20 @@ describe('TransferToken to users', function () {
   });
 });
 
-describe('BalanceOf', function () {
+describe('Get Balance', function () {
   it('It should return Authorization token not found', function (done) {
     const requestData: any = {};
     const erc20 = new ERC20({
       ...settings,
     });
     erc20
-      .balanceOf(requestData)
+      .getBalance(requestData)
       .then(data => {
         expect(data);
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -585,14 +581,14 @@ describe('BalanceOf', function () {
     });
 
     erc20
-      .balanceOf(requestData)
+      .getBalance(requestData)
       .then(data => {
         expect(data).to.be.an('object').with.all.keys('balance');
         expect(data.balance).to.be.an('number');
         done();
       })
       .catch(error => {
-        console.log({ error });
+        expect(error);
         done();
       });
   });
@@ -605,14 +601,14 @@ describe('BalanceOf', function () {
     });
 
     erc20
-      .balanceOf({ userId: transferToken.username })
+      .getBalance({ userId: enrollUser.username })
       .then(data => {
         expect(data).to.be.an('object').with.all.keys('balance');
         expect(data.balance).to.be.an('number');
         done();
       })
       .catch(error => {
-        console.log({ error });
+        expect(error);
         done();
       });
   });
@@ -624,12 +620,13 @@ describe('BalanceOf', function () {
     });
 
     erc20
-      .balanceOf({ userId: 'kk@edexa' })
+      .getBalance({ userId: 'kk@edexa' })
       .then(data => {
         expect(data);
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -640,16 +637,17 @@ describe('BalanceOf', function () {
   it('It should returns invalid auth token', function (done) {
     const erc20 = new ERC20({
       ...settings,
-      authorization: `Bearer ${invalidAuthToken}`,
+      authorization: `Bearer ${token} invalid`,
     });
 
     erc20
-      .balanceOf({ userId: 'kk@edexa' })
+      .getBalance({ userId: 'kk@edexa' })
       .then(data => {
         expect(data);
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -671,6 +669,7 @@ describe('Total Supply', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -687,19 +686,20 @@ describe('Total Supply', function () {
     erc20
       .totalSupply(requestData)
       .then(data => {
+        expect(data);
         expect(data).to.be.an('object').with.all.keys('supply');
         expect(data.supply).to.be.an('number');
         done();
       })
       .catch(error => {
-        console.log({ error });
+        expect(error);
         done();
       });
   });
   it('It should returns invalid auth token', function (done) {
     const erc20 = new ERC20({
       ...settings,
-      authorization: `Bearer ${invalidAuthToken}`,
+      authorization: `Bearer ${token} invalid`,
     });
 
     erc20
@@ -709,6 +709,7 @@ describe('Total Supply', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -732,6 +733,7 @@ describe('Burn Token', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -748,13 +750,13 @@ describe('Burn Token', function () {
     erc20
       .burnToken(requestData)
       .then(data => {
+        expect(data);
         expect(data).to.be.an('object').with.all.keys('burner', 'updatedBalance');
         expect(data.burner).to.be.an('string');
         expect(data.updatedBalance).to.be.an('number');
         done();
       })
       .catch(error => {
-        console.log({ error });
         done();
       });
   });
@@ -766,14 +768,15 @@ describe('Burn Token', function () {
     });
 
     erc20
-      .burnToken({})
+      .burnToken({ value: '' })
       .then(data => {
         expect(data);
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
-        expect(error.status).to.be.an('string');
+        expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
         done();
       });
@@ -782,16 +785,17 @@ describe('Burn Token', function () {
   it('It should returns invalid auth token', function (done) {
     const erc20 = new ERC20({
       ...settings,
-      authorization: `Bearer ${invalidAuthToken}`,
+      authorization: `Bearer ${token} invalid`,
     });
 
     erc20
-      .burnToken({})
+      .burnToken(requestData)
       .then(data => {
         expect(data);
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -815,6 +819,31 @@ describe('Set operator for token', function () {
         done();
       })
       .catch(error => {
+        expect(error);
+        expect(error).to.be.an('object');
+        expect(error.status).to.be.an('number');
+        expect(error.message).to.be.an('string');
+        done();
+      });
+  });
+
+  it('It should returns value is required', function (done) {
+    const erc20 = new ERC20({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+
+    erc20
+      .setOperator({
+        spender: enrollUser.username,
+        value: '',
+      })
+      .then(data => {
+        expect(data);
+        done();
+      })
+      .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -834,13 +863,14 @@ describe('Set operator for token', function () {
         value: '100',
       })
       .then(data => {
+        expect(data);
         expect(data).to.be.an('object').with.all.keys('allowanceAmount', 'to');
         expect(data.allowanceAmount).to.be.an('number');
         expect(data.to).to.be.an('string');
         done();
       })
       .catch(error => {
-        console.log({ error });
+        expect(error);
         done();
       });
   });
@@ -848,11 +878,12 @@ describe('Set operator for token', function () {
   it('It should returns invalid auth token', function (done) {
     const erc20 = new ERC20({
       ...settings,
-      authorization: `Bearer ${invalidAuthToken}`,
+      authorization: `Bearer ${token} invalid`,
     });
 
     erc20
       .setOperator({
+        spender: enrollUser.username,
         value: '100',
       })
       .then(data => {
@@ -860,6 +891,7 @@ describe('Set operator for token', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -875,6 +907,7 @@ describe('Set operator for token', function () {
 
     erc20
       .setOperator({
+        spender: '',
         value: '100',
       })
       .then(data => {
@@ -882,8 +915,9 @@ describe('Set operator for token', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
-        expect(error.status).to.be.an('string');
+        expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
         done();
       });
@@ -905,30 +939,9 @@ describe('Set operator for token', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
-        expect(error.message).to.be.an('string');
-        done();
-      });
-  });
-
-  it('It should returns value is required', function (done) {
-    const erc20 = new ERC20({
-      ...settings,
-      authorization: `Bearer ${token}`,
-    });
-
-    erc20
-      .setOperator({
-        spender: enrollUser.username,
-      })
-      .then(data => {
-        expect(data);
-        done();
-      })
-      .catch(error => {
-        expect(error).to.be.an('object');
-        expect(error.status).to.be.an('string');
         expect(error.message).to.be.an('string');
         done();
       });
@@ -949,6 +962,7 @@ describe('check spender allowance limit for token', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -967,13 +981,14 @@ describe('check spender allowance limit for token', function () {
         spender: enrollUser.username,
       })
       .then(data => {
+        expect(data);
         expect(data).to.be.an('object').with.all.keys('allowanceLimit', 'to');
         expect(data.allowanceLimit).to.be.an('number');
         expect(data.to).to.be.an('string');
         done();
       })
       .catch(error => {
-        console.log({ error });
+        expect(error);
         done();
       });
   });
@@ -985,12 +1000,13 @@ describe('check spender allowance limit for token', function () {
     });
 
     erc20
-      .checkAllowanceLimit({})
+      .checkAllowanceLimit({ spender: '' })
       .then(data => {
         expect(data);
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -1001,16 +1017,17 @@ describe('check spender allowance limit for token', function () {
   it('It should returns invalid auth token', function (done) {
     const erc20 = new ERC20({
       ...settings,
-      authorization: `Bearer ${invalidAuthToken}`,
+      authorization: `Bearer ${token} invalid`,
     });
 
     erc20
-      .checkAllowanceLimit({})
+      .checkAllowanceLimit({ spender: enrollUser.username })
       .then(data => {
         expect(data);
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -1031,6 +1048,7 @@ describe('check spender allowance limit for token', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -1055,6 +1073,7 @@ describe('TransferToken from one to another users', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -1075,6 +1094,7 @@ describe('TransferToken from one to another users', function () {
         value: '10',
       })
       .then(data => {
+        expect(data);
         expect(data).to.be.an('object').with.all.keys('to', 'spender', 'updatedBalance');
         expect(data.to).to.be.an('string');
         expect(data.spender).to.be.an('string');
@@ -1082,7 +1102,7 @@ describe('TransferToken from one to another users', function () {
         done();
       })
       .catch(error => {
-        console.log({ error });
+        expect(error);
         done();
       });
   });
@@ -1090,11 +1110,12 @@ describe('TransferToken from one to another users', function () {
   it('It should returns invalid auth token', function (done) {
     const erc20 = new ERC20({
       ...settings,
-      authorization: `Bearer ${invalidAuthToken}`,
+      authorization: `Bearer ${token} invalid`,
     });
 
     erc20
       .transferTokenFrom({
+        to: enrollUser.username,
         from: transferToken.to,
         value: '10',
       })
@@ -1103,6 +1124,7 @@ describe('TransferToken from one to another users', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
@@ -1118,6 +1140,7 @@ describe('TransferToken from one to another users', function () {
 
     erc20
       .transferTokenFrom({
+        to: '',
         from: transferToken.to,
         value: '10',
       })
@@ -1126,8 +1149,9 @@ describe('TransferToken from one to another users', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
-        expect(error.status).to.be.an('string');
+        expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');
         done();
       });
@@ -1150,6 +1174,7 @@ describe('TransferToken from one to another users', function () {
         done();
       })
       .catch(error => {
+        expect(error);
         expect(error).to.be.an('object');
         expect(error.status).to.be.an('number');
         expect(error.message).to.be.an('string');

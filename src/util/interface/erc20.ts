@@ -1,27 +1,31 @@
-export interface erc20MintTokenDTO {
-  balance?: number | string;
-  minter?: string;
+export interface IMintTokenDTO {
+  value: string;
 }
 
-export interface erc20MintTokenData {
+export interface IERC20MintToken {
+  balance: number;
+  minter: string;
+}
+
+export interface IERC20MintTokenData {
   status: number;
   message: string;
-  data: erc20MintTokenDTO;
+  data: IERC20MintToken;
 }
 
-export interface erc20GetBalanceOfDTO {
+export interface IERC20GetBalance {
   userId?: string;
   chaincode?: string;
   channel?: string;
   balance?: number;
 }
 
-export interface erc20GetBalanceOfData {
+export interface IERC20GetBalanceOfData {
   status: number;
   message: string;
   data: { balance };
 }
-export interface erc20EnrollUsersDTO {
+export interface IEnrollUsersDTO {
   firstName: string;
   lastName: string;
   phone: string;
@@ -43,78 +47,119 @@ export interface erc20EnrollUsersDTO {
   status?: string;
 }
 
-export interface erc20EnrollUsersData {
+export interface IERC20EnrollUsersData {
   status: number;
   message: string;
-  data: erc20EnrollUsersDTO;
+  data: IEnrollUsersDTO;
 }
 
-export interface erc20AccountIdDTO {
-  userId?: string;
-  username?: string;
+export interface IAccountIdDTO {
+  userId: string;
+}
+export interface IERC20AccountId {
+  username: string;
 }
 
-export interface erc20AccountIdData {
+export interface IERC20AccountIdData {
   status: number;
   message: string;
-  data: { username };
+  data: IERC20AccountId;
 }
 
-export interface erc20TransferTokenDTO {
-  to?: string;
-  from?: string;
-  value?: string;
+export interface ITransferTokenDTO {
+  to: string;
+  value: string;
   chaincode?: string;
   channel?: string;
-  updatedBalance?: number;
 }
 
-export interface erc20TransferTokenData {
+export interface IERC20TransferToken {
+  to: string;
+  from: string;
+  updatedBalance: number;
+}
+
+export interface IERC20TransferTokenData {
   status: number;
   message: string;
-  data: erc20TransferTokenDTO;
+  data: IERC20TransferToken;
 }
 
-export interface erc20TotalSupplyDTO {
+export interface ITotalSupplyDTO {
   chaincode?: string;
   channel?: string;
+}
+export interface IERC20TotalSupply {
   supply?: number;
 }
 
-export interface erc20TotalSupplyData {
+export interface IERC20TotalSupplyData {
   status: number;
   message: string;
-  data: erc20TotalSupplyDTO;
+  data: IERC20TotalSupply;
 }
 
-export interface erc20BurnTokenDTO {
+export interface IBurnTokenDTO {
   chaincode?: string;
   channel?: string;
-  value?: string;
-  burner?: string;
-  updatedBalance?: number;
+  value: string;
+}
+export interface IERC20BurnToken {
+  burner: string;
+  updatedBalance: number;
 }
 
-export interface erc20BurnTokenData {
+export interface IERC20BurnTokenData {
   status: number;
   message: string;
-  data: erc20BurnTokenDTO;
+  data: IERC20BurnToken;
 }
 
-export interface erc20commonDTO {
+export interface ISetOperatorDTO {
   chaincode?: string;
-  to?: string;
   channel?: string;
-  value?: string;
-  spender?: string;
-  from?: string;
-  allowanceAmount?: number;
-  allowanceLimit?: number;
-  updatedBalance?: number;
+  spender: string;
+  value: string;
+}
+export interface IERC20Common {
+  allowanceAmount: number;
+  to: string;
+  allowanceLimit?: string;
 }
 
-export interface erc20commonData {
+export interface IERC20SetOperatorData {
   status: number;
   message: string;
-  data: erc20commonDTO;
+  data: IERC20Common;
+}
+
+export interface IGetAllowanceDTO {
+  chaincode?: string;
+  channel?: string;
+  spender: string;
+}
+
+export interface IERC20AllowanceData {
+  status: number;
+  message: string;
+  data: IERC20Common;
+}
+
+export interface ITransferTokenFromDTO {
+  chaincode?: string;
+  channel?: string;
+  value: string;
+  to: string;
+  from: string;
+}
+export interface IERC20TransferTokenFrom {
+  to: string;
+  spender: string;
+  updatedBalance: number;
+}
+
+export interface IERC20TransferTokenFromData {
+  status: number;
+  message: string;
+  data: IERC20TransferTokenFrom;
 }

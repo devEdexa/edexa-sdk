@@ -1,11 +1,11 @@
 // Import necessary dependencies and types
 import {
-  accountId,
   authenticate,
-  balanceOf,
   burnToken,
   checkAllowanceLimit,
   enrollUsers,
+  getAccountId,
+  getBalance,
   mintToken,
   setOperator,
   totalSupply,
@@ -15,17 +15,26 @@ import {
 import { EdexaSettings } from '../types/types';
 import { ICommonAuth } from '../util/interface/ICommon';
 import {
-  erc20AccountIdDTO,
-  erc20BurnTokenDTO,
-  erc20EnrollUsersDTO,
-  erc20GetBalanceOfDTO,
-  erc20TotalSupplyDTO,
-  erc20TransferTokenDTO,
-  erc20commonDTO,
+  IAccountIdDTO,
+  IBurnTokenDTO,
+  IERC20AccountId,
+  IERC20BurnToken,
+  IERC20Common,
+  IERC20GetBalance,
+  IERC20MintToken,
+  IERC20TotalSupply,
+  IERC20TransferToken,
+  IERC20TransferTokenFrom,
+  IEnrollUsersDTO,
+  IGetAllowanceDTO,
+  IMintTokenDTO,
+  ISetOperatorDTO,
+  ITotalSupplyDTO,
+  ITransferTokenDTO,
+  ITransferTokenFromDTO,
 } from '../util/interface/erc20';
 import { EdexaConfig } from './config';
 
-// Bstamp class
 export class ERC20 {
   readonly config: EdexaConfig;
 
@@ -51,7 +60,7 @@ export class ERC20 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the added file.
    */
-  async mintToken(data: any) {
+  async mintToken(data: IMintTokenDTO): Promise<IERC20MintToken> {
     return mintToken(this.config, data);
   }
 
@@ -62,8 +71,8 @@ export class ERC20 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the balanceOf.
    */
-  async balanceOf(data: erc20GetBalanceOfDTO) {
-    return balanceOf(this.config, data);
+  async getBalance(data: IERC20GetBalance): Promise<IERC20GetBalance> {
+    return getBalance(this.config, data);
   }
 
   /**
@@ -73,7 +82,7 @@ export class ERC20 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves the enroll user.
    */
-  async enrollUser(data: erc20EnrollUsersDTO) {
+  async enrollUser(data: IEnrollUsersDTO): Promise<IEnrollUsersDTO> {
     return enrollUsers(this.config, data);
   }
 
@@ -84,8 +93,8 @@ export class ERC20 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves the accountId of user.
    */
-  async accountId(data: erc20AccountIdDTO) {
-    return accountId(this.config, data);
+  async getAccountId(data: IAccountIdDTO): Promise<IERC20AccountId> {
+    return getAccountId(this.config, data);
   }
 
   /**
@@ -95,7 +104,7 @@ export class ERC20 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves the transfer token to users.
    */
-  async transferToken(data: erc20TransferTokenDTO) {
+  async transferToken(data: ITransferTokenDTO): Promise<IERC20TransferToken> {
     return transferToken(this.config, data);
   }
 
@@ -106,7 +115,7 @@ export class ERC20 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves the total supply.
    */
-  async totalSupply(data: erc20TotalSupplyDTO) {
+  async totalSupply(data: ITotalSupplyDTO): Promise<IERC20TotalSupply> {
     return totalSupply(this.config, data);
   }
 
@@ -117,7 +126,7 @@ export class ERC20 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves the burn token.
    */
-  async burnToken(data: erc20BurnTokenDTO) {
+  async burnToken(data: IBurnTokenDTO): Promise<IERC20BurnToken> {
     return burnToken(this.config, data);
   }
 
@@ -128,7 +137,7 @@ export class ERC20 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves the set operator for token.
    */
-  async setOperator(data: erc20commonDTO) {
+  async setOperator(data: ISetOperatorDTO): Promise<IERC20Common> {
     return setOperator(this.config, data);
   }
 
@@ -139,7 +148,7 @@ export class ERC20 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves the spender allowance limit.
    */
-  async checkAllowanceLimit(data: erc20commonDTO) {
+  async checkAllowanceLimit(data: IGetAllowanceDTO): Promise<IERC20Common> {
     return checkAllowanceLimit(this.config, data);
   }
 
@@ -150,7 +159,7 @@ export class ERC20 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves the transfer token from one.
    */
-  async transferTokenFrom(data: erc20commonDTO) {
+  async transferTokenFrom(data: ITransferTokenFromDTO): Promise<IERC20TransferTokenFrom> {
     return transferTokenFrom(this.config, data);
   }
 }
