@@ -28,7 +28,7 @@ import { CommonResponse } from '../util/interface/ICommon';
  */
 export async function authenticate(
   settings: EdexaConfig,
-  config: { headers: { 'client-id': string; 'client-secret': string } },
+  config: { clientId: string; secretKey: string },
   srcMethod = API_METHOD.AUTHENTICATE
 ): Promise<any> {
   const response: any = await requestHttp(
@@ -40,7 +40,7 @@ export async function authenticate(
     {
       ...config,
       method: REQUEST_METHOD.POST,
-      headers: { ...config.headers },
+      headers: { ...config, 'client-id': config.clientId, 'secret-key': config.secretKey },
     }
   );
   return getArchiveAuthFromRaw(response);
