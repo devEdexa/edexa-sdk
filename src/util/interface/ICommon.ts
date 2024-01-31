@@ -7,9 +7,10 @@ export interface Iauthenticate {
 
 export interface ICommonAuth {
   token: string;
-  name: string;
+  name?: string;
   username: string;
   id: string;
+  email?: string;
 }
 
 export interface GetDetailsByIdDTO {
