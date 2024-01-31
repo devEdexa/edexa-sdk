@@ -40,25 +40,13 @@ export function getEdexaBarchiveHttpUrl(network: Network): string {
 }
 
 /**
- * Returns the HTTP URL for the edeXa bArchive API based on the network and API key.
+ * Returns the HTTP URL for the edeXa Token Engine API based on the network and API key.
  *
  * @param network - The network to use (e.g., 'mainnet', 'testnet').
- * @returns The HTTP URL for the edeXa bArchive.
+ * @returns The HTTP URL for the edeXa Token Engine.
  */
-export function getEdexaERC721HttpUrl(network: Network): string {
-  // return `https://api-edexagw.${network}.com/barchive`;
-  return `http://localhost:6000/api`;
-}
-
-/**
- * Returns the HTTP URL for the edeXa bArchive API based on the network and API key.
- *
- * @param network - The network to use (e.g., 'mainnet', 'testnet').
- * @returns The HTTP URL for the edeXa bArchive.
- */
-export function getEdexaERC20HttpUrl(network: Network): string {
-  // return `https://api-edexagw.${network}.com/barchive`;
-  return `http://localhost:6000`;
+export function getEdexaTokenEngineHttpUrl(network: Network): string {
+  return `https://apitokenengine.io-world.com/token-platform`;
 }
 
 /**
@@ -67,13 +55,12 @@ export function getEdexaERC20HttpUrl(network: Network): string {
 export enum EdexaApiType {
   BSTAMP, // edeXa bStamp API
   BARCHIVE, // edeXa bArchive API
-  ERC721, // edeXa ERC-Token-Engine API
-  ERC20, // edeXa erc20 API
+  TOKEN_ENGINE, // edeXa Token Engine API
 }
 
 export enum MODULE_SLUG {
   API = 'api',
-  Mint = 'mint',
+  MINT = 'mint',
   BALANCE = 'balance',
   USER = 'user',
   REGISTER = 'register',
@@ -161,10 +148,10 @@ export const API_METHOD = {
   GET_WEBHOOK: 'getWebhook',
   FILE: 'file',
   ERC20_AUTHENTICATE: 'api/authenticate',
-  MINT_TOKEN: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.Mint}`,
-  BALANCEOF: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.BALANCE}`,
+  MINT_TOKEN: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.MINT}`,
+  BALANCE_OF: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.BALANCE}`,
   ENROLL_USERS: `${MODULE_SLUG.API}/${MODULE_SLUG.USER}/${MODULE_SLUG.REGISTER}`,
-  ACCOUNTID: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.CLIENT}`,
+  ACCOUNT_ID: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.CLIENT}`,
   TRANSFER_TOKEN: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.TRANSFER}`,
   TOTAL_SUPPLY: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.SUPPLY}`,
   BURN_TOKENS: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.BURN}`,

@@ -55,7 +55,7 @@ export async function authenticate(
 ): Promise<any> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD.AUTHENTICATE,
     srcMethod,
     {},
@@ -87,7 +87,7 @@ export async function getAccount(
 ): Promise<IAccountResponse> {
   const response: IERCResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.ACCOUNT,
     srcMethod,
     {},
@@ -115,7 +115,7 @@ export async function getBalance(
 ): Promise<any> {
   const response: IERCResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.BALANCE,
     srcMethod,
     {},
@@ -143,7 +143,7 @@ export async function getBatchBalance(
 ): Promise<any> {
   const response: ERCBatchBalanceResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.BATCH_BALANCE,
     srcMethod,
     {},
@@ -171,7 +171,7 @@ export async function mintToken(
 ): Promise<IMintResponse> {
   const response: ERCMintResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.MINT,
     srcMethod,
     {},
@@ -199,7 +199,7 @@ export async function batchMint(
 ): Promise<IBatchMintResponse> {
   const response: ERCBatchMintResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.BATCH_MINT,
     srcMethod,
     {},
@@ -227,7 +227,7 @@ export async function burnToken(
 ): Promise<IBurnResponse> {
   const response: ERCBurnResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.BURN,
     srcMethod,
     {},
@@ -255,7 +255,7 @@ export async function batchBurn(
 ): Promise<IBurnResponse> {
   const response: ERCBurnResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.BATCH_BURN,
     srcMethod,
     {},
@@ -283,7 +283,7 @@ export async function setTokenURI(
 ): Promise<ISetURIResponse> {
   const response: ERCSetURIResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.SET_URI,
     srcMethod,
     {},
@@ -311,7 +311,7 @@ export async function getTokenURI(
 ): Promise<IGetURIResponse> {
   const response: ERCURIResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.GET_URI,
     srcMethod,
     {},
@@ -339,7 +339,7 @@ export async function tokenTransfer(
 ): Promise<ITokenTransferResponse> {
   const response: ERCTokenTransferResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.TRANSFER,
     srcMethod,
     {},
@@ -367,7 +367,7 @@ export async function batchTokenTransfer(
 ): Promise<ITokenTransferResponse> {
   const response: ERCTokenTransferResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.BATCH_TRANSFER,
     srcMethod,
     {},
@@ -395,7 +395,7 @@ export async function tokenTransferMultiUsers(
 ): Promise<IMultiUserTokenTransferResponse> {
   const response: ERCMultiUserTokenTransferResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.MULTI_USER_TRANSFER,
     srcMethod,
     {},
@@ -423,7 +423,7 @@ export async function approveTokenAccess(
 ): Promise<IApproveResponse> {
   const response: ERCApproveResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.APPROVE,
     srcMethod,
     {},
@@ -451,7 +451,7 @@ export async function getApproveStatus(
 ): Promise<IApproveStatusResponse> {
   const response: ERCApproveStatusResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC1155.APPROVE_STATUS,
     srcMethod,
     {},

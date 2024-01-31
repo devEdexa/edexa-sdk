@@ -41,7 +41,7 @@ export async function authenticate(
 ): Promise<any> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD.ERC20_AUTHENTICATE,
     srcMethod,
     {},
@@ -71,7 +71,7 @@ export async function mintToken(
 ): Promise<IERC20MintToken> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD.MINT_TOKEN,
     srcMethod,
     {},
@@ -98,12 +98,12 @@ export async function getBalance(
   settings: EdexaConfig,
   data: string | object,
   config?: any,
-  srcMethod = API_METHOD.BALANCEOF
+  srcMethod = API_METHOD.BALANCE_OF
 ): Promise<IERC20GetBalance> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
-    API_METHOD.BALANCEOF,
+    EdexaApiType.TOKEN_ENGINE,
+    API_METHOD.BALANCE_OF,
     srcMethod,
     {},
     {
@@ -133,7 +133,7 @@ export async function enrollUsers(
 ): Promise<IEnrollUsersDTO> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD.ENROLL_USERS,
     srcMethod,
     {},
@@ -160,12 +160,12 @@ export async function getAccountId(
   settings: EdexaConfig,
   data: object,
   config?: any,
-  srcMethod = API_METHOD.ACCOUNTID
+  srcMethod = API_METHOD.ACCOUNT_ID
 ): Promise<IERC20AccountId> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
-    API_METHOD.ACCOUNTID,
+    EdexaApiType.TOKEN_ENGINE,
+    API_METHOD.ACCOUNT_ID,
     srcMethod,
     {},
     {
@@ -195,7 +195,7 @@ export async function transferToken(
 ): Promise<IERC20TransferToken> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD.TRANSFER_TOKEN,
     srcMethod,
     {},
@@ -226,7 +226,7 @@ export async function totalSupply(
 ): Promise<IERC20TotalSupply> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD.TOTAL_SUPPLY,
     srcMethod,
     {},
@@ -257,7 +257,7 @@ export async function burnToken(
 ): Promise<IERC20BurnToken> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD.BURN_TOKENS,
     srcMethod,
     {},
@@ -288,7 +288,7 @@ export async function setOperator(
 ): Promise<IERC20Common> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD.SET_OPERATOR,
     srcMethod,
     {},
@@ -319,7 +319,7 @@ export async function checkAllowanceLimit(
 ): Promise<IERC20Common> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD.CHECK_ALLOWANCE,
     srcMethod,
     {},
@@ -350,7 +350,7 @@ export async function transferTokenFrom(
 ): Promise<IERC20TransferTokenFrom> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD.TRANSFER_FROM,
     srcMethod,
     {},
