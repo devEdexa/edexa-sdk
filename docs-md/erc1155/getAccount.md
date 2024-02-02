@@ -17,7 +17,7 @@ async function getAccount() {
   };
 
   const dataToGetAccountId = {
-    userId(required): 'Enter the `uuid` of user for whom you want to retrieve the getAccount',
+    userId(optional): 'Enter the `uuid` of user for whom you want to retrieve the getAccount',
     chaincode(optional): 'The name of the smart contract or chaincode managing the tokens',
     channel(optional): 'The name of the channel in the blockchain network'
   }

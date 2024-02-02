@@ -8,6 +8,13 @@ export interface IAccountResponse {
   username: string;
 }
 
+export interface IBalance {
+  userId?: string;
+  tokenId: string | number;
+  chaincode?: string;
+  channel?: string;
+}
+
 export interface IBalanceResponse {
   balance: string;
 }
@@ -24,7 +31,6 @@ export interface IBatchBalanceResponse {
 
 export interface IMintBody {
   value: string;
-  tokenId?: string;
   chaincode?: string;
   channel?: string;
 }
@@ -45,7 +51,7 @@ export interface IBatchMintResponse {
 }
 
 export interface IBurnBody {
-  tokenId: string;
+  tokenId: string | number;
   value: string;
   chaincode?: string;
   channel?: string;
@@ -84,7 +90,7 @@ export interface IGetURIResponse {
 
 export interface ITokenTransferBody {
   to: string;
-  tokenId: string;
+  tokenId: string | number;
   value: string;
   channel?: string;
   chaincode?: string;
@@ -149,7 +155,7 @@ export interface ISetOperatorAllResponse {
 }
 
 export interface IOwnerBody {
-  tokenId: string;
+  tokenId: string | number;
   channel?: string;
   chaincode?: string;
 }

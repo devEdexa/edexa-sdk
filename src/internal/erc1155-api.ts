@@ -1,5 +1,5 @@
 import { EdexaConfig } from '../api/config';
-import { API_METHOD, API_METHOD_ERC1155, EdexaApiType, REQUEST_METHOD } from '../util/constant';
+import { API_METHOD, API_METHOD_ERC, API_METHOD_ERC1155, EdexaApiType, REQUEST_METHOD } from '../util/constant';
 import {
   getERCAccountFromRaw,
   getERCApproveAccessFromRaw,
@@ -51,12 +51,12 @@ import { getERCAuthFromRaw } from '../util/util_erc721';
 export async function authenticate(
   settings: EdexaConfig,
   config: { clientId: string; secretKey: string },
-  srcMethod = API_METHOD.AUTHENTICATE
+  srcMethod = API_METHOD_ERC.AUTHENTICATE
 ): Promise<any> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.TOKEN_ENGINE,
-    API_METHOD.AUTHENTICATE,
+    API_METHOD_ERC.AUTHENTICATE,
     srcMethod,
     {},
     {

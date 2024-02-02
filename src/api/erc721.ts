@@ -1,3 +1,4 @@
+import { enrollUsers } from '../internal/erc20-api';
 import {
   authenticate,
   burnToken,
@@ -15,19 +16,14 @@ import {
   tokenTransferFrom,
 } from '../internal/erc721-api';
 import { EdexaSettings } from '../types/types';
-import { CommonConfigDTO } from '../util/interface';
-import { Ibarchive } from '../util/interface/IBarchive';
-import { CommonResponse, ICommonAuth } from '../util/interface/ICommon';
+import { ICommonAuth, IEnrollUsersDTO } from '../util/interface/ICommon';
 import {
-  ERCBalanceResponse,
-  ERCMintResponse,
   IAccount,
   IApproveBody,
   IApproveResponse,
   IBalanceResponse,
   IBurnBody,
   IBurnResponse,
-  IERCResponse,
   IMintBody,
   IMintResponse,
   IOwnerBody,
@@ -43,6 +39,7 @@ import {
   ITokenTransferFromBody,
   ITokenTransferFromResponse,
   ITokenTransferResponse,
+  ITotalSupplyDTO,
   IURIBody,
   IURIResponse,
 } from '../util/interface/IERC721';
@@ -77,16 +74,16 @@ export class ERC721 {
     return getAccount(this.config, data);
   }
 
-  // /**
-  //  * Register new user with the edeXa API.
-  //  *
-  //  * @param data - Data for adding new users.
-  //  * @param config - Configuration for the request.
-  //  * @returns A Promise that resolves to the register users data.
-  //  */
-  // async enrollUser(data: IAccount): Promise<IBalanceResponse> {
-  //   return enrollUser(this.config, data);
-  // }
+  /**
+   * Register new user with the edeXa API.
+   *
+   * @param data - Data for adding new users.
+   * @param config - Configuration for the request.
+   * @returns A Promise that resolves to the register users data.
+   */
+  async enrollUser(data: IEnrollUsersDTO): Promise<IEnrollUsersDTO> {
+    return enrollUsers(this.config, data);
+  }
 
   /**
    * Getting the admin and users balance with the edeXa API.
@@ -127,8 +124,8 @@ export class ERC721 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the supply data.
    */
-  async getTotalSupply(): Promise<ISupplyResponse> {
-    return getTotalSupply(this.config);
+  async getTotalSupply(data: ITotalSupplyDTO): Promise<ISupplyResponse> {
+    return getTotalSupply(this.config, data);
   }
 
   /**

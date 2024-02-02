@@ -98,6 +98,7 @@ describe('Add stamp', () => {
         done();
       })
       .catch(error => {
+        expect(error);
         done();
       });
   });

@@ -17,7 +17,7 @@ async function burnToken() {
   };
 
   const dataToBurnToken = {
-    tokenId (required): 'Enter the tokenId of tokens to burn.',
+    tokenId(required): 'Enter the tokenId of tokens to burn.',
     value(required): 'Enter the amount of tokens to burn',
     chaincode(optional): 'The name of the smart contract or chaincode managing the tokens',
     channel(optional): 'The name of the channel in the blockchain network'

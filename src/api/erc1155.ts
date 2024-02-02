@@ -15,14 +15,16 @@ import {
   tokenTransfer,
   tokenTransferMultiUsers,
 } from '../internal/erc1155-api';
+import { enrollUsers } from '../internal/erc20-api';
 import { EdexaSettings } from '../types/types';
-import { ICommonAuth } from '../util/interface/ICommon';
+import { ICommonAuth, IERCEnrollUsersData, IEnrollUsersDTO } from '../util/interface/ICommon';
 import {
   IAccount,
   IApproveBody,
   IApproveResponse,
   IApproveStatusBody,
   IApproveStatusResponse,
+  IBalance,
   IBalanceResponse,
   IBatchBalance,
   IBatchBalanceResponse,
@@ -63,14 +65,15 @@ export class ERC1155 {
     return authenticate(this.config, settings);
   }
 
-  // /**   * enroll User.
-  //  * @param data - Data for enrolling the user.
-  //  * @param config - Configuration for the request.
-  //  * @returns A Promise that resolves the enroll user.
-  //  * */
-  // async enrollUser(data: erc20EnrollUsersDTO) {
-  //   return enrollUsers(this.config, data);
-  // }
+  /**
+   * enroll User.
+   * @param data - Data for enrolling the user.
+   * @param config - Configuration for the request.
+   * @returns A Promise that resolves the enroll user.
+   * */
+  async enrollUser(data: IEnrollUsersDTO): Promise<IEnrollUsersDTO> {
+    return enrollUsers(this.config, data);
+  }
 
   /**
    * Get Account data.
@@ -90,7 +93,7 @@ export class ERC1155 {
    * @param config - Configuration for the request.
    * @returns A Promise that resolves to the getBalance method data.
    */
-  async getBalance(data: IAccount): Promise<IBalanceResponse> {
+  async getBalance(data: IBalance): Promise<IBalanceResponse> {
     return getBalance(this.config, data);
   }
 

@@ -1,5 +1,6 @@
 import { EdexaConfig } from '../api/config';
-import { API_METHOD, EdexaApiType, REQUEST_METHOD } from '../util/constant';
+import { API_METHOD, API_METHOD_ERC, EdexaApiType, REQUEST_METHOD } from '../util/constant';
+import { IEnrollUsersDTO } from '../util/interface/ICommon';
 import {
   IERC20AccountId,
   IERC20BurnToken,
@@ -9,8 +10,7 @@ import {
   IERC20TotalSupply,
   IERC20TransferToken,
   IERC20TransferTokenFrom,
-  IEnrollUsersDTO,
-} from '../util/interface/erc20';
+} from '../util/interface/IERC20';
 import {
   accountIdFromRaw,
   balanceFromRaw,
@@ -37,12 +37,12 @@ import { requestHttp } from './dispatch';
 export async function authenticate(
   settings: EdexaConfig,
   config: { clientId: string; secretKey: string },
-  srcMethod = API_METHOD.ERC20_AUTHENTICATE
+  srcMethod = API_METHOD_ERC.AUTHENTICATE
 ): Promise<any> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.TOKEN_ENGINE,
-    API_METHOD.ERC20_AUTHENTICATE,
+    API_METHOD_ERC.AUTHENTICATE,
     srcMethod,
     {},
     {

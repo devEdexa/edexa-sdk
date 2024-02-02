@@ -8,7 +8,6 @@ import {
   getEdexaBstampHttpUrl,
   getEdexaBstampV2HttpUrl,
   getEdexaTokenEngineHttpUrl,
-  getEdexaERC20HttpUrl,
 } from '../util/constant';
 
 /**

@@ -7,7 +7,7 @@ import {
   IbstampGetStampDetailRaw,
 } from './interface';
 import { IbarchiveAddFile, IbarchiveAddFileData, IbarchiveGetFile, IbarchiveGetFileData } from './interface/IBarchive';
-import { CommonResponse, ICommonAuth } from './interface/ICommon';
+import { CommonResponse, ICommonAuth, IERCEnrollUsersData, IEnrollUsersDTO } from './interface/ICommon';
 import {
   IERC20AccountId,
   IERC20AccountIdData,
@@ -15,7 +15,6 @@ import {
   IERC20BurnToken,
   IERC20BurnTokenData,
   IERC20Common,
-  IERC20EnrollUsersData,
   IERC20GetBalance,
   IERC20GetBalanceOfData,
   IERC20MintToken,
@@ -27,8 +26,7 @@ import {
   IERC20TransferTokenData,
   IERC20TransferTokenFrom,
   IERC20TransferTokenFromData,
-  IEnrollUsersDTO,
-} from './interface/erc20';
+} from './interface/IERC20';
 
 /**
  * Parses the raw stamp data and returns a formatted Ibstamp object.
@@ -257,7 +255,7 @@ export async function balanceFromRaw(rawErc20balanceOf: IERC20GetBalanceOfData):
  * @param rawErc20enrollUsers - Raw erc 20 enroll user.
  * @returns The parsed balanceOf object.
  */
-export async function enrollUsersFromRaw(rawErc20enrollUsers: IERC20EnrollUsersData): Promise<IEnrollUsersDTO> {
+export async function enrollUsersFromRaw(rawErc20enrollUsers: IERCEnrollUsersData): Promise<IEnrollUsersDTO> {
   try {
     return rawErc20enrollUsers?.data;
   } catch (e) {

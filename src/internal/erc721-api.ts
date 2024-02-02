@@ -55,12 +55,12 @@ import {
 export async function authenticate(
   settings: EdexaConfig,
   config: { clientId: string; secretKey: string },
-  srcMethod = API_METHOD.AUTHENTICATE
+  srcMethod = API_METHOD_ERC.AUTHENTICATE
 ): Promise<any> {
   const response: any = await requestHttp(
     settings,
     EdexaApiType.TOKEN_ENGINE,
-    API_METHOD.AUTHENTICATE,
+    API_METHOD_ERC.AUTHENTICATE,
     srcMethod,
     {},
     {
@@ -193,6 +193,7 @@ export async function burnToken(
  */
 export async function getTotalSupply(
   settings: EdexaConfig,
+  data: object,
   srcMethod = API_METHOD_ERC.SUPPLY
 ): Promise<ISupplyResponse> {
   const response: ERCSupplyResponse = await requestHttp(
@@ -203,6 +204,7 @@ export async function getTotalSupply(
     {},
     {
       method: REQUEST_METHOD.POST,
+      data,
       headers: { authorization: settings.authorization },
     }
   );

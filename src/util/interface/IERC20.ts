@@ -25,33 +25,6 @@ export interface IERC20GetBalanceOfData {
   message: string;
   data: { balance };
 }
-export interface IEnrollUsersDTO {
-  firstName: string;
-  lastName: string;
-  phone: string;
-  role: string;
-  countryCode: string;
-  location?: string;
-  email: string;
-  id?: string;
-  profilePic?: any;
-  uuid?: string;
-  chaincode?: string;
-  channel?: string;
-  serviceName?: string;
-  username?: string;
-  loginType?: string | null;
-  createdAt?: string;
-  updatedAt?: string;
-  _id?: string;
-  status?: string;
-}
-
-export interface IERC20EnrollUsersData {
-  status: number;
-  message: string;
-  data: IEnrollUsersDTO;
-}
 
 export interface IAccountIdDTO {
   userId: string;

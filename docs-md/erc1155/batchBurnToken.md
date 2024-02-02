@@ -17,7 +17,7 @@ async function batchBurn() {
   };
 
   const dataToBatchBurn = {
-    tokenId: 'Enter multiple tokenIds into the array to burn.'
+    tokenId(required): 'Enter multiple tokenIds into the array to burn.'
     value(required): 'Enter the amounts of tokens into the array to burn.',
     chaincode(optional): 'The name of the smart contract or chaincode managing the tokens',
     channel(optional): 'The name of the channel in the blockchain network'
