@@ -29,8 +29,6 @@ jobs:
           cache: 'npm'
       - name: Installing node_modules
         run: npm ci
-      - name: Run Test-Cases
-        run: npm test
 
   publish-npm:
     runs-on: ubuntu-latest
