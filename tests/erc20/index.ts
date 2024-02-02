@@ -110,7 +110,7 @@ describe('Authenticate user', function () {
         done();
       })
       .catch(error => {
-        // done();
+        expect(error);
       });
   });
 });
@@ -191,7 +191,7 @@ describe('Mint token', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -318,7 +318,7 @@ describe('Enroll users', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
   it('It should returns enroll user 2', function (done) {
@@ -371,7 +371,7 @@ describe('Enroll users', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -449,7 +449,7 @@ describe('AccountId of users', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -568,7 +568,6 @@ describe('TransferToken to users', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -653,7 +652,6 @@ describe('Get Balance', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
   it('It should returns balance object of user', function (done) {
@@ -674,7 +672,6 @@ describe('Get Balance', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -737,7 +734,6 @@ describe('Total Supply', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -821,7 +817,7 @@ describe('Burn Token', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -966,7 +962,6 @@ describe('Set operator for token', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1073,7 +1068,6 @@ describe('check spender allowance limit for token', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1200,7 +1194,6 @@ describe('TransferToken from one to another users', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });

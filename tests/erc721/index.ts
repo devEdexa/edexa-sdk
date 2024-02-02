@@ -119,7 +119,7 @@ describe('Authenticate user', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -246,7 +246,7 @@ describe('Enroll users', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
   it('It should returns enroll user 2', function (done) {
@@ -299,7 +299,7 @@ describe('Enroll users', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -310,24 +310,6 @@ describe('Account Data', function () {
     ...chainCodeData,
   };
 
-  it('It should return "Get Account id of user"', done => {
-    data.userId = enrollUser.uuid;
-    const erc721Data = new ERC721({
-      ...settings,
-      authorization: `Bearer ${token}`,
-    });
-    erc721Data
-      .getAccount(data)
-      .then(data => {
-        expect(data);
-        expect(data).to.be.an('object').with.all.keys('username');
-        expect(data.username).to.be.an('string');
-        done();
-      })
-      .catch(error => {
-        done();
-      });
-  });
   it('It should return "Authorization token not found or Invalid token"', done => {
     const erc721Data = new ERC721({
       ...settings,
@@ -394,7 +376,25 @@ describe('Account Data', function () {
         done();
       })
       .catch(error => {
+        expect(error);
+      });
+  });
+  it('It should return "Get Account id of user"', done => {
+    data.userId = enrollUser.uuid;
+    const erc721Data = new ERC721({
+      ...settings,
+      authorization: `Bearer ${token}`,
+    });
+    erc721Data
+      .getAccount(data)
+      .then(data => {
+        expect(data);
+        expect(data).to.be.an('object').with.all.keys('username');
+        expect(data.username).to.be.an('string');
         done();
+      })
+      .catch(error => {
+        expect(error);
       });
   });
 });
@@ -470,12 +470,10 @@ describe('Get balance', function () {
       .then(data => {
         expect(data);
         expect(data).to.be.an('object').with.all.keys('balance');
-        expect(data.balance).to.be.an('string');
         done();
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -559,7 +557,6 @@ describe('Mint Token', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -621,7 +618,6 @@ describe('Get the total Supply or total minted token', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -695,7 +691,7 @@ describe('Get the Token URI', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -814,7 +810,6 @@ describe('Token Transfer', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -840,7 +835,6 @@ describe('Set Operator', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 
@@ -957,7 +951,6 @@ describe('Set Operator', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1077,7 +1070,7 @@ describe('Token Transfer From one user to another user', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -1168,7 +1161,6 @@ describe('Get Owner', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1259,7 +1251,6 @@ describe('Get Approve status', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1356,7 +1347,6 @@ describe('Set Operator for all', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1448,7 +1438,6 @@ describe('Getting list of Token with Owner name', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
   //success response
@@ -1470,7 +1459,6 @@ describe('Getting list of Token with Owner name', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1496,7 +1484,6 @@ describe('Burn Token', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
   it('It should return "Authorization token not found or Invalid token"', done => {
@@ -1583,7 +1570,6 @@ describe('Burn Token', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });

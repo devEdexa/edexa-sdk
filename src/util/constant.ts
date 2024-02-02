@@ -37,7 +37,6 @@ export function getEdexaBstampV2HttpUrl(network: Network): string {
  */
 export function getEdexaBarchiveHttpUrl(network: Network): string {
   return `https://api-edexagw.${network}.com/barchive`;
-  // return `http://localhost:4011`;
 }
 
 /**

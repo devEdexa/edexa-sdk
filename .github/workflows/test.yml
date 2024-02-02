@@ -20,3 +20,27 @@ jobs:
         run: npm ci
       - name: Run Test-Cases
         run: npm test
+        env:
+          BARCHIVE_CLIENT_ID: ${{env.BARCHIVE_CLIENT_ID}}
+          BARCHIVE_SECRET_KEY: ${{env.BARCHIVE_SECRET_KEY}}
+
+          INVALID_CLIENT_ID: ${{env.INVALID_CLIENT_ID}}
+          INVALID_SECRET_KEY: ${{env.INVALID_SECRET_KEY}}
+
+          INVALID_AUTH_TOKEN: ${{env.INVALID_AUTH_TOKEN}}
+
+          ERC_CLIENT_ID: ${{env.ERC_CLIENT_ID}}
+          ERC_SECRET_KEY: ${{env.ERC_SECRET_KEY}}
+
+          TOKEN_ENGINE_CLIENT_ID: ${{env.TOKEN_ENGINE_CLIENT_ID}}
+          TOKEN_ENGINE_SECRET_KEY: ${{env.TOKEN_ENGINE_SECRET_KEY}}
+
+          CHAIN_CODE_20: ${{env.CHAIN_CODE_20}}
+          CHANNEL_20: ${{env.CHANNEL_20}}
+
+          CHAIN_CODE_721: ${{env.CHAIN_CODE_721}}
+          CHANNEL_721: ${{env.CHANNEL_721}}
+
+          CHAIN_CODE_1155: ${{env.CHAIN_CODE_1155}}
+          CHANNEL_1155: ${{env.CHANNEL_1155}}
+

@@ -125,7 +125,7 @@ describe('Authenticate user', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -253,7 +253,7 @@ describe('Enroll users', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -330,7 +330,7 @@ describe('Account Data', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
   it('get Account of user "account get successfully"', done => {
@@ -347,7 +347,7 @@ describe('Account Data', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -430,7 +430,6 @@ describe('Mint Token', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -491,7 +490,6 @@ describe('Batch Mint Token', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -573,7 +571,6 @@ describe('Get balance', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
   //success response
@@ -593,7 +590,6 @@ describe('Get balance', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -684,7 +680,6 @@ describe('getting Batch Balance of multiple users', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -756,7 +751,7 @@ describe('Set Token URI', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -812,7 +807,7 @@ describe('Get the Token URI', function () {
         done();
       })
       .catch(error => {
-        done();
+        expect(error);
       });
   });
 });
@@ -935,7 +930,6 @@ describe('Token Transfer', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1034,7 +1028,6 @@ describe('Batch Token Transfer', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1130,7 +1123,6 @@ describe('Approve permission to the user', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1224,7 +1216,6 @@ describe('Get Approve status', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1323,7 +1314,6 @@ describe('Batch Token Transfer from multiple users', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1417,7 +1407,6 @@ describe('Burn Token', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
@@ -1489,7 +1478,6 @@ describe('Batch Burn Token', function () {
       })
       .catch(error => {
         expect(error);
-        done();
       });
   });
 });
