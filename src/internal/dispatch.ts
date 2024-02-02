@@ -35,7 +35,6 @@ export async function requestHttp<Req, Res>(
         timeout: config.requestTimeout,
       }
     );
-
     // Check the response status and return the data if successful
     if (response.status >= 200 && response.status <= 300) {
       logDebug(restApiName, `Successful request: ${restApiName}`);

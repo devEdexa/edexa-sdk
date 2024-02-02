@@ -6,6 +6,8 @@ The edeXa SDK stands out as the preeminent, steadfast, and potent JavaScript SDK
 
 - [bStamp](/docs-md/bstamp/intro.md)
 - [bArchive](/docs-md/barchive/intro.md)
+- [ERC20](/docs-md/erc20/intro.md)
+- [ERC721](/docs-md/erc721/intro.md)
 - [ERC1155](/docs-md/ERC1155/intro.md)
 
 > **Note**

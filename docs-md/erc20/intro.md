@@ -10,17 +10,17 @@ The edeXa SDK is the most comprehensive, stable, and powerful Javascript SDK ava
 
 List of all SDK Core methods.
 
-- [Authentication](/docs-md/ERC20/authenticate.md)
-- [Mint Tokens](/docs-md/ERC20/mint_token.md)
-- [Balance Of](/docs-md/ERC20/balance_of.md)
-- [Enroll users](/docs-md/ERC20/enroll_users.md)
-- [Account Id](/docs-md/ERC20/accountId.md)
-- [Transfer Tokens](/docs-md/ERC20/transfer_token.md)
-- [Burn Tokens](/docs-md/ERC20/burn_tokens.md)
-- [Set Operator](/docs-md/ERC20/set_operator.md)
-- [check Allowance](/docs-md/ERC20/check_Allowance.md)
-- [Total supply](/docs-md/ERC20/total_supply.md)
-- [Transfer Token from](/docs-md/ERC20/transfer_token_from.md)
+- [Authentication](/docs-md/erc20/authenticate.md)
+- [Mint Tokens](/docs-md/erc20/mint_token.md)
+- [Balance Of](/docs-md/erc20/balance.md)
+- [Enroll users](/docs-md/erc20/enroll_users.md)
+- [Account Id](/docs-md/erc20/accountId.md)
+- [Transfer Tokens](/docs-md/erc20/transfer_token.md)
+- [Burn Tokens](/docs-md/erc20/burn_tokens.md)
+- [Set Operator](/docs-md/erc20/set_operator.md)
+- [check Allowance](/docs-md/erc20/check_Allowance.md)
+- [Total supply](/docs-md/erc20/total_supply.md)
+- [Transfer Token from](/docs-md/erc20/transfer_token_from.md)
 
 | Method                   | Description              |
 | ------------------------ | ------------------------ |

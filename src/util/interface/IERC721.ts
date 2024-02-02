@@ -38,6 +38,10 @@ export interface IBurnResponse {
   burner: string;
 }
 
+export interface ITotalSupplyDTO {
+  chaincode?: string;
+  channel?: string;
+}
 export interface ISupplyResponse {
   supply: string;
 }

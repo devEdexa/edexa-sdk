@@ -10,32 +10,32 @@ The edeXa SDK is the most comprehensive, stable, and powerful Javascript SDK ava
 
 List of all SDK Core methods.
 
-- [Authentication](/docs-md/ERC1155/authenticate.md)
-- [Mint Tokens](/docs-md/ERC1155/mintToken.md)
-- [Batch Mint Tokens](/docs-md/ERC1155/batchMintToken.md)
-- [Get AccountId](/docs-md/ERC1155/getAccount.md)
-- [Get Balance](/docs-md/ERC1155/getBalance.md)
-- [Batch Balance](/docs-md/ERC1155/getBatchBalance.md)
-- [Enroll users](/docs-md/ERC1155/enroll_users.md)
-- [Burn Tokens](/docs-md/ERC1155/burnToken.md)
-- [Batch Burn Tokens](/docs-md/ERC1155/batchBurnToken.md)
-- [Transfer Tokens](/docs-md/ERC1155/transferToken.md)
-- [Batch Tokens Transfer](/docs-md/ERC1155/batchTokenTransfer.md)
-- [Set Approval](/docs-md/ERC1155/approveToken.md)
-- [Approval Status](/docs-md/ERC1155/getApprovalStatus.md)
-- [Set Token URI](/docs-md/ERC1155/setTokenURI.md)
-- [Get Token URI](/docs-md/ERC1155/getTokenURI.md)
-- [Transfer Token to multiple User](/docs-md/ERC1155/tokenTransferToMultiUser.md)
+- [Authentication](/docs-md/erc1155/authenticate.md)
+- [Mint Tokens](/docs-md/erc1155/mintToken.md)
+- [Batch Mint Tokens](/docs-md/erc1155/batchMintToken.md)
+- [Get AccountId](/docs-md/erc1155/getAccount.md)
+- [Get Balance](/docs-md/erc1155/getBalance.md)
+- [Batch Balance](/docs-md/erc1155/getBatchBalance.md)
+- [Enroll users](/docs-md/erc1155/enroll_users.md)
+- [Burn Tokens](/docs-md/erc1155/burnToken.md)
+- [Batch Burn Tokens](/docs-md/erc1155/batchBurnToken.md)
+- [Transfer Tokens](/docs-md/erc1155/transferToken.md)
+- [Batch Tokens Transfer](/docs-md/erc1155/batchTokenTransfer.md)
+- [Set Approval](/docs-md/erc1155/approveToken.md)
+- [Approval Status](/docs-md/erc1155/getApprovalStatus.md)
+- [Set Token URI](/docs-md/erc1155/setTokenURI.md)
+- [Get Token URI](/docs-md/erc1155/getTokenURI.md)
+- [Transfer Token to multiple User](/docs-md/erc1155/tokenTransferToMultiUser.md)
 
 | Method                   | Description                    |
 | ------------------------ | ------------------------       |
 | Authentication           | User authentication            |
+| Enroll users             | Enroll users                   |
+| Account Id               | Account Id of users            |
 | Mint Tokens              | Mint tokens                    |
 | Batch Mint Tokens        | Batch Mint tokens              |
-| Account Id               | Account Id of users            |
 | Get Balance              | Get balance of tokens          |
 | Get Batch Balance        | Get Batch balance of tokens    |
-| Enroll users             | Enroll users                   |
 | Burn Tokens              | Burn tokens                    |
 | Batch Burn Tokens        | Batch Burn tokens              |
 | Transfer Tokens          | Transfer Token to users        |

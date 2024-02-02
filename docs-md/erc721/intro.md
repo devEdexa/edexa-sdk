@@ -10,24 +10,26 @@ The edeXa SDK is the most comprehensive, stable, and powerful Javascript SDK ava
 
 List of all SDK Core methods.
 
-- [Authentication](/docs-md/ERC721/authenticate.md)
-- [Mint Token](/docs-md/ERC721/mint_token.md)
-- [Get balance](/docs-md/ERC721/balance.md)
-- [Account Id](/docs-md/ERC721/account_Id.md)
-- [Transfer Tokens](/docs-md/ERC721/transfer_token.md)
-- [Burn Tokens](/docs-md/ERC721/burn_tokens.md)
-- [Token URI](/docs-md/ERC721/tokenURI.md)
-- [Set operator](/docs-md/ERC721/set_operator.md)
-- [Get Owner](/docs-md/ERC721/get_owner.md)
-- [Set operator for all tokens](/docs-md/ERC721/set_operator_for_all.md)
-- [Check operator all tokens](/docs-md/ERC721/check_operator.md)
-- [Total supply](/docs-md/ERC721/total_supply.md)
-- [Total token owned](/docs-md/ERC721/total_token_owned.md)
-- [Transfer token from](/docs-md/ERC721/transfer_token_from.md)
+- [Authentication](/docs-md/erc721/authenticate.md)
+- [Enroll users](/docs-md/erc721/enroll_users.md)
+- [Mint Token](/docs-md/erc721/mint_token.md)
+- [Get balance](/docs-md/erc721/balance.md)
+- [Account Id](/docs-md/erc721/account_Id.md)
+- [Transfer Tokens](/docs-md/erc721/transfer_token.md)
+- [Burn Tokens](/docs-md/erc721/burn_tokens.md)
+- [Token URI](/docs-md/erc721/tokenURI.md)
+- [Set operator](/docs-md/erc721/set_operator.md)
+- [Get Owner](/docs-md/erc721/get_owner.md)
+- [Set operator for all tokens](/docs-md/erc721/set_operator_for_all.md)
+- [Check operator all tokens](/docs-md/erc721/check_operator.md)
+- [Total supply](/docs-md/erc721/total_supply.md)
+- [Total token owned](/docs-md/erc721/total_token_owned.md)
+- [Transfer token from](/docs-md/erc721/transfer_token_from.md)
 
 | Method                   | Description              |
 | ------------------------ | ------------------------ |
 | Authentication           | User authentication      |
+| Enroll users             | Enroll users             |
 | Mint Token               | Mint Token               |
 | Get balance              | Get balance of tokens    |
 | Account Id               | Account Id of users      |

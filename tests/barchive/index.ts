@@ -19,7 +19,6 @@ describe('Authenticate user', function () {
       clientId: process.env.BARCHIVE_CLIENT_ID,
       secretKey: process.env.BARCHIVE_SECRET_KEY,
     };
-
     const barchive = new Barchive(settings);
     barchive
       .authenticate(authSettings)

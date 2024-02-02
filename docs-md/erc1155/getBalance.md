@@ -18,7 +18,7 @@ async function getBalance() {
 
   const dataToGetBalance = {
     userId(optional): 'Enter the username of the user for whom you want to retrieve the balance.',
-    tokenId (optional): 'Enter the tokenId of the token for which you want to get the balance of particular tokens.',
+    tokenId(required): 'Enter the tokenId of the token for which you want to get the balance of particular tokens.',
     chaincode (optional): 'The name of the smart contract or chaincode managing the tokens.'
     channel (optional): 'The name of the channel in the blockchain network.'
   }

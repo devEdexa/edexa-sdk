@@ -20,10 +20,6 @@ async function enrollUser() {
     email(required): 'The email of user',
     firstName(required): 'The firstName of user',
     lastName(required): 'The lastName of user',
-    phone(required): 'The phone number of user',
-    role(required): 'The role you want to give to user(`role` should be [admin,user])',
-    countryCode(required): 'The countryCode of user',
-    serviceName(required): 'erc1155'
   }
 
   try {
@@ -43,7 +39,7 @@ async function enrollUser() {
 
 ---
 
-- Response Description: In response, the following attributes are included— `id`,`firstName`,`lastName`,`username`,`uuid`,`phone`,`role`,`status`,`email`,`chaincode`,`channel`,`profilePic`,`_id`,`createdAt`,`updatedAt`,`loginType`,`clientId`.
+- Response Description: In response, the following attributes are included— `id`,`firstName`,`lastName`,`username`,`uuid`,`status`,`email`,`chaincode`,`channel`,`_id`,`createdAt`,`updatedAt`,`clientId`.
 
   | Key       | Type   |
   | --------- | ------ |
@@ -51,17 +47,13 @@ async function enrollUser() {
   | lastName  | string |
   | username  | string |
   | uuid      | string |
-  | phone     | string |
-  | role      | string |
   | status    | string |
   | email     | string |
   | chaincode | string |
   | channel   | string |
-  | profilePic| string |
   | _id       | string |
   | createdAt | string |
   | updatedAt |  null  |
-  | loginType | string |
   | clientId  | string |
   
 

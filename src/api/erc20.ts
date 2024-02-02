@@ -13,7 +13,7 @@ import {
   transferTokenFrom,
 } from '../internal/erc20-api';
 import { EdexaSettings } from '../types/types';
-import { ICommonAuth } from '../util/interface/ICommon';
+import { ICommonAuth, IEnrollUsersDTO } from '../util/interface/ICommon';
 import {
   IAccountIdDTO,
   IBurnTokenDTO,
@@ -25,14 +25,13 @@ import {
   IERC20TotalSupply,
   IERC20TransferToken,
   IERC20TransferTokenFrom,
-  IEnrollUsersDTO,
   IGetAllowanceDTO,
   IMintTokenDTO,
   ISetOperatorDTO,
   ITotalSupplyDTO,
   ITransferTokenDTO,
   ITransferTokenFromDTO,
-} from '../util/interface/erc20';
+} from '../util/interface/IERC20';
 import { EdexaConfig } from './config';
 
 export class ERC20 {

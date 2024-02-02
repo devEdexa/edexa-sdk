@@ -40,25 +40,13 @@ export function getEdexaBarchiveHttpUrl(network: Network): string {
 }
 
 /**
- * Returns the HTTP URL for the edeXa bArchive API based on the network and API key.
+ * Returns the HTTP URL for the edeXa Token Engine API based on the network and API key.
  *
  * @param network - The network to use (e.g., 'mainnet', 'testnet').
- * @returns The HTTP URL for the edeXa bArchive.
+ * @returns The HTTP URL for the edeXa Token Engine.
  */
-export function getEdexaERC721HttpUrl(network: Network): string {
-  // return `https://api-edexagw.${network}.com/barchive`;
-  return `http://localhost:6000/api`;
-}
-
-/**
- * Returns the HTTP URL for the edeXa bArchive API based on the network and API key.
- *
- * @param network - The network to use (e.g., 'mainnet', 'testnet').
- * @returns The HTTP URL for the edeXa bArchive.
- */
-export function getEdexaERC20HttpUrl(network: Network): string {
-  // return `https://api-edexagw.${network}.com/barchive`;
-  return `http://localhost:6000`;
+export function getEdexaTokenEngineHttpUrl(network: Network): string {
+  return `https://apitokenengine.io-world.com/token-platform`;
 }
 
 /**
@@ -67,13 +55,12 @@ export function getEdexaERC20HttpUrl(network: Network): string {
 export enum EdexaApiType {
   BSTAMP, // edeXa bStamp API
   BARCHIVE, // edeXa bArchive API
-  ERC721, // edeXa ERC-Token-Engine API
-  ERC20, // edeXa erc20 API
+  TOKEN_ENGINE, // edeXa Token Engine API
 }
 
 export enum MODULE_SLUG {
   API = 'api',
-  Mint = 'mint',
+  MINT = 'mint',
   BALANCE = 'balance',
   USER = 'user',
   REGISTER = 'register',
@@ -111,38 +98,37 @@ const ERC_SERVICE = {
 };
 
 export const API_METHOD_ERC = {
-  AUTHENTICATE: 'authenticate',
-  ACCOUNT: `${ERC_SERVICE.ERC721}/client`,
-  BALANCE: `${ERC_SERVICE.ERC721}/balance`,
-  MINT: `${ERC_SERVICE.ERC721}/mint`,
-  BURN: `${ERC_SERVICE.ERC721}/burn`,
-  SUPPLY: `${ERC_SERVICE.ERC721}/supply`,
-  URI: `${ERC_SERVICE.ERC721}/uri`,
-  TRANSFER: `${ERC_SERVICE.ERC721}/transfer`,
-  OWNER: `${ERC_SERVICE.ERC721}/owner`,
-  OWNER_DETAIL: `${ERC_SERVICE.ERC721}/owner/detail`,
-  OPERATOR: `${ERC_SERVICE.ERC721}/operator`,
-  OPERATOR_ALL: `${ERC_SERVICE.ERC721}/operator/All`,
-  APPROVE: `${ERC_SERVICE.ERC721}/approve`,
-  TRANSFER_FROM: `${ERC_SERVICE.ERC721}/transfer-from`,
+  AUTHENTICATE: `${MODULE_SLUG.API}/authenticate`,
+  ACCOUNT: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/client`,
+  BALANCE: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/balance`,
+  MINT: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/mint`,
+  BURN: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/burn`,
+  SUPPLY: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/supply`,
+  URI: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/uri`,
+  TRANSFER: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/transfer`,
+  OWNER: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/owner`,
+  OWNER_DETAIL: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/owner/detail`,
+  OPERATOR: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/operator`,
+  OPERATOR_ALL: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/operator/All`,
+  APPROVE: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/approve`,
+  TRANSFER_FROM: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC721}/transfer-from`,
 };
 
 export const API_METHOD_ERC1155 = {
-  AUTHENTICATE: 'authenticate',
-  ACCOUNT: `${ERC_SERVICE.ERC1155}/client`,
-  BALANCE: `${ERC_SERVICE.ERC1155}/balance`,
-  BATCH_BALANCE: `${ERC_SERVICE.ERC1155}/batch/balance`,
-  MINT: `${ERC_SERVICE.ERC1155}/mint`,
-  BATCH_MINT: `${ERC_SERVICE.ERC1155}/batch/mint`,
-  BURN: `${ERC_SERVICE.ERC1155}/burn`,
-  BATCH_BURN: `${ERC_SERVICE.ERC1155}/batch/burn`,
-  SET_URI: `${ERC_SERVICE.ERC1155}/setTokenURI`,
-  GET_URI: `${ERC_SERVICE.ERC1155}/getURI`,
-  TRANSFER: `${ERC_SERVICE.ERC1155}/transfer`,
-  BATCH_TRANSFER: `${ERC_SERVICE.ERC1155}/batch/transfer`,
-  MULTI_USER_TRANSFER: `${ERC_SERVICE.ERC1155}/batch/multiUser-transfer`,
-  APPROVE: `${ERC_SERVICE.ERC1155}/approve`,
-  APPROVE_STATUS: `${ERC_SERVICE.ERC1155}/approve/check`,
+  ACCOUNT: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/client`,
+  BALANCE: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/balance`,
+  BATCH_BALANCE: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/batch/balance`,
+  MINT: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/mint`,
+  BATCH_MINT: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/batch/mint`,
+  BURN: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/burn`,
+  BATCH_BURN: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/batch/burn`,
+  SET_URI: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/setTokenURI`,
+  GET_URI: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/getURI`,
+  TRANSFER: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/transfer`,
+  BATCH_TRANSFER: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/batch/transfer`,
+  MULTI_USER_TRANSFER: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/batch/multiUser-transfer`,
+  APPROVE: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/approve`,
+  APPROVE_STATUS: `${MODULE_SLUG.API}/${ERC_SERVICE.ERC1155}/approve/check`,
 };
 
 export const IS_PRIVATE = {
@@ -160,11 +146,11 @@ export const API_METHOD = {
   CREATE_WEBHOOK: 'createWebhook',
   GET_WEBHOOK: 'getWebhook',
   FILE: 'file',
-  ERC20_AUTHENTICATE: 'api/authenticate',
-  MINT_TOKEN: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.Mint}`,
-  BALANCEOF: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.BALANCE}`,
+  // AUTHENTICATE: `${MODULE_SLUG.API}/authenticate`,
+  MINT_TOKEN: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.MINT}`,
+  BALANCE_OF: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.BALANCE}`,
   ENROLL_USERS: `${MODULE_SLUG.API}/${MODULE_SLUG.USER}/${MODULE_SLUG.REGISTER}`,
-  ACCOUNTID: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.CLIENT}`,
+  ACCOUNT_ID: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.CLIENT}`,
   TRANSFER_TOKEN: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.TRANSFER}`,
   TOTAL_SUPPLY: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.SUPPLY}`,
   BURN_TOKENS: `${MODULE_SLUG.API}/${TOKEN_TYPE.ERC_20}/${MODULE_SLUG.BURN}`,

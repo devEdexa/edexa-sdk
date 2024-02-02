@@ -55,12 +55,12 @@ import {
 export async function authenticate(
   settings: EdexaConfig,
   config: { clientId: string; secretKey: string },
-  srcMethod = API_METHOD.AUTHENTICATE
+  srcMethod = API_METHOD_ERC.AUTHENTICATE
 ): Promise<any> {
   const response: any = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
-    API_METHOD.AUTHENTICATE,
+    EdexaApiType.TOKEN_ENGINE,
+    API_METHOD_ERC.AUTHENTICATE,
     srcMethod,
     {},
     {
@@ -87,7 +87,7 @@ export async function getAccount(
 ): Promise<IAccountResponse> {
   const response: IERCResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.ACCOUNT,
     srcMethod,
     {},
@@ -115,7 +115,7 @@ export async function getBalance(
 ): Promise<any> {
   const response: IERCResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.BALANCE,
     srcMethod,
     {},
@@ -143,7 +143,7 @@ export async function mintToken(
 ): Promise<IMintResponse> {
   const response: ERCMintResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.MINT,
     srcMethod,
     {},
@@ -171,7 +171,7 @@ export async function burnToken(
 ): Promise<IBurnResponse> {
   const response: ERCBurnResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.BURN,
     srcMethod,
     {},
@@ -193,16 +193,18 @@ export async function burnToken(
  */
 export async function getTotalSupply(
   settings: EdexaConfig,
+  data: object,
   srcMethod = API_METHOD_ERC.SUPPLY
 ): Promise<ISupplyResponse> {
   const response: ERCSupplyResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.SUPPLY,
     srcMethod,
     {},
     {
       method: REQUEST_METHOD.POST,
+      data,
       headers: { authorization: settings.authorization },
     }
   );
@@ -224,7 +226,7 @@ export async function getTokenURI(
 ): Promise<IURIResponse> {
   const response: ERCURIResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.URI,
     srcMethod,
     {},
@@ -252,7 +254,7 @@ export async function tokenTransfer(
 ): Promise<ITokenTransferResponse> {
   const response: ERCTokenTransferResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.TRANSFER,
     srcMethod,
     {},
@@ -280,7 +282,7 @@ export async function tokenTransferFrom(
 ): Promise<ITokenTransferFromResponse> {
   const response: ERCTokenTransferFromResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.TRANSFER_FROM,
     srcMethod,
     {},
@@ -308,7 +310,7 @@ export async function setOperator(
 ): Promise<ISetOperatorResponse> {
   const response: ERCSetOperatorResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.OPERATOR,
     srcMethod,
     {},
@@ -336,7 +338,7 @@ export async function setOperatorForAll(
 ): Promise<ISetOperatorAllResponse> {
   const response: ERCSetOperatorAllResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.OPERATOR_ALL,
     srcMethod,
     {},
@@ -364,7 +366,7 @@ export async function getOwner(
 ): Promise<IOwnerResponse> {
   const response: ERCOwnerResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.OWNER,
     srcMethod,
     {},
@@ -392,7 +394,7 @@ export async function getOwnerDetails(
 ): Promise<Array<IOwnerDetailsResponse>> {
   const response: ERCOwnerDetailsResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.OWNER_DETAIL,
     srcMethod,
     {},
@@ -420,7 +422,7 @@ export async function getApproveStatus(
 ): Promise<IApproveResponse> {
   const response: ERCApproveResponse = await requestHttp(
     settings,
-    EdexaApiType.ERC721,
+    EdexaApiType.TOKEN_ENGINE,
     API_METHOD_ERC.APPROVE,
     srcMethod,
     {},
